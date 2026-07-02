@@ -26,7 +26,7 @@
                         @foreach (Laravel\Jetstream\Jetstream::$permissions as $permission)
                             <label class="flex items-center">
                                 <x-checkbox wire:model="createApiTokenForm.permissions" :value="$permission"/>
-                                <span class="ms-2 text-sm text-gray-600">{{ $permission }}</span>
+                                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ $permission }}</span>
                             </label>
                         @endforeach
                     </div>
@@ -64,7 +64,7 @@
                     <div class="space-y-6">
                         @foreach ($this->user->tokens->sortBy('name') as $token)
                             <div class="flex items-center justify-between">
-                                <div class="break-all">
+                                <div class="break-all dark:text-white">
                                     {{ $token->name }}
                                 </div>
 
@@ -105,7 +105,7 @@
             </div>
 
             <x-input x-ref="plaintextToken" type="text" readonly :value="$plainTextToken"
-                class="mt-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500 w-full break-all"
+                class="mt-4 bg-gray-100 px-4 py-2 rounded-sm font-mono text-sm text-gray-500 w-full break-all"
                 autofocus autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                 @showing-token-modal.window="setTimeout(() => $refs.plaintextToken.select(), 250)"
             />
@@ -129,7 +129,7 @@
                 @foreach (Laravel\Jetstream\Jetstream::$permissions as $permission)
                     <label class="flex items-center">
                         <x-checkbox wire:model="updateApiTokenForm.permissions" :value="$permission"/>
-                        <span class="ms-2 text-sm text-gray-600">{{ $permission }}</span>
+                        <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ $permission }}</span>
                     </label>
                 @endforeach
             </div>
