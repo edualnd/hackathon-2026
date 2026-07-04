@@ -48,6 +48,8 @@ class SchoolSearch extends Component
             'niveis' => MockSchools::niveis(),
             'bairros' => MockSchools::bairros(),
             'series' => MockSchools::series(),
+            // Reaproveitado do dashboard administrativo para alimentar o hero.
+            'totais' => MockSchools::totals(),
         ])->layout('layouts.site', ['pageTitle' => 'Consultar Vagas']);
     }
 }

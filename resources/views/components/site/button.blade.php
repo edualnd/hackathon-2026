@@ -1,5 +1,5 @@
 @props([
-    'variant' => 'primary', // primary | secondary | outline | ghost
+    'variant' => 'primary', // primary | secondary | outline | ghost | inverse
     'href' => null,
     'type' => 'button',
 ])
@@ -12,6 +12,8 @@
         'secondary' => 'bg-action-secondary text-text-on-canvas-tertiary hover:bg-action-secondary-hover',
         'outline' => 'bg-background-surface text-text-on-surface border border-seduc-neutral-300 hover:border-teal-dark-500',
         'ghost' => 'bg-transparent text-text-on-surface hover:bg-seduc-neutral-100',
+        // Para uso sobre fundos escuros (hero, sidebar admin, etc.)
+        'inverse' => 'bg-white/10 text-text-on-canvas border border-white/25 backdrop-blur-sm hover:bg-white/20 hover:border-white/40',
     ];
 
     $classes = $base . ' ' . ($variants[$variant] ?? $variants['primary']);
