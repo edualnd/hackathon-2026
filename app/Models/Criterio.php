@@ -40,4 +40,5 @@ class Criterio extends Model
     {
         return $this->belongsTo(Escola::class);
     }
+
 }

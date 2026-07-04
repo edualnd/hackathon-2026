@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
 class Aluno extends Model
 {
     protected $table = 'alunos';
 
     protected $fillable = [
         'escola_id',
+        'vaga_id',
         'nome',
         'ra',
         'cpf',
@@ -30,8 +32,6 @@ class Aluno extends Model
         'bairro',
         'logradouro',
         'numero',
-        'tipo_vaga',
-        'serie',
         'observacao',
     ];
 
@@ -54,8 +54,14 @@ class Aluno extends Model
         return $this->hasMany(Criterio::class);
     }
 
+    public function vagas(): HasOne
+    {
+        return $this->HasOne(Vaga::class);
+    }
+
     public function listaEspera(): HasMany
     {
         return $this->hasMany(ListaEspera::class);
     }
+
 }

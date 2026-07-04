@@ -15,6 +15,10 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('escolas')
                 ->nullOnDelete();
+            $table->foreignId('vaga_id')
+                ->nullable()
+                ->constrained('vagas')
+                ->nullOnDelete();
 
             $table->string('nome');
             $table->string('ra')->nullable();
@@ -35,9 +39,6 @@ return new class extends Migration
             $table->string('bairro');
             $table->string('logradouro');
             $table->string('numero')->nullable();
-
-            $table->string('tipo_vaga');
-            $table->string('serie');
 
             $table->text('observacao')->nullable();
             $table->string('status')->nullable();
