@@ -96,22 +96,45 @@ class Create extends Component
         ->first()->toArray()['posicao'] ?? 0;
         
         $posicao = (int)$posicao + 1;
-
+        $pontuacao = $this->pontuarCriterios($aluno['criterios']);
         $cadastrar = ["aluno_id" => $aluno['id'],
          'vaga_id' => $aluno['vaga_id'], 
          'posicao' => $posicao,
-         'pontuacao' => 50
+         'pontuacao' => $pontuacao
     ];
 
         $lista = ListaEspera::create($cadastrar);
         
-        dd($posicao);
-        //$cadastroLista = [$aluno['vaga_id'], $aluno['escola_id'],]
+        
+        $this->classificar($aluno['vaga_id']);
     }
 
-    public function pontuarCriterios($id) {
-        
+    public function pontuarCriterios($criterios) {
+        $pontos = 0;
+
+        $pontos += $criterios['area_de_abrangencia'] ? 5 : 0;
+        $pontos += $criterios['mobilidade'] ? 4 : 0;
+        $pontos += $criterios['irmao'] ? 3 : 0;
+        $pontos += $criterios['vulnerabilidade'] ? 2 : 0;
+        $pontos += $criterios['matriculado'] ? 1 : 0;
+
+        return $pontos;
     }
+    public function classificar($vagaId){
+        $lista = ListaEspera::where('vaga_id', $vagaId)
+        ->orderByDesc('pontuacao')
+        ->orderBy('created_at')
+        ->get();
+
+        $posicao = 1;
+
+        foreach ($lista as $item) {
+            $item->posicao = $posicao;
+            $item->save();
+            $posicao++;
+        }
+    }
+    
     public function render()
     {
         return view('livewire.aluno.create');
