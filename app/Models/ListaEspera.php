@@ -13,7 +13,6 @@ class ListaEspera extends Model
         'aluno_id',
         'vaga_id',
         'posicao',
-        'status',
         'pontuacao',
         'data_chamada',
     ];

@@ -12,6 +12,16 @@ class Aluno extends Model
 {
     protected $table = 'alunos';
 
+    public const STATUS_FILA_ESPERA = 'fila_espera';
+    public const STATUS_VAGA_CONSEGUIDA = 'vaga_conseguida';
+    public const STATUS_DESISTENCIA = 'desistencia';
+
+    public const STATUSES = [
+        self::STATUS_FILA_ESPERA => 'Na fila de espera',
+        self::STATUS_VAGA_CONSEGUIDA => 'Conseguiu vaga',
+        self::STATUS_DESISTENCIA => 'Desistência',
+    ];
+
     protected $fillable = [
         'escola_id',
         'vaga_id',
@@ -33,11 +43,17 @@ class Aluno extends Model
         'logradouro',
         'numero',
         'observacao',
+        'status',
     ];
 
     protected $casts = [
         'data_nascimento' => 'date',
     ];
+
+    public function statusLabel(): string
+    {
+        return self::STATUSES[$this->status] ?? 'Sem status';
+    }
 
     public function escola(): BelongsTo
     {
@@ -54,9 +70,9 @@ class Aluno extends Model
         return $this->hasMany(Criterio::class);
     }
 
-    public function vagas(): HasOne
+    public function vaga(): BelongsTo
     {
-        return $this->HasOne(Vaga::class);
+        return $this->belongsTo(Vaga::class);
     }
 
     public function listaEspera(): HasMany

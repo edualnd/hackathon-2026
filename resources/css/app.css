@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import './style.css';
+@import "style.css";
 
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
@@ -124,4 +124,7 @@
     --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
     --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
     --font-data: "JetBrains Mono", ui-monospace, monospace;
+
+
+
 }
