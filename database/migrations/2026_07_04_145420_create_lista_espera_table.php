@@ -14,12 +14,13 @@ return new class extends Migration
             $table->foreignId('aluno_id')
                 ->constrained('alunos')
                 ->cascadeOnDelete();
-            $table->foreignId('escola_id')
-                ->constrained('escolas')
+            $table->foreignId('vaga_id')
+                ->constrained('vagas')
                 ->cascadeOnDelete();
+                
             $table->integer('posicao');
-            $table->string('status');
-            $table->timestamp('data_entrada');
+            $table->string('pontuacao');
+
             $table->timestamp('data_chamada')->nullable();
             $table->timestamps();
         });
