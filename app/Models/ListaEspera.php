@@ -11,15 +11,14 @@ class ListaEspera extends Model
 
     protected $fillable = [
         'aluno_id',
-        'escola_id',
+        'vaga_id',
         'posicao',
         'status',
-        'data_entrada',
+        'pontuacao',
         'data_chamada',
     ];
 
     protected $casts = [
-        'data_entrada' => 'datetime',
         'data_chamada' => 'datetime',
     ];
 
@@ -28,8 +27,9 @@ class ListaEspera extends Model
         return $this->belongsTo(Aluno::class);
     }
 
-    public function escola(): BelongsTo
+    public function vaga(): BelongsTo
     {
-        return $this->belongsTo(Escola::class);
+        return $this->belongsTo(Vaga::class);
     }
+
 }

@@ -8,12 +8,15 @@ use Livewire\Component;
 class Mapa extends Component
 {
     public $escolas = [];
+    public $bairros = [];
+    public $regioes = [];
     public $regiao = "";
     public $bairro = "";
     public $tipo = "";
+    public $serie = "";
 
     public function carregarDados(){
-        $query = Escola::query();
+        $query = Escola::query()->with('vagas');
         $query->when($this->regiao, function ($q) {
             $q->where('regiao', $this->regiao);
         });
@@ -25,13 +28,22 @@ class Mapa extends Component
         $query->when($this->tipo, function ($q) {
             $q->where('tipo', 'like', "%{$this->tipo}%");
         });
-        $this->escolas = $query->get()->toArray();
+        $query->when($this->serie, function ($q) {
+            $q->whereHas('vagas', function ($q) {
+                $q->where('serie', $this->serie)
+                    ->where('qtd', '!=', 0);
+            });
+        });
+
+        $escolas = $query->get();
+        $this->bairros = $escolas->pluck('bairro')->unique()->values();
+        $this->regioes = $escolas->pluck('regiao')->unique()->values();
+        $this->escolas = $escolas->toArray();
     }
 
     public function render()
     {
         $this->carregarDados();
-        
         return view('livewire.mapa');
     }
 }
