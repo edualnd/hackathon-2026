@@ -3,7 +3,7 @@
     'back' => null,
 ])
 
-<header class="sticky top-0 z-30 border-b border-seduc-neutral-200 bg-background-surface/95 backdrop-blur">
+<header class="sticky top-0 z-30 border-b border-white/15 bg-background/50 backdrop-blur-2xl shadow-lg">
     <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4">
         <div class="flex items-center gap-3">
             @if ($back)
