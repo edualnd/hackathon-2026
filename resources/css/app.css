@@ -35,3 +35,92 @@
 [x-cloak] {
     display: none;
 }
+
+/*
+  =========================================================================
+  SEDUC Design System — tokens extraídos do Figma (arquivo "Hackathon")
+  Gerado a partir de figma_export_tokens (collections: Primitives, Temas)
+  Isolado em bloco @theme próprio para não alterar --font-sans (Figtree)
+  usado pelas telas padrão do Jetstream (auth, profile, etc).
+  Usado apenas pelas novas telas: layouts/site.blade.php e layouts/admin.blade.php
+  =========================================================================
+*/
+@theme {
+    /* Primitivas */
+    --color-teal-dark-100: #E2F3F3;
+    --color-teal-dark-200: #AFE9E9;
+    --color-teal-dark-300: #6AE7E7;
+    --color-teal-dark-400: #28E1E1;
+    --color-teal-dark-500: #19B3B3;
+    --color-teal-dark-600: #117D7D;
+    --color-teal-dark-700: #0C4646;
+
+    --color-teal-light-100: #E4F1F1;
+    --color-teal-light-200: #B5E3E3;
+    --color-teal-light-300: #77DADA;
+    --color-teal-light-400: #3BCFCF;
+    --color-teal-light-500: #28A4A4;
+    --color-teal-light-600: #1C7373;
+    --color-teal-light-700: #114040;
+
+    --color-lime-100: #EDF4E1;
+    --color-lime-200: #D3EDAB;
+    --color-lime-300: #B6EE62;
+    --color-lime-400: #99ED1C;
+    --color-lime-500: #77BD0F;
+    --color-lime-600: #54840B;
+    --color-lime-700: #2F4A08;
+
+    --color-yellow-lime-100: #F0F4E1;
+    --color-yellow-lime-200: #DEECAC;
+    --color-yellow-lime-300: #D0EE63;
+    --color-yellow-lime-400: #C0EC1D;
+    --color-yellow-lime-500: #97BC10;
+    --color-yellow-lime-600: #6A840B;
+    --color-yellow-lime-700: #3B4908;
+
+    --color-amber-100: #F4EDE2;
+    --color-amber-200: #EBD5AD;
+    --color-amber-300: #EABC66;
+    --color-amber-400: #E7A223;
+    --color-amber-500: #B87E14;
+    --color-amber-600: #81580E;
+    --color-amber-700: #48320A;
+
+    --color-seduc-neutral-100: #F1F3F3;
+    --color-seduc-neutral-200: #DFE1E2;
+    --color-seduc-neutral-300: #C4C8CA;
+    --color-seduc-neutral-400: #A0A8AB;
+    --color-seduc-neutral-600: #60686C;
+    --color-seduc-neutral-800: #2B2F31;
+    --color-seduc-neutral-900: #181A1B;
+
+    /* Semânticos (Temas / Mode 1) */
+    --color-background-canvas-primary: var(--color-teal-dark-700);
+    --color-background-canvas-secondary: var(--color-teal-light-600);
+    --color-background-canvas-tertiary: var(--color-teal-light-500);
+    --color-background-surface: #FFFFFF;
+
+    --color-action-primary: var(--color-yellow-lime-400);
+    --color-action-primary-hover: var(--color-lime-500);
+    --color-action-secondary: var(--color-amber-400);
+    --color-action-secondary-hover: var(--color-amber-500);
+
+    --color-feedback-success: var(--color-lime-100);
+    --color-feedback-info: var(--color-teal-dark-100);
+    --color-feedback-warning: var(--color-amber-100);
+    --color-feedback-danger: #F2D9D9;
+
+    --color-text-on-surface: var(--color-seduc-neutral-800);
+    --color-text-on-canvas: #FFFFFF;
+    --color-text-on-canvas-tertiary: #000000;
+    --color-text-on-success: var(--color-lime-700);
+    --color-text-on-info: var(--color-teal-dark-700);
+    --color-text-on-warning: var(--color-amber-700);
+    --color-text-on-danger: #740808;
+
+    /* Tipografia (uso restrito às novas telas via classes font-heading/font-body/font-data) */
+    --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-data: "JetBrains Mono", ui-monospace, monospace;
+}
