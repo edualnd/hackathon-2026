@@ -24,7 +24,7 @@
                 
                    <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
                     <g stroke="#FFFFFF" stroke-width="1" opacity="0.12">
-                        <line x1="0" y1="0" x2="1000" y2="0"></line>
+                    
                         <line x1="0" y1="100" x2="1000" y2="100"></line>
                         <line x1="0" y1="200" x2="1000" y2="200"></line>
                         <line x1="0" y1="300" x2="1000" y2="300"></line>
