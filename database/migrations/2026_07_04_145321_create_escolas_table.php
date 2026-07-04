@@ -15,10 +15,17 @@ return new class extends Migration
             $table->string('telefone');
             $table->string('email');
             $table->string('tipo');
+            $table->string('regiao');
+            $table->string('bairro');
+            $table->string('endereco');
+            $table->bool('integral');
             $table->decimal('lat', 10, 8);
             $table->decimal('lng', 11, 8);
 
             $table->timestamps();
+
+
+
         });
     }
 
