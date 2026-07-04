@@ -20,34 +20,16 @@
     <body class="relative min-h-screen bg-fixed bg-gradient-to-br from-background-canvas-primary via-background-canvas-secondary to-background-canvas-tertiary font-body text-text-on-surface antialiased">
         <x-site.topbar :title="$pageTitle ?? null" :back="$back ?? null" />
 
-            <div class="absolute w-full h-full overflow-hidden">
-                
-                   <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
-                    <g stroke="#FFFFFF" stroke-width="1" opacity="0.12">
-                    
-                        <line x1="0" y1="100" x2="1000" y2="100"></line>
-                        <line x1="0" y1="200" x2="1000" y2="200"></line>
-                        <line x1="0" y1="300" x2="1000" y2="300"></line>
-                        <line x1="0" y1="400" x2="1000" y2="400"></line>
-                        <line x1="0" y1="500" x2="1000" y2="500"></line>
-                        <line x1="0" y1="600" x2="1000" y2="600"></line>
-                        <line x1="0" y1="700" x2="1000" y2="700"></line>
-                        <line x1="0" y1="800" x2="1000" y2="800"></line>
-                        
-                        <line x1="0" y1="0" x2="0" y2="1000"></line>
-                        <line x1="100" y1="0" x2="100" y2="1000"></line>
-                        <line x1="200" y1="0" x2="200" y2="1000"></line>
-                        <line x1="300" y1="0" x2="300" y2="1000"></line>
-                        <line x1="400" y1="0" x2="400" y2="1000"></line>
-                        <line x1="500" y1="0" x2="500" y2="1000"></line>
-                        <line x1="600" y1="0" x2="600" y2="1000"></line>
-                        <line x1="700" y1="0" x2="700" y2="1000"></line>
-                        <line x1="800" y1="0" x2="800" y2="1000"></line>
-                        <line x1="900" y1="0" x2="900" y2="1000"></line>
-                        
-                    </g>
-                    </svg>
-            </div>
+           <div class="absolute inset-0 opacity-[0.06] pointer-events-none" aria-hidden="true">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"></path>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)"></rect>
+            </svg>
+        </div>
 
         <main>
             {{ $slot }}

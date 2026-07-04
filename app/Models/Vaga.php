@@ -6,7 +6,6 @@ use App\Models\ListaEspera;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Vaga extends Model
 {
@@ -22,9 +21,9 @@ class Vaga extends Model
     {
         return $this->belongsTo(Escola::class);
     }
-    public function lista(): HasOne
+    public function lista(): HasMany
     {
-        return $this->HasOne(ListaEspera::class);
+        return $this->HasMany(ListaEspera::class);
     }
 
     public function alunos(): HasMany

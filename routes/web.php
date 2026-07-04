@@ -1,46 +1,54 @@
 <?php
 
-
-use App\Livewire\Aluno\Create;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\Login as AdminLogin;
+use App\Livewire\Aluno\Create as AlunoCreate;
+use App\Livewire\Aluno\Edit as AlunoEdit;
+use App\Livewire\Aluno\Show as AlunoShow;
 use App\Livewire\Mapa;
 use App\Livewire\Site\SchoolSearch;
-
+use App\Livewire\Vagas\Index as VagasIndex;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-
-<<<<<<< HEAD
 /*
 |--------------------------------------------------------------------------
-| Rotas públicas (site dos pais)
+| Área dos pais (pública, mobile-first)
 |--------------------------------------------------------------------------
-|
-| "site.map" e "admin.login" ainda não têm as telas implementadas (próximas
-| etapas do hackathon), mas precisam existir como rotas nomeadas porque
-| x-site.topbar já referencia route('site.map') e route('admin.login').
-|
 */
-Route::get('/', SchoolSearch::class)->name('site.search');
-=======
 Route::get('/vagas', SchoolSearch::class)->name('site.search');
->>>>>>> 31cf0ad703024b558068a93e69545f8275c8753a
-
 Route::get('/mapa', fn () => 'Mapa interativo em construção.')->name('site.map');
-Route::get("/mapa1", Mapa::class)->name("mapa");
-Route::get("/aluno", Create::class)->name("aluno");
+Route::get('/mapa1', Mapa::class)->name('mapa');
+Route::get('/aluno', AlunoCreate::class)->name('aluno');
 
+/*
+|--------------------------------------------------------------------------
+| Área administrativa (desktop, navegação simulada — sem autenticação real)
+|--------------------------------------------------------------------------
+*/
+Route::get('/admin/login', AdminLogin::class)->name('admin.login');
 
-Route::get('/admin/login', fn () => 'Área administrativa em construção.')->name('admin.login');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+
+    Route::prefix('alunos')->name('alunos.')->group(function () {
+        Route::get('/', AlunoShow::class)->name('index');
+        Route::get('/novo', AlunoCreate::class)->name('create');
+        Route::get('/{aluno}/editar', AlunoEdit::class)->name('edit');
+    });
+
+    Route::get('/vagas', VagasIndex::class)->name('vagas.index');
+});
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    ])->group(function () {
-        Route::get('/dashboard', function () {
-                return view('dashboard');
-            })->name('dashboard');
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });

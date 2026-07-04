@@ -21,10 +21,14 @@
                     focus:outline-none focus:ring-2 focus:ring-teal-dark-400 focus:border-teal-dark-500',
             ]) }}
         >
-            <option value="">{{ $placeholder }}</option>
-            @foreach ($options as $option)
-                <option value="{{ $option }}">{{ $option }}</option>
-            @endforeach
+            @if ($slot->isEmpty())
+                <option value="">{{ $placeholder }}</option>
+                @foreach ($options as $key => $value)
+                    <option value="{{ is_int($key) ? $value : $key }}">{{ $value }}</option>
+                @endforeach
+            @else
+                {{ $slot }}
+            @endif
         </select>
 
         <svg class="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-seduc-neutral-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

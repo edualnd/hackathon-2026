@@ -2,40 +2,72 @@
 
 namespace App\Livewire\Aluno;
 
-use Livewire\Attributes\On;
-use App\Models\Escola;
 use App\Models\Aluno;
+use App\Models\Escola;
 use Livewire\Component;
+use Livewire\WithPagination;
 
+/**
+ * Gerenciamento de Alunos (área administrativa).
+ * Lista, busca e filtra os cadastros, com ações de editar/excluir.
+ */
 class Show extends Component
 {
-    public $alunos = [];
-    public $statusFiltro = '';
-    public $escola;
-    public $serie;
+    use WithPagination;
 
-    public function mount()
+    public string $busca = '';
+
+    public string $statusFiltro = '';
+
+    public string $escolaFiltro = '';
+
+    public int $perPage = 5;
+
+    protected $queryString = ['busca', 'statusFiltro', 'escolaFiltro'];
+
+    public function updating($property): void
     {
-        $this->carregarAlunos();
+        if (in_array($property, ['busca', 'statusFiltro', 'escolaFiltro', 'perPage'], true)) {
+            $this->resetPage();
+        }
     }
 
-    public function carregarAlunos()
+    public function excluir(int $id): void
     {
-        $this->alunos = Aluno::with(['criterios', 'escola'])
-            ->when($this->statusFiltro, function ($query) {
-                $query->where('status', $this->statusFiltro);
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $aluno = Aluno::findOrFail($id);
+        $nome = $aluno->nome;
+        $aluno->delete();
+
+        session()->flash('success', "Cadastro de {$nome} removido.");
     }
 
-    public function updatedStatusFiltro()
+    public function limparFiltros(): void
     {
-        $this->carregarAlunos();
+        $this->reset(['busca', 'statusFiltro', 'escolaFiltro']);
+        $this->resetPage();
     }
 
     public function render()
     {
-        return view('livewire.aluno.show');
+        $alunos = Aluno::query()
+            ->with(['escola', 'vaga'])
+            ->when($this->busca, function ($query) {
+                $termo = "%{$this->busca}%";
+                $query->where(function ($q) use ($termo) {
+                    $q->where('nome', 'like', $termo)
+                        ->orWhere('ra', 'like', $termo)
+                        ->orWhere('certidao_nascimento', 'like', $termo);
+                });
+            })
+            ->when($this->statusFiltro, fn ($query) => $query->where('status', $this->statusFiltro))
+            ->when($this->escolaFiltro, fn ($query) => $query->where('escola_id', $this->escolaFiltro))
+            ->orderByDesc('created_at')
+            ->paginate($this->perPage);
+
+        return view('livewire.aluno.show', [
+            'alunos' => $alunos,
+            'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get(),
+            'statuses' => Aluno::STATUSES,
+        ])->layout('layouts.admin', ['pageTitle' => 'Gerenciamento de Alunos']);
     }
 }

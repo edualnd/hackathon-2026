@@ -11,8 +11,6 @@ class Criterio extends Model
 
     protected $fillable = [
         'aluno_id',
-        'escola_id',
-        'data_cadastro',
         'area_de_abrangencia',
         'mobilidade',
         'irmao',
@@ -22,7 +20,6 @@ class Criterio extends Model
     ];
 
     protected $casts = [
-        'data_cadastro' => 'date',
         'area_de_abrangencia' => 'boolean',
         'mobilidade' => 'boolean',
         'irmao' => 'boolean',
@@ -35,10 +32,4 @@ class Criterio extends Model
     {
         return $this->belongsTo(Aluno::class);
     }
-
-    public function escola(): BelongsTo
-    {
-        return $this->belongsTo(Escola::class);
-    }
-
 }
