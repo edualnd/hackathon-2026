@@ -16,6 +16,11 @@ class Escola extends Model
         'tipo',
         'lat',
         'lng',
+        'regiao',
+        'bairro',
+        'endereco',
+        'integral'
+
     ];
 
     public function vagas(): HasMany
