@@ -3,9 +3,9 @@
 use App\Livewire\Site\SchoolSearch;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ Route::get('/', function () {
 | x-site.topbar já referencia route('site.map') e route('admin.login').
 |
 */
-Route::get('/vagas', SchoolSearch::class)->name('site.search');
+Route::get('/', SchoolSearch::class)->name('site.search');
 
 Route::get('/mapa', fn () => 'Mapa interativo em construção.')->name('site.map');
 

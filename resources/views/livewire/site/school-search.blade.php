@@ -66,18 +66,9 @@
             wire:loading.class="opacity-50"
             wire:target="nivel, bairro, serie, limparFiltros"
         >
-            <div class="mb-4 flex items-center justify-between">
-                <p class="font-body text-sm text-seduc-neutral-600">
-                    <span class="font-semibold text-text-on-surface">{{ $this->resultados->count() }}</span>
-                    {{ $this->resultados->count() === 1 ? 'unidade encontrada' : 'unidades encontradas' }}
-                </p>
-                <a href="{{ route('site.map') }}" class="inline-flex items-center gap-1.5 font-body text-sm font-semibold text-teal-dark-600 hover:text-teal-dark-700">
-                    Ver no mapa
-                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
-                </a>
-            </div>
+            @livewire('switch-exibicao')
 
-            @if ($this->resultados->isEmpty())
+            {{-- @if ($this->resultados->isEmpty())
                 <div class="rounded-2xl border border-dashed border-seduc-neutral-300 p-10 text-center">
                     <p class="font-heading text-base font-semibold text-text-on-surface">Nenhuma unidade encontrada</p>
                     <p class="mt-1 font-body text-sm text-seduc-neutral-600">Tente ajustar ou limpar os filtros selecionados.</p>
@@ -88,7 +79,7 @@
                         <x-site.school-card :escola="$escola" wire:key="escola-{{ $escola['id'] }}" />
                     @endforeach
                 </div>
-            @endif
+            @endif --}}
         </div>
     </div>
 </div>
