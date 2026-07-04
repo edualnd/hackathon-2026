@@ -1,0 +1,10 @@
+.button--switch{
+    padding: 0.5rem 1rem;
+    color: rgb(255, 255, 255);
+    transition: all ease 200ms;
+}
+
+.button--switch.button--switch--active{
+    background-color: rgb(192, 236, 29);
+    color: black;
+}

@@ -1,11 +1,11 @@
 <div>
     <div class="flex">
-        <section class="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold font-body">
-            <button wire:click='switchLista' class="p-4">
+        <section class="rounded-full bg-white/10 p-2 backdrop-blur-sm mb-4">
+            <button wire:click='switchLista' class="{{ 'button--switch text-[14px] rounded-full font-semibold ' . ($exibicao === 'lista' ? 'button--switch--active' : '') }}">
                 Lista
             </button>
             
-            <button wire:click='switchMapa' class="p-4">
+            <button wire:click='switchMapa' class="{{ 'button--switch text-[14px] rounded-full font-semibold ' . ($exibicao === 'mapa' ? 'button--switch--active' : '') }}">
                 Mapa
             </button>
         </section>
