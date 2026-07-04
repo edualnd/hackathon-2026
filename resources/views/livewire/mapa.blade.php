@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+{{-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <div id="map" style="height: 500px;"></div>
@@ -45,5 +45,9 @@ const vagas = escola.vagas
         `;
 })
     });
-    </script>
+    </script> --}}
+
+    @foreach ($escolas as $escola)
+        <p>teste</p>
+    @endforeach
 </x-guest-layout>

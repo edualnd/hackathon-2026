@@ -144,20 +144,53 @@ class Create extends Component
         return redirect()->route('admin.alunos.index');
     }
 
-    private function adicionarListaEspera(Aluno $aluno, Vaga $vaga): void
-    {
-        $posicao = (ListaEspera::where('vaga_id', $vaga->id)->max('posicao') ?? 0) + 1;
+    public function adicionarLista($id) {
+        $aluno = Aluno::where('id', $id)->with('criterios')->first()->toArray();
+        
+        $posicao = ListaEspera::where('vaga_id', $aluno['vaga_id'])
+        ->orderByDesc('posicao')
+        ->first()->toArray()['posicao'] ?? 0;
+        
+        $posicao = (int)$posicao + 1;
+        $pontuacao = $this->pontuarCriterios($aluno['criterios']);
+        $cadastrar = ["aluno_id" => $aluno['id'],
+         'vaga_id' => $aluno['vaga_id'], 
+         'posicao' => $posicao,
+         'pontuacao' => $pontuacao
+    ];
 
-        $pontuacao = 50 + collect($this->dadosCriterio)->filter()->count() * 10;
-
-        ListaEspera::create([
-            'aluno_id' => $aluno->id,
-            'vaga_id' => $vaga->id,
-            'posicao' => $posicao,
-            'pontuacao' => (string) $pontuacao,
-        ]);
+        $lista = ListaEspera::create($cadastrar);
+        
+        
+        $this->classificar($aluno['vaga_id']);
     }
 
+    public function pontuarCriterios($criterios) {
+        $pontos = 0;
+
+        $pontos += $criterios['area_de_abrangencia'] ? 5 : 0;
+        $pontos += $criterios['mobilidade'] ? 4 : 0;
+        $pontos += $criterios['irmao'] ? 3 : 0;
+        $pontos += $criterios['vulnerabilidade'] ? 2 : 0;
+        $pontos += $criterios['matriculado'] ? 1 : 0;
+
+        return $pontos;
+    }
+    public function classificar($vagaId){
+        $lista = ListaEspera::where('vaga_id', $vagaId)
+        ->orderByDesc('pontuacao')
+        ->orderBy('created_at')
+        ->get();
+
+        $posicao = 1;
+
+        foreach ($lista as $item) {
+            $item->posicao = $posicao;
+            $item->save();
+            $posicao++;
+        }
+    }
+    
     public function render()
     {
         return view('livewire.aluno.create', [

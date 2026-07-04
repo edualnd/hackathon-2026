@@ -17,7 +17,15 @@
                     @livewire('lista')
                 @break
             @case('mapa')
-                    @livewire('mapa')
+                    <livewire:mapa 
+                        :escolas="[]" 
+                        :bairros="[]" 
+                        :regioes="[]" 
+                        :regiao="''" 
+                        :bairro="''" 
+                        :tipo="''" 
+                        :serie="''"
+                    />
                 @break
             @default
         @endswitch

@@ -6,6 +6,14 @@ use Livewire\Component;
 
 class SwitchExibicao extends Component
 {   
+    public $escolas = [];
+    public $bairros = [];
+    public $regioes = [];
+    public $regiao = "";
+    public $bairro = "";
+    public $tipo = "";
+    public $serie = "";
+
     public $exibicao = 'lista';
 
     public function switchLista(){

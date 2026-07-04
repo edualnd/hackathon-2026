@@ -40,6 +40,27 @@
 
         </div>
 
+        {{-- Resultados --}}
+        <div
+            class="mt-8 transition-opacity"
+            wire:loading.class="opacity-50"
+            wire:target="nivel, bairro, serie, limparFiltros"
+        >
+
+            <livewire:switch-exibicao 
+                :escolas="[]" 
+                :bairros="[]" 
+                :regioes="[]" 
+                :regiao="''" 
+                :bairro="''" 
+                :tipo="''" 
+                :serie="''"
+            />
+
+            {{-- @if ($this->resultados->isEmpty())
+                <div class="rounded-2xl border border-dashed border-seduc-neutral-300 p-10 text-center">
+                    <p class="font-heading text-base font-semibold text-text-on-surface">Nenhuma unidade encontrada</p>
+                    <p class="mt-1 font-body text-sm text-seduc-neutral-600">Tente ajustar ou limpar os filtros selecionados.</p>
         {{-- =========================================
              COLUNA DIREITA
         ========================================== --}}

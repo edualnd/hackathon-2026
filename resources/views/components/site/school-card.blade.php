@@ -23,5 +23,7 @@
 
     <div class="mt-2 font-body text-xs text-white/70">
         Lista de espera: <span class="font-semibold text-text-on-canvas">{{ $escola['lista_espera'] }}</span>
+    
+        
     </div>
 </div>
