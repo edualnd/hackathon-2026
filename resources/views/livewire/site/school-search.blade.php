@@ -1,9 +1,7 @@
 <div>
     {{-- Hero --}}
-    <section class="relative -mt-6 overflow-hidden bg-gradient-to-br from-background-canvas-primary via-background-canvas-secondary to-background-canvas-tertiary px-4 pb-14 pt-12 sm:pb-20 sm:pt-16">
-        {{-- blobs decorativos --}}
-        <div class="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-action-primary/20 blur-3xl"></div>
-        <div class="pointer-events-none absolute -bottom-24 -left-10 size-64 rounded-full bg-white/10 blur-3xl"></div>
+    <section class="relative -mt-6 overflow-hidden px-4 pb-14 pt-12 sm:pb-20 sm:pt-16">
+
 
         <div class="relative mx-auto max-w-5xl">
             <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-text-on-canvas">
