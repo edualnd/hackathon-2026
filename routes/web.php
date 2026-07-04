@@ -7,9 +7,9 @@ use App\Livewire\Site\SchoolSearch;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::get('/vagas', SchoolSearch::class)->name('site.search');
