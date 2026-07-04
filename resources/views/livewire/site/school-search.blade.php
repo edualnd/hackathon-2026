@@ -30,11 +30,11 @@
             {{-- Estatísticas rápidas --}}
             <div class="mt-8 grid grid-cols-2 gap-3 sm:max-w-md sm:grid-cols-2">
                 <div class="rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-sm">
-                    <p class="font-data text-2xl font-medium text-text-on-canvas">{{ $totais['total_vagas'] }}</p>
+                    {{-- <p class="font-data text-2xl font-medium text-text-on-canvas">{{ $totais['total_vagas'] }}</p> --}}
                     <p class="font-body text-xs text-white/70">vagas disponíveis</p>
                 </div>
                 <div class="rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-sm">
-                    <p class="font-data text-2xl font-medium text-text-on-canvas">{{ $totais['total_escolas'] }}</p>
+                    {{-- <p class="font-data text-2xl font-medium text-text-on-canvas">{{ $totais['total_escolas'] }}</p> --}}
                     <p class="font-body text-xs text-white/70">unidades escolares</p>
                 </div>
             </div>
@@ -45,7 +45,7 @@
         {{-- Card de filtros --}}
         <div id="filtros" class="scroll-mt-24 rounded-2xl border border-seduc-neutral-200 bg-background-surface p-5 shadow-[0_6px_20px_-4px_rgba(11,33,46,0.08)] sm:p-6">
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <x-site.select label="Nível de ensino" name="nivel" :options="$niveis" wire:model.live="nivel" />
+                <x-site.select label="Nível de ensino" name="tipo" :options="$tipos" wire:model.live="tipo" />
                 <x-site.select label="Bairro" name="bairro" :options="$bairros" wire:model.live="bairro" />
                 <x-site.select label="Série" name="serie" :options="$series" wire:model.live="serie" />
             </div>
@@ -66,14 +66,14 @@
         >
 
             <livewire:switch-exibicao 
-                :escolas="[]" 
-                :bairros="[]" 
-                :regioes="[]" 
-                :regiao="''" 
-                :bairro="''" 
-                :tipo="''" 
-                :serie="''"
-            />
+                :escolas="$escolas" 
+                :regiao="$regiao"
+                :bairro="$bairro"
+                :tipo="$tipo"
+                :serie="$serie"
+                />
+                
+          
 
             {{-- @if ($this->resultados->isEmpty())
                 <div class="rounded-2xl border border-dashed border-seduc-neutral-300 p-10 text-center">
