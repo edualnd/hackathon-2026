@@ -2,50 +2,46 @@
 
 namespace App\Livewire;
 
-use App\Models\Escola;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Mapa extends Component
 {
     public $escolas = [];
-    public $bairros = [];
-    public $regioes = [];
     public $regiao = "";
     public $bairro = "";
     public $tipo = "";
     public $serie = "";
 
-    public function carregarDados(){
-        $query = Escola::query()->with('vagas');
-        $query->when($this->regiao, function ($q) {
-            $q->where('regiao', $this->regiao);
-        });
+    public $aberto = false;
 
-        $query->when($this->bairro, function ($q) {
-            $q->where('bairro', $this->bairro);
-        });
+    public function mount(
+        $escolas = [],
+        $regiao = "",
+        $bairro = "",
+        $tipo = "",
+        $serie = ""
+    ) {
+        $this->escolas = $escolas;
+        $this->regiao = $regiao;
+        $this->bairro = $bairro;
+        $this->tipo = $tipo;
+        $this->serie = $serie;
+    }
 
-        $query->when($this->tipo, function ($q) {
-            $q->where('tipo', 'like', "%{$this->tipo}%");
-        });
-        $query->when($this->serie, function ($q) {
-            $q->whereHas('vagas', function ($q) {
-                $q->where('serie', $this->serie)
-                    ->where('qtd', '!=', 0);
-            });
-        });
-
-        $escolas = $query->get();
-        $this->bairros = $escolas->pluck('bairro')->unique()->values();
-        $this->regioes = $escolas->pluck('regiao')->unique()->values();
-        $this->escolas = $escolas->toArray();
+    #[On('DispatchOpenMapa')]
+    public function openMapa()
+    {
+        $this->aberto = true;
+    }
+    #[On('DispatchFecharnMapa')]
+    public function fecharMapa()
+    {
+        $this->aberto = false;
     }
 
     public function render()
     {
-        $this->carregarDados();
         return view('livewire.mapa');
     }
 }
-
-// bairro, regiao, tipo
