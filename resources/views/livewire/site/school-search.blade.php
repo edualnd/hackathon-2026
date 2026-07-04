@@ -64,7 +64,16 @@
             wire:loading.class="opacity-50"
             wire:target="nivel, bairro, serie, limparFiltros"
         >
-            @livewire('switch-exibicao')
+
+            <livewire:switch-exibicao 
+                :escolas="[]" 
+                :bairros="[]" 
+                :regioes="[]" 
+                :regiao="''" 
+                :bairro="''" 
+                :tipo="''" 
+                :serie="''"
+            />
 
             {{-- @if ($this->resultados->isEmpty())
                 <div class="rounded-2xl border border-dashed border-seduc-neutral-300 p-10 text-center">
