@@ -7,7 +7,7 @@
 
 <div class="w-full">
     @if ($label)
-        <label for="{{ $name }}" class="mb-1.5 block font-body text-sm font-medium text-text-on-surface">
+        <label for="{{ $name }}" class="mb-1.5 block font-body text-sm font-medium text-neutral-500">
             {{ $label }}
         </label>
     @endif

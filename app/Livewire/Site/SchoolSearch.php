@@ -3,6 +3,7 @@
 namespace App\Livewire\Site;
 
 use App\Models\Escola;
+use App\Models\Vaga;
 use App\Support\MockSchools;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -29,7 +30,7 @@ class SchoolSearch extends Component
     public $serie = "";
 
     public function carregarDados(){
-        $query = Escola::query()->with('vagas');
+        $query = Escola::query()->with(['vagas', 'listaEspera']);
         $query->when($this->regiao, function ($q) {
             $q->where('regiao', $this->regiao);
         });
@@ -52,14 +53,33 @@ class SchoolSearch extends Component
         $this->bairros = $escolas->pluck('bairro')->unique()->values();
         $this->regioes = $escolas->pluck('regiao')->unique()->values();
         $this->tipos = $escolas->pluck('tipo')->unique()->values();
-        $this->series = $escolas->pluck('tipo')->unique()->values();
-        $this->escolas = $escolas->toArray();
+        $this->series = $escolas->flatMap(fn ($escola) => $escola->vagas->pluck('serie'))->unique()->values();
+
+        // Formato consumido por x-site.school-card (nivel, vagas e lista_espera
+        // agregados, em vez dos relacionamentos crus do Eloquent).
+        $this->escolas = $escolas->map(function ($escola) {
+            return [
+                'id' => $escola->id,
+                'nome' => $escola->nome,
+                'bairro' => $escola->bairro,
+                'nivel' => $escola->tipo,
+                'endereco' => $escola->endereco,
+                'vagas' => $escola->vagas->sum('qtd'),
+                'lista_espera' => $escola->listaEspera->count(),
+            ];
+        })->values()->all();
     }
 
 
     public function render()
     {
         $this->carregarDados();
-        return view('livewire.site.school-search')->layout('layouts.site', ['pageTitle' => 'Consultar Vagas']);
+
+        return view('livewire.site.school-search', [
+            'totais' => [
+                'total_vagas' => Vaga::sum('qtd'),
+                'total_escolas' => Escola::count(),
+            ],
+        ])->layout('layouts.site', ['pageTitle' => 'Consultar Vagas']);
     }
 }

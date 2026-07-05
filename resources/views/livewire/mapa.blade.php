@@ -75,10 +75,10 @@ map.on('locationerror', function(e){
 
 escolas.forEach(escola => {
 
-    const marker = L.marker([
-        escola.lat,
-        escola.lng
-    ]).addTo(map);
+            const marker = L.marker([
+                escola.lat,
+                escola.lng
+            ]).addTo(map);
 
     marker.on('click', () => {
 
