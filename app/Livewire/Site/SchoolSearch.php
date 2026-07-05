@@ -4,8 +4,6 @@ namespace App\Livewire\Site;
 
 use App\Models\Escola;
 use App\Models\Vaga;
-use App\Support\MockSchools;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 /**
@@ -20,14 +18,22 @@ use Livewire\Component;
 class SchoolSearch extends Component
 {
     public $escolas = [];
+
     public $bairros = [];
+
     public $regioes = [];
+
     public $tipos = [];
+
     public $series = [];
-    public $regiao = "";
-    public $bairro = "";
-    public $tipo = "";
-    public $serie = "";
+
+    public $regiao = '';
+
+    public $bairro = '';
+
+    public $tipo = '';
+
+    public $serie = '';
 
     public function carregarDados()
     {
@@ -57,11 +63,11 @@ class SchoolSearch extends Component
             ->pluck('tipo')
             ->unique()
             ->values()
-            ->map(fn($tipo, $index) => [
+            ->map(fn ($tipo, $index) => [
                 'id' => $tipo,
                 'nome' => $tipo,
             ]);
-        $this->series = $escolas->flatMap(fn($escola) => $escola->vagas->pluck('serie'))->unique()->values();
+        $this->series = $escolas->flatMap(fn ($escola) => $escola->vagas->pluck('serie'))->unique()->values();
 
         // Formato consumido por x-site.school-card (nivel, vagas e lista_espera
         // agregados, em vez dos relacionamentos crus do Eloquent).
@@ -70,14 +76,26 @@ class SchoolSearch extends Component
                 'id' => $escola->id,
                 'nome' => $escola->nome,
                 'bairro' => $escola->bairro,
-                'nivel' => $escola->tipo,
+                'regiao' => $escola->regiao,
+                'tipo' => $escola->tipo,
                 'endereco' => $escola->endereco,
-                'vagas' => $escola->vagas->sum('qtd'),
+                'telefone' => $escola->telefone,
+                'email' => $escola->email,
+                'integral' => $escola->integral,
+                'lat' => $escola->lat,
+                'lng' => $escola->lng,
+
+                'vagas' => $escola->vagas->map(function ($vaga) {
+                    return [
+                        'serie' => $vaga->serie,
+                        'qtd' => $vaga->qtd,
+                    ];
+                })->values()->all(),
+
                 'lista_espera' => $escola->listaEspera->count(),
             ];
         })->values()->all();
     }
-
 
     public function render()
     {
