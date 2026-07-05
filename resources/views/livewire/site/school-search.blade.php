@@ -49,12 +49,28 @@
                             class="absolute inset-x-2.5 top-2.5 z-10 lg:static lg:z-auto lg:inset-auto lg:order-2 lg:mx-0 lg:mt-0 lg:w-full lg:max-w-sm">
 
                             <div id="filtros" x-show="open" x-cloak
-                                class="rounded-2xl bg-neutral-950 p-4 shadow-2xl sm:rounded-3xl sm:p-6 lg:!block">
+                                class="rounded-2xl bg-neutral-100 p-4 shadow-2xl sm:rounded-3xl sm:p-6 lg:!block">
 
                                 <div class="mb-3 flex items-center justify-between sm:mb-6">
-                                    <h2 class="text-sm font-semibold text-white sm:text-xl">
-                                        Filtrar vagas
-                                    </h2>
+
+                                    <div class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(132, 197, 17)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sliders-horizontal-icon lucide-sliders-horizontal">
+                                            <path d="M10 5H3"/>
+                                            <path d="M12 19H3"/>
+                                            <path d="M14 3v4"/>
+                                            <path d="M16 17v4"/>
+                                            <path d="M21 12h-9"/>
+                                            <path d="M21 19h-5"/>
+                                            <path d="M21 5h-7"/>
+                                            <path d="M8 10v4"/>
+                                            <path d="M8 12H3"/>
+                                        </svg>
+
+                                        <h2 class="text-sm font-bold text-yellow-lime-500 sm:text-xl">
+                                            Filtrar vagas
+                                        </h2>
+                                    </div>
+
                                     <button type="button" @click="open = false"
                                         class="text-white/60 hover:text-white lg:hidden" aria-label="Fechar filtro">
                                         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"

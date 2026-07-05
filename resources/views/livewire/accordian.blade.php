@@ -3,7 +3,7 @@
         <div class="overflow-hidden">
             {{-- Cabeçalho --}}
             <button wire:click="toggle({{ $index }})"
-                class="w-full flex justify-between items-center px-4 py-3 bg-seduc-neutral-100 hover:bg-lime-200 transition text-left font-medium {{ $index == 0 ? 'border-b border-seduc-neutral-300' : '' }} {{ $openIndex === $index ? 'bg-lime-100' : '' }}">
+                class="w-full flex justify-between items-center px-4 py-3 bg-yellow-lime-100 hover:bg-lime-200 transition text-left font-medium {{ $index == 0 ? 'border-b border-seduc-neutral-300' : '' }}">
                 <span>{{ $item['title'] }}</span>
                 <svg class="w-5 h-5 transform transition-transform duration-200 {{ $openIndex === $index ? 'rotate-180' : '' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
