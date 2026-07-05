@@ -1,3 +1,4 @@
+
 @props(['id', 'maxWidth'])
 
 @php
@@ -40,3 +41,4 @@ $maxWidth = [
         {{ $slot }}
     </div>
 </div>
+
