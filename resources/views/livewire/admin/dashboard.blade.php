@@ -69,7 +69,8 @@
                                 $variants = [
                                     'Matriculado' => 'success',
                                     'Aguardando' => 'neutral',
-                                    'Foi chamado' => 'info'
+                                    'Foi chamado' => 'info',
+                                    'Desistencia' => 'danger'
                                 ];
                             @endphp
 
