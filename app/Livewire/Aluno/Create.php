@@ -5,6 +5,7 @@ namespace App\Livewire\Aluno;
 use App\Models\Aluno;
 use App\Models\ListaEspera;
 use App\Models\Vaga;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
@@ -60,7 +61,8 @@ class Create extends Component
 
     public function getVagasProperty()
     {
-        $aux = Vaga::where('escola_id', 1)->with('escola')
+        $escola = Auth::user()->escola_id;
+        $aux = Vaga::where('escola_id', $escola)->with('escola')
             ->orderBy('escola_id')
             ->get()
             ->map(fn (Vaga $vaga) => [
@@ -158,7 +160,7 @@ $data = $response->json();
             "{$aluno->nome} foi cadastrado(a) com sucesso!"
             );
 
-        return redirect()->route('v1.alunos.index');
+        return redirect()->route('x-buttonlunos.index');
     }
 
     public function adicionarLista($id) {
@@ -195,19 +197,29 @@ $data = $response->json();
 
         return $pontos;
     }
-    public function classificar($vagaId){
-        $lista = ListaEspera::where('vaga_id', $vagaId)
+    public function classificar($vagaId)
+{
+    $lista = ListaEspera::where('vaga_id', $vagaId)
+        ->where('status', '!=', 'Matriculado')
         ->orderByDesc('pontuacao')
         ->orderBy('created_at')
         ->get();
 
-        $posicao = 1;
+    $posicao = 1;
 
-        foreach ($lista as $item) {
-            $item->posicao = $posicao;
-            $item->save();
-            $posicao++;
-        }
+    foreach ($lista as $item) {
+        $item->update([
+            'posicao' => $posicao
+        ]);
+
+        $posicao++;
+    }
+
+    ListaEspera::where('vaga_id', $vagaId)
+        ->where('status', 'Matriculado')
+        ->update([
+            'posicao' => 0
+        ]);
     }
     
     public function render()

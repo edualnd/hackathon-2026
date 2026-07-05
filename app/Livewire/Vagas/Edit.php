@@ -35,11 +35,11 @@ class Edit extends Component
     public function abrir(int $id): void
     {
         $this->resetValidation();
-
+        
         $registro = Vaga::findOrFail($id);
         $this->vagaId = $registro->id;
         $this->vaga = $registro->only(['escola_id', 'qtd', 'serie']);
-        $this->escola = Escola::select('nome')->where('id', $this->vagaId)->first()->value('nome');
+        $this->escola = Escola::select('nome')->where('id', $id)->value('nome');
         
 
 

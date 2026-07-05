@@ -1,4 +1,4 @@
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
     @foreach ($escolas as $escola)
         <div class="rounded-2xl border border-white/15 bg-white/10 p-5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.35)] backdrop-blur-md">
             <div class="flex items-start justify-between gap-3">

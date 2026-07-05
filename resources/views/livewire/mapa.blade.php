@@ -3,7 +3,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <div id="map" style="height:500px;" wire:ignore></div>
+    <div id="map" class="relative isolate z-0 h-[80dvh] w-full rounded-2xl sm:h-[400px] lg:h-[520px]" wire:ignore></div>
+
+    
+
 </div>
 
 <script>

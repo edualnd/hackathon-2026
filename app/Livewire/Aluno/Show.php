@@ -4,6 +4,7 @@ namespace App\Livewire\Aluno;
 
 use App\Models\Aluno;
 use App\Models\Escola;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,18 +18,17 @@ class Show extends Component
 {
     use WithPagination;
 
-    public string $busca = '';
+    public  $busca = '';
 
-    public string $statusFiltro = '';
+    public  $statusFiltro = '';
 
-    public string $escolaFiltro = '';
+    public  $escolaFiltro = '';
 
-    public int $perPage = 5;
 
 
     public function updating($property): void
     {
-        if (in_array($property, ['busca', 'statusFiltro', 'escolaFiltro', 'perPage'], true)) {
+        if (in_array($property, ['busca', 'statusFiltro', 'escolaFiltro'], true)) {
             $this->resetPage();
         }
     }
@@ -47,25 +47,33 @@ class Show extends Component
         $this->reset(['busca', 'statusFiltro', 'escolaFiltro']);
         $this->resetPage();
     }
+    public function mount()
+    {
+        $this->escolaFiltro = Auth::user()->escola_id ?? 'all';
+    }
 
     public function render()
-    {
-        $alunos = Aluno::query()
-            ->whereHas('listaEspera')
-            ->with(['escola', 'vaga', 'listaEspera'])
-            ->when($this->busca, function ($query) {
+    {  $this->escolaFiltro = $this->escolaFiltro ?? 'all';
+            $alunos = Aluno::query()
+            ->select('alunos.*')
+            ->join('lista_espera', 'lista_espera.aluno_id', '=', 'alunos.id')
+            ->where('lista_espera.posicao', "!=", 0)
+            ->when($this->busca, function ($q) {
                 $termo = "%{$this->busca}%";
-                $query->where(function ($q) use ($termo) {
-                    $q->where('nome', 'like', $termo)
-                        ->orWhere('ra', 'like', $termo)
-                        ->orWhere('certidao_nascimento', 'like', $termo);
+                $q->where(function ($q2) use ($termo) {
+                    $q2->where('alunos.nome', 'like', $termo)
+                        ->orWhere('alunos.ra', 'like', $termo)
+                        ->orWhere('alunos.certidao_nascimento', 'like', $termo);
                 });
             })
-            ->when($this->statusFiltro, fn ($query) => $query->where('status', $this->statusFiltro))
-            ->when($this->escolaFiltro, fn ($query) => $query->where('escola_id', $this->escolaFiltro))
-            ->orderByDesc('created_at')
+            ->when($this->statusFiltro, fn ($q) => $q->where('lista_espera.status', $this->statusFiltro))
+            ->when($this->escolaFiltro, fn ($q) => $q->where('alunos.escola_id', $this->escolaFiltro))
+            ->orderBy('escola_id', 'asc') ->orderBy('vaga_id', 'asc')
+            ->orderBy('lista_espera.posicao', 'asc')
+            ->with(['listaEspera'])
             ->paginate(10);
 
+          
         return view('livewire.aluno.show', [
             'alunos' => $alunos,
             'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get()->toArray(),
