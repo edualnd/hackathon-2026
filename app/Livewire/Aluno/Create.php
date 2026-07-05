@@ -6,6 +6,7 @@ use App\Models\Aluno;
 use App\Models\ListaEspera;
 use App\Models\Vaga;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -20,7 +21,7 @@ use Livewire\Component;
 #[Layout('layouts.admin', ['pageTitle' => 'Cadastro de Aluno'])]
 class Create extends Component
 {
-    public array $dadosAluno = [
+    public  $dadosAluno = [
         'vaga_id' => '',
         'nome' => '',
         'ra' => '',
@@ -42,7 +43,7 @@ class Create extends Component
         'observacao' => '',
     ];
 
-    public array $dadosCriterio = [
+    public  $dadosCriterio = [
         'area_de_abrangencia' => false,
         'mobilidade' => false,
         'irmao' => false,
@@ -50,21 +51,26 @@ class Create extends Component
         'necessidade_especial' => false,
         'matriculado' => false,
     ];
+    public $status  = "";
 
     public function mount(): void
     {
-        //
+        $this->status = "Aguardando";
     }
 
     public function getVagasProperty()
     {
-        return Vaga::with('escola')
+        $aux = Vaga::where('escola_id', 1)->with('escola')
             ->orderBy('escola_id')
             ->get()
             ->map(fn (Vaga $vaga) => [
                 'id' => $vaga->id,
-                'label' => "{$vaga->escola->nome} — {$vaga->serie} ({$vaga->qtd} " . ($vaga->qtd === 1 ? 'vaga' : 'vagas') . ')',
+                'escola' => $vaga->escola->nome,
+                'label' => "{$vaga->serie} ({$vaga->qtd} " . ($vaga->qtd === 1 ? 'vaga' : 'vagas') . ')',
             ]);
+            
+        
+        return $aux;
     }
 
     protected function rules(): array
@@ -73,7 +79,7 @@ class Create extends Component
             'dadosAluno.vaga_id' => 'required|exists:vagas,id',
             'dadosAluno.nome' => 'required|string|max:255',
             'dadosAluno.ra' => 'nullable|string|max:255',
-            'dadosAluno.cpf' => 'nullable|string|max:255|unique:alunos,cpf',
+            'dadosAluno.cpf' => 'required|string|min:11|max:11|unique:alunos,cpf,',
             'dadosAluno.sexo' => 'required|in:M,F',
             'dadosAluno.data_nascimento' => 'required|date|before:today',
             'dadosAluno.certidao_nascimento' => 'required|string|max:255',
@@ -87,9 +93,11 @@ class Create extends Component
             'dadosAluno.municipio' => 'required|string|max:255',
             'dadosAluno.bairro' => 'required|string|max:255',
             'dadosAluno.logradouro' => 'required|string|max:255',
-            'dadosAluno.numero' => 'nullable|string|max:20',
+            'dadosAluno.numero' => 'required|string|max:20',
             'dadosAluno.observacao' => 'nullable|string',
+            'status' => 'required|in:Matriculado,Aguardando,Foi chamado,Desistencia',
 
+            // Criterios
             'dadosCriterio.area_de_abrangencia' => 'boolean',
             'dadosCriterio.mobilidade' => 'boolean',
             'dadosCriterio.irmao' => 'boolean',
@@ -108,42 +116,49 @@ class Create extends Component
             'dadosAluno.data_nascimento.before' => 'Informe uma data de nascimento válida.',
         ];
     }
+public function updatedDadosAlunoCep($value)
+    {
+        $cep = preg_replace('/\D/', '', $value);
 
+        if (strlen($cep) !== 8) {
+            return;
+        }
+
+        $response = Http::withoutVerifying()
+    ->get("https://viacep.com.br/ws/{$cep}/json/");
+
+$data = $response->json();
+
+        if (!$response->successful()) {
+            return;
+        }
+
+        $data = $response->json();
+
+        if (isset($data['erro'])) {
+            return;
+        }
+
+        $this->dadosAluno['uf'] = $data['uf'] ?? '';
+        $this->dadosAluno['municipio'] = $data['localidade'] ?? '';
+        $this->dadosAluno['bairro'] = $data['bairro'] ?? '';
+        $this->dadosAluno['logradouro'] = $data['logradouro'] ?? '';
+    }
     public function salvar()
     {
         $this->validate();
+        $vaga = Vaga::findOrFail($this->dadosAluno['vaga_id']);
+        $aluno = Aluno::create([
+            ...$this->dadosAluno,
+            'escola_id' => $vaga->escola_id,
+         ]);
+        $this->adicionarLista($aluno['id']);
+        
+        session()->flash('success',
+            "{$aluno->nome} foi cadastrado(a) com sucesso!"
+            );
 
-        $aluno = DB::transaction(function () {
-            $vaga = Vaga::findOrFail($this->dadosAluno['vaga_id']);
-
-            $matriculados = Aluno::where('vaga_id', $vaga->id)
-                ->where('status', Aluno::STATUS_VAGA_CONSEGUIDA)
-                ->count();
-
-            $status = $matriculados < $vaga->qtd
-                ? Aluno::STATUS_VAGA_CONSEGUIDA
-                : Aluno::STATUS_FILA_ESPERA;
-
-            $aluno = Aluno::create([
-                ...$this->dadosAluno,
-                'escola_id' => $vaga->escola_id,
-                'status' => $status,
-            ]);
-
-            $aluno->criterios()->create($this->dadosCriterio);
-
-            if ($status === Aluno::STATUS_FILA_ESPERA) {
-                $this->adicionarListaEspera($aluno, $vaga);
-            }
-
-            return $aluno;
-        });
-
-        session()->flash('success', $aluno->status === Aluno::STATUS_VAGA_CONSEGUIDA
-            ? "{$aluno->nome} foi matriculado(a) com sucesso!"
-            : "{$aluno->nome} foi adicionado(a) à lista de espera.");
-
-        return redirect()->route('admin.alunos.index');
+        return redirect()->route('v1.alunos.index');
     }
 
     public function adicionarLista($id) {
@@ -151,14 +166,16 @@ class Create extends Component
         
         $posicao = ListaEspera::where('vaga_id', $aluno['vaga_id'])
         ->orderByDesc('posicao')
-        ->first()->toArray()['posicao'] ?? 0;
+        ->first()?->toArray()['posicao'] ?? 0;
         
         $posicao = (int)$posicao + 1;
         $pontuacao = $this->pontuarCriterios($aluno['criterios']);
         $cadastrar = ["aluno_id" => $aluno['id'],
+        'escola_id' => $aluno['escola_id'],
          'vaga_id' => $aluno['vaga_id'], 
          'posicao' => $posicao,
-         'pontuacao' => $pontuacao
+         'pontuacao' => $pontuacao,
+         'status' => $this->status,
     ];
 
         $lista = ListaEspera::create($cadastrar);
@@ -170,11 +187,11 @@ class Create extends Component
     public function pontuarCriterios($criterios) {
         $pontos = 0;
 
-        $pontos += $criterios['area_de_abrangencia'] ? 5 : 0;
-        $pontos += $criterios['mobilidade'] ? 4 : 0;
-        $pontos += $criterios['irmao'] ? 3 : 0;
-        $pontos += $criterios['vulnerabilidade'] ? 2 : 0;
-        $pontos += $criterios['matriculado'] ? 1 : 0;
+        $pontos += $criterios['area_de_abrangencia'] ?? false ? 5 : 0;
+        $pontos += $criterios['mobilidade'] ?? false ? 4 : 0;
+        $pontos += $criterios['irmao'] ?? false ? 3 : 0;
+        $pontos += $criterios['vulnerabilidade'] ?? false ? 2 : 0;
+        $pontos += $criterios['matriculado'] ?? false ? 1 : 0;
 
         return $pontos;
     }

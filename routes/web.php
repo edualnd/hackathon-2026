@@ -44,10 +44,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/{aluno}/editar', AlunoEdit::class)->name('edit');
     });
 
-<<<<<<< Updated upstream
-=======
-    Route::get('/vagas', VagasIndex::class)->name('vagas.index');
->>>>>>> Stashed changes
 });
 Route::prefix('v1')->name('v1.')->group(function () {
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');

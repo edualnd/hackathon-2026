@@ -3,6 +3,7 @@
 namespace App\Livewire\Aluno;
 
 use App\Models\Aluno;
+use App\Models\ListaEspera;
 use App\Models\Vaga;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
@@ -25,12 +26,16 @@ class Edit extends Component
     ];
 
                                               
-    public string $status = '';
+    public $status = '';
+    public $escola = '';
 
     public function mount(Aluno $aluno): void
     {
+    
         $this->aluno = $aluno;
-
+        
+        $this->status = ListaEspera::select('status')->where('aluno_id', $aluno->id)->first()?->status;
+        
         $this->dadosAluno = $aluno->only([
             'vaga_id', 'nome', 'ra', 'cpf', 'sexo', 'data_nascimento',
             'certidao_nascimento', 'nome_responsavel', 'cpf_responsavel',
@@ -40,8 +45,7 @@ class Edit extends Component
 
         $this->dadosAluno['data_nascimento'] = optional($aluno->data_nascimento)->format('Y-m-d');
 
-
-        $this->status = $aluno->status;
+        
 
         $criterio = $aluno->criterios()->first();
         if ($criterio) {
@@ -51,8 +55,7 @@ class Edit extends Component
 
     public function getVagasProperty()
     {
-
-        return Vaga::where('escola_id', 1)->with('escola')
+        $aux = Vaga::where('escola_id', 1)->with('escola')
             ->orderBy('escola_id')
             ->get()
             ->map(fn (Vaga $vaga) => [
@@ -60,6 +63,9 @@ class Edit extends Component
                 'escola' => $vaga->escola->nome,
                 'label' => "{$vaga->serie} ({$vaga->qtd} " . ($vaga->qtd === 1 ? 'vaga' : 'vagas') . ')',
             ]);
+            
+        
+        return $aux;
     }
 
     protected function rules(): array
@@ -135,7 +141,12 @@ $data = $response->json();
             ...$this->dadosAluno,
             'escola_id' => $vaga->escola_id,
         ]);
-        // 'status' => $this->status
+        
+        ListaEspera::where('aluno_id', $this->aluno->id)
+            ->update([
+                'vaga_id' =>$this->dadosAluno['vaga_id'],
+                'status' => $this->status,
+            ]);
 
         $this->aluno->criterios()->first()?->update($this->dadosCriterio)
             ?? $this->aluno->criterios()->create($this->dadosCriterio);

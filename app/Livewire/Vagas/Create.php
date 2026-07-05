@@ -34,7 +34,8 @@ class Create extends Component
     {
         $this->resetValidation();
         $this->reset('vaga');
-        $this->escolas = Escola::select('id', 'nome')->orderBy('nome')->get();
+        $this->escolas = Escola::select('id', 'nome')->where('id', 1)->get()->toArray();
+        dd($this->escola);
         $this->show = true;
     }
 
