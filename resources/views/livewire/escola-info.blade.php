@@ -1,4 +1,4 @@
-<div class="rounded-3xl bg-neutral-100 p-6 shadow-2xl">
+<div class="rounded-3xl bg-neutral-100 p-6 shadow-2xl" id="escola-info">
     <h3 class="font-heading font-semibold text-[1.5rem] mb-4">{{ $escola['nome'] }}</h3>
 
     <div class="mb-4">

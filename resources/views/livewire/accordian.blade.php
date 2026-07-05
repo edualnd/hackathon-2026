@@ -29,13 +29,23 @@
                             <ul class="divide-y divide-seduc-neutral-200">
                                 @foreach ($item['content'] as $vaga)
                                     <li
-                                        class="flex justify-between py-2 hover:cursor-pointer"
+                                        class="flex justify-between py-2 hover:cursor-pointer bg-seduc-neutral-100 hover:bg-seduc-neutral-200 py-2 px-3.5 rounded-full"
                                         wire:click="$dispatch('openListaPublica', { id: {{ $vaga['id'] }} })"
                                     >
-                                        <span
-                                            class="font-medium capitalize"
-                                            >{{ str_replace('_', ' ', $vaga['serie']) }}</span
-                                        >
+
+                                        <span class="font-medium capitalize">
+                                            <div class="flex gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer-click-icon lucide-mouse-pointer-click">
+                                                    <path d="M14 4.1 12 6"/>
+                                                    <path d="m5.1 8-2.9-.8"/>
+                                                    <path d="m6 12-1.9 2"/>
+                                                    <path d="M7.2 2.2 8 5.1"/>
+                                                    <path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/>
+                                                </svg>
+                                                
+                                                {{ str_replace('_', ' ', $vaga['serie']) }}
+                                            </div>
+                                        </span>
                                         <span>{{ $vaga['qtd'] }}</span>
                                     </li>
                                 @endforeach

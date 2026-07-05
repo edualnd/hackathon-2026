@@ -1,11 +1,10 @@
 <div
     @class ([
-        'rounded-3xl bg-neutral-100 p-6 shadow-2xl',
-        'opacity-0' => $vaga['id'] == 0,
+        'hidden' => $vaga['id'] == 0,
     ])
 >
     <div
-        class="p-5 mt-6 overflow-hidden rounded-2xl border border-seduc-neutral-200 bg-background-surface"
+        class="p-5 overflow-hidden rounded-2xl border border-seduc-neutral-200 bg-background-surface"
     >
         <div class="mb-8 flex flex-wrap items-start justify-between gap-4">
             <div>

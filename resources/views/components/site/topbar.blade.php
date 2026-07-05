@@ -17,7 +17,7 @@
         </a>
 
         <!-- Menu -->
-        <nav
+        {{-- <nav
             class="flex shrink-0 items-center hidden sm:flex gap-4 sm:gap-6 sm:rounded-full sm:bg-black sm:px-6 sm:py-3 sm:text-white sm:shadow-lg"
         >
             <a
@@ -27,16 +27,23 @@
             >
                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3Zm0 0V7m6 13V10" /></svg>
             </a>
-            <a
-                href="{{ route('login') }}"
-                class="bg-action-primary hover:bg-action-primary-hover flex size-8 items-center justify-center rounded-full border border-black text-black sm:size-9"
-                aria-label="Área administrativa"
-            >
+        </nav> --}}
+
+        <a 
+            href="{{ route('login') }}"
+            class="flex gap-2 items-center"
+            aria-label="Área administrativa">
+
+            <span class="text-seduc-neutral-100 text[16px] block font-bold">
+                Login
+            </span>
+
+            <div class="bg-action-primary hover:bg-action-primary-hover flex size-8 items-center justify-center rounded-full sm:size-9">
                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="8" r="3.2" />
                     <path stroke-linecap="round" d="M4.5 20c1.6-3.4 4.3-5 7.5-5s5.9 1.6 7.5 5" />
                 </svg>
-            </a>
-        </nav>
+            </div>
+        </a>
     </div>
 </header>
