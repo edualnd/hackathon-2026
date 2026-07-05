@@ -1,5 +1,7 @@
 <div>
 
+
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -88,46 +90,71 @@
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         });
-        escolas.forEach(escola => {
 
-            if (!escola.lat || !escola.lng) {
-                return;
-            }
+        // Grupo dedicado aos marcadores das escolas, separado dos tiles e do
+        // marcador de localização, para poder limpar e redesenhar sem afetar o resto do mapa.
+        // OBS: precisa ser featureGroup (não layerGroup) porque só featureGroup
+        // tem o método getBounds(), usado pelo fitBounds mais abaixo.
+        const marcadoresLayer = L.featureGroup().addTo(map);
 
-            // Soma todas as vagas da escola
-            const totalVagas = escola.vagas.reduce((total, vaga) => {
-                return total + Number(vaga.qtd);
-            }, 0);
+        function desenharMarcadores(escolas) {
 
-            // Define a cor do marcador
-            let icon = redIcon;
+            console.log('[mapa] desenharMarcadores chamado com', escolas.length, 'escola(s)', escolas);
 
-            if (totalVagas > 30) {
-                icon = greenIcon;
-            } else if (totalVagas > 27) {
-                icon = yellowIcon;
-            }
+            marcadoresLayer.clearLayers(); // 1. limpa os marcadores da rodada anterior
 
-            const marker = L.marker(
-                [escola.lat, escola.lng], {
-                    icon
+            let desenhados = 0;
+
+            escolas.forEach(escola => {
+
+                if (!escola.lat || !escola.lng) {
+                    console.warn('[mapa] escola sem lat/lng, ignorada:', escola.nome, escola);
+                    return;
                 }
-            ).addTo(map);
 
-            marker.bindTooltip(`
-        <strong>${escola.nome}</strong><br>
-        ${totalVagas} vagas
-    `);
+                desenhados++;
 
-            marker.on('click', () => {
+                const totalVagas = escola.vagas.reduce((total, vaga) => {
+                    return total + Number(vaga.qtd);
+                }, 0);
 
-                Livewire.dispatch('escolaSelecionada', {
-                    escola_id: escola.id
+                let icon = redIcon;
+                if (totalVagas > 30) {
+                    icon = greenIcon;
+                } else if (totalVagas > 27) {
+                    icon = yellowIcon;
+                }
+
+                const marker = L.marker([escola.lat, escola.lng], { icon })
+                    .addTo(marcadoresLayer); // 2. adiciona no grupo, não direto no map
+
+                marker.bindTooltip(`<strong>${escola.nome}</strong><br>${totalVagas} vagas`);
+
+                marker.on('click', () => {
+                    Livewire.dispatch('escolaSelecionada', { escola_id: escola.id });
                 });
 
             });
 
-        });
+            console.log('[mapa]', desenhados, 'marcador(es) desenhado(s) de', escolas.length, 'escola(s) recebida(s)');
 
+            // 3. reenquadra o mapa nos resultados atuais
+            if (desenhados > 0) {
+                map.fitBounds(marcadoresLayer.getBounds(), { padding: [40, 40], maxZoom: 15 });
+                console.log('[mapa] fitBounds aplicado');
+            } else {
+                console.warn('[mapa] nenhum marcador válido — fitBounds NÃO foi chamado');
+            }
+        }
+
+        // Desenho inicial, com a lista de escolas carregada no primeiro render.
+        desenharMarcadores(escolas);
+
+        // Sempre que o Mapa.php despachar novas escolas (filtro mudou), redesenha e reenquadra.
+        console.log('[mapa] registrando listener escolas-atualizadas');
+        Livewire.on('escolas-atualizadas', (data) => {
+            console.log('[mapa] evento escolas-atualizadas recebido', data);
+            desenharMarcadores(data.escolas);
+        });
     });
 </script>

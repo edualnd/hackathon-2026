@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Attributes\Reactive;
 
 class Mapa extends Component
 {
+    #[Reactive]
     public $escolas = [];
     public $regiao = "";
     public $bairro = "";
@@ -28,6 +30,11 @@ class Mapa extends Component
         $this->tipo = $tipo;
         $this->serie = $serie;
     }
+
+      public function updatedEscolas($value): void
+   {
+       $this->dispatch('escolas-atualizadas', escolas: $value);
+   }
 
     #[On('DispatchOpenMapa')]
     public function openMapa()

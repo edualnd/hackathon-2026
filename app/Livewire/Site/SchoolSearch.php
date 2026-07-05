@@ -37,6 +37,24 @@ class SchoolSearch extends Component
 
     public function carregarDados()
     {
+        // Opções dos filtros vêm sempre do universo COMPLETO de escolas, não
+        // do resultado já filtrado. Se derivarem do resultado filtrado, cada
+        // seleção encolhe as opções dos outros filtros em cascata (bug).
+        $todasEscolas = Escola::query()->with('vagas')->get();
+
+        $this->bairros = $todasEscolas->pluck('bairro')->unique()->values();
+        $this->regioes = $todasEscolas->pluck('regiao')->unique()->values();
+        $this->tipos = $todasEscolas
+            ->pluck('tipo')
+            ->unique()
+            ->values()
+            ->map(fn ($tipo, $index) => [
+                'id' => $tipo,
+                'nome' => $tipo,
+            ]);
+        $this->series = $todasEscolas->flatMap(fn ($escola) => $escola->vagas->pluck('serie'))->unique()->values();
+
+        // Resultado efetivamente filtrado (cards + mapa), aplicando os filtros atuais.
         $query = Escola::query()->with(['vagas', 'listaEspera']);
         $query->when($this->regiao, function ($q) {
             $q->where('regiao', $this->regiao);
@@ -57,17 +75,6 @@ class SchoolSearch extends Component
         });
 
         $escolas = $query->get();
-        $this->bairros = $escolas->pluck('bairro')->unique()->values();
-        $this->regioes = $escolas->pluck('regiao')->unique()->values();
-        $this->tipos = $escolas
-            ->pluck('tipo')
-            ->unique()
-            ->values()
-            ->map(fn ($tipo, $index) => [
-                'id' => $tipo,
-                'nome' => $tipo,
-            ]);
-        $this->series = $escolas->flatMap(fn ($escola) => $escola->vagas->pluck('serie'))->unique()->values();
 
         // Formato consumido por x-site.school-card (nivel, vagas e lista_espera
         // agregados, em vez dos relacionamentos crus do Eloquent).
@@ -95,6 +102,11 @@ class SchoolSearch extends Component
                 'lista_espera' => $escola->listaEspera->count(),
             ];
         })->values()->all();
+
+        // Avisa o mapa (componente filho) de que há escolas novas/filtradas,
+        // via evento de navegador. Não depende do mecanismo de prop reativa
+        // entre componentes Livewire — dispara direto a cada recalculo.
+        $this->dispatch('escolas-atualizadas', escolas: $this->escolas);
     }
 
     public function render()
