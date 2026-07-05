@@ -33,6 +33,45 @@
             </div>
         </div>
 
+        <div class="mb-8 flex flex-wrap items-start justify-between gap-4">
+            <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <h3 class="mb-3 text-sm font-semibold text-gray-700">Critérios de classificação</h3>
+
+                <div class="flex flex-wrap gap-3">
+                    <div class="flex items-center gap-2 rounded-full bg-gray-50 px-3 py-2">
+                        <span class="h-3 w-3 rounded-full bg-blue-500"></span>
+                        <span class="text-sm text-gray-700"> Data da inscrição </span>
+                    </div>
+
+                    <div class="flex items-center gap-2 rounded-full bg-gray-50 px-3 py-2">
+                        <span class="h-3 w-3 rounded-full bg-indigo-500"></span>
+                        <span class="text-sm text-gray-700">
+                            Alunos com mobilidade reduzida, mediante laudo médico
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-2 rounded-full bg-gray-50 px-3 py-2">
+                        <span class="h-3 w-3 rounded-full bg-pink-500"></span>
+                        <span class="text-sm text-gray-700">
+                            Área de abrangência do endereço residencial
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-2 rounded-full bg-gray-50 px-3 py-2">
+                        <span class="h-3 w-3 rounded-full bg-emerald-500"></span>
+                        <span class="text-sm text-gray-700">
+                            Irmãos matriculados na mesma unidade escolar da solicitação
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 rounded-full bg-gray-50 px-3 py-2">
+                        <a
+                            href="https://central-vagas.educacaocaraguatatuba.com.br/storage/resolucao_SME-n10_26112025_ListadeEspera.pdf"
+                            >Mais informações</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="mb-6 rounded-2xl border border-seduc-neutral-200 bg-background-surface p-6">
             <div class="grid gap-6 sm:grid-cols-3">
                 <div>

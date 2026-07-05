@@ -72,7 +72,6 @@
                     >
                         Vagas
                     </x-site.sidebar-link>
-                    
 
                     <p
                         class="mt-4 px-3.5 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-500"
