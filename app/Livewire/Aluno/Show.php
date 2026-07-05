@@ -49,7 +49,7 @@ class Show extends Component
     }
     public function mount()
     {
-        $this->escolaFiltro = Auth::user()->escola_id ?? 'all';
+        $this->escolaFiltro = Auth::user()->escola_id ?? '';
     }
 
     public function render()

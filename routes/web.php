@@ -2,12 +2,13 @@
 
 
 use App\Livewire\Aluno\Create;
-use App\Livewire\ListaEspera\Show;
+use App\Livewire\ListaEspera\Show as ShowLista;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Login as AdminLogin;
 use App\Livewire\Aluno\Create as AlunoCreate;
 use App\Livewire\Aluno\Edit as AlunoEdit;
 use App\Livewire\Aluno\Show as AlunoShow;
+
 use App\Livewire\Mapa;
 use App\Livewire\Site\SchoolSearch;
 use App\Livewire\Vagas\Index as VagasIndex;
@@ -26,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/mapa', fn () => 'Mapa interativo em construção.')->name('site.map');
 Route::get("/mapa1", Mapa::class)->name("mapa");
 Route::get("/aluno", Create::class)->name("aluno");
-Route::get("/lista", Show::class)->name("lista");
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('/vagas', VagasIndex::class)->name('vagas.index');
-    Route::get('/listas', VagasIndex::class)->name('listas');
+    Route::get('/vaga/{vagaId}/lista', ShowLista::class)->name('vagas.lista');
     Route::prefix('alunos')->name('alunos.')->group(function () {
         Route::get('/', AlunoShow::class)->name('index');
         Route::get('/novo', AlunoCreate::class)->name('create');
