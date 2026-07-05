@@ -34,7 +34,7 @@
             class="flex gap-2 items-center"
             aria-label="Área administrativa">
 
-            <span class="text-seduc-neutral-100 text[16px] block font-bold">
+            <span class="text-white text[16px] block font-bold">
                 Login
             </span>
 

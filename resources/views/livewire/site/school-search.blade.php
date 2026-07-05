@@ -1,11 +1,38 @@
 <div>
     <div class="mx-auto sm:my-8 max-w-7xl px-4 sm:my-12 sm:px-6 lg:px-8">
+
+
+        <div class="grid lg:grid-cols-2 gap-1 ">
+            <div class="flex gap-2">
+                <p class=" p-[16px] sm:pb-1 font-medium lg:text-[32px] text-[20px] text-white">Por uma <span class="text-yellow-lime-400 font-bold">educação</span> pública mais <span class="text-yellow-lime-400 font-bold">transparente</span> e <span class="text-yellow-lime-400 font-bold">acessível.</span></p>
+            </div>
+
+            <div class="flex flex-col justify-start lg:mb-6 h-full">
+                
+                <div class="flex align-center justify-end gap-4">
+                    <section class="rounded-2xl bg-white/10 hidden sm:block py-4 px-6 font-body text-[14px] font-semibold text-text-on-canvas backdrop-blur-sm lg:flex flex-col justify-center items-center">
+                        <strong class="lg:text-[36px] text[14px] font-bold">{{ $qtdVagas }}</strong>
+                        <span class="lg:text-[16px] text[14px]">Vagas disponíveis no município</span>
+                    </section>
+                    
+                    <section class="rounded-2xl bg-white/10 py-4 px-6 font-body text-[14px] hidden sm:block font-semibold text-text-on-canvas backdrop-blur-sm lg:flex flex-col justify-center items-center">
+                        <strong class="lg:text-[36px] text[14px] font-bold">{{ $qtdListaEspera }}</strong>
+                        <span class="lg:text-[16px] text[14px]">Lista de espera do município</span>
+                    </section>
+                    
+                </div>
+            </div>
+        </div>
+
         <span
-            class="hidden lg:inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 font-body text-[14px] font-semibold text-text-on-canvas backdrop-blur-sm mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(192, 236, 29)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-icon lucide-map">
-                <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/>
-                <path d="M15 5.764v15"/>
-                <path d="M9 3.236v15"/>
+            class="hidden lg:inline-flex items-center lg:gap-2 rounded-full bg-white/10 px-4 py-2 font-body text-[14px] font-semibold text-text-on-canvas backdrop-blur-sm mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="rgb(192, 236, 29)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-map-icon lucide-map">
+                <path
+                    d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" />
+                <path d="M15 5.764v15" />
+                <path d="M9 3.236v15" />
             </svg>
             Mapa - Clique em uma das Escolas para ver mais informações!
         </span>
@@ -69,24 +96,12 @@
                                         </h2>
                                     </div>
 
-                                    <button
-                                        type="button"
-                                        @click="open = false"
-                                        class="text-black lg:hidden"
-                                        aria-label="Fechar filtro"
-                                    >
-                                        <svg
-                                            class="size-4"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M6 6l12 12M6 18L18 6"
-                                            />
+                                    <button type="button" @click="open = false" class="text-black lg:hidden"
+                                        aria-label="Fechar filtro">
+                                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 6l12 12M6 18L18 6" />
                                         </svg>
                                     </button>
                                 </div>

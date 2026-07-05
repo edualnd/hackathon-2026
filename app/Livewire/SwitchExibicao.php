@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Livewire;
-
+use App\Models\Vaga;
+use App\Models\ListaEspera;
 use Livewire\Component;
 
 class SwitchExibicao extends Component
@@ -11,6 +12,7 @@ class SwitchExibicao extends Component
     public $bairro;
     public $tipo;
     public $serie;
+    
 
     public function mount($escolas = [], $regiao = "", $bairro = "", $tipo = "", $serie = "")
     {
@@ -19,6 +21,8 @@ class SwitchExibicao extends Component
         $this->bairro = $bairro;
         $this->tipo = $tipo;
         $this->serie = $serie;
+
+
     }
 
 

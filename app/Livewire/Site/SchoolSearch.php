@@ -4,6 +4,7 @@ namespace App\Livewire\Site;
 
 use App\Models\Escola;
 use App\Models\Vaga;
+use App\Models\ListaEspera;
 use Livewire\Component;
 
 /**
@@ -34,6 +35,18 @@ class SchoolSearch extends Component
     public $tipo = '';
 
     public $serie = '';
+
+    public $qtdVagas = 0;
+    public $qtdListaEspera = 0;
+
+    public function mount(){
+        $vagas = Vaga::all();
+        foreach ($vagas as $vaga) {
+            $this->qtdVagas += $vaga->qtd;
+        }
+
+        $this->qtdListaEspera = ListaEspera::whereNotIn('status', ['Matriculado', 'Desistencia'])->count();
+    }
 
     public function carregarDados()
     {
