@@ -73,7 +73,7 @@ map.on('locationerror', function(e){
 // ESCOLAS (permanece igual)
 //
 
-escolas.forEach(escola => {
+        const card = document.getElementById('card-escola');
 
             const marker = L.marker([
                 escola.lat,
