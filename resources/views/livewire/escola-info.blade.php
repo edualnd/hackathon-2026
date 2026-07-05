@@ -26,7 +26,7 @@
                 </div>
 
                 <strong class="text-[2.25rem]/[1.5] font-bold">
-                    20
+                    {{ $qtdVagas }}
                 </strong>
             </div>
 
@@ -88,7 +88,7 @@
                 </div>
 
                 <strong class="text-[2.25rem]/[1.5] font-bold">
-                    20
+                    {{ $qtdEspera }}
                 </strong>
             </div>
 

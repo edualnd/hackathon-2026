@@ -16,10 +16,10 @@
 
         const map = L.map('map').setView([-23.6205, -45.4132], 12);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap &copy; CARTO',
+            subdomains: 'abcd'
         }).addTo(map);
-
         if ("geolocation" in navigator) {
 
             navigator.geolocation.getCurrentPosition(
@@ -60,23 +60,71 @@
         }
 
         const card = document.getElementById('card-escola');
+        const markerShadow = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
 
+        const greenIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            shadowUrl: markerShadow,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const yellowIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+            shadowUrl: markerShadow,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const redIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: markerShadow,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
         escolas.forEach(escola => {
 
             if (!escola.lat || !escola.lng) {
                 return;
             }
 
-            const marker = L.marker([
-                escola.lat,
-                escola.lng
-            ]).addTo(map);
+            // Soma todas as vagas da escola
+            const totalVagas = escola.vagas.reduce((total, vaga) => {
+                return total + Number(vaga.qtd);
+            }, 0);
+
+            // Define a cor do marcador
+            let icon = redIcon;
+
+            if (totalVagas > 30) {
+                icon = greenIcon;
+            } else if (totalVagas > 27) {
+                icon = yellowIcon;
+            }
+
+            const marker = L.marker(
+                [escola.lat, escola.lng], {
+                    icon
+                }
+            ).addTo(map);
+
+            marker.bindTooltip(`
+        <strong>${escola.nome}</strong><br>
+        ${totalVagas} vagas
+    `);
 
             marker.on('click', () => {
 
                 Livewire.dispatch('escolaSelecionada', {
-                    escola: escola
+                    escola_id: escola.id
                 });
+
             });
 
         });

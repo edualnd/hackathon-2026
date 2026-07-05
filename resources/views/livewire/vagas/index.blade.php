@@ -54,8 +54,13 @@
                 </thead>
                 <tbody class="divide-y divide-seduc-neutral-100">
                     @forelse ($vagas as $vaga)
-                        <tr wire:key="vaga-{{ $vaga->id }}" class="hover:bg-seduc-neutral-100/40">
-                            <td class="px-5 py-4 font-body text-sm font-semibold text-text-on-surface">{{ $vaga->escola?->nome ?? '—' }}</td>
+                        <tr wire:key="vaga-{{ $vaga->id }}" class="hover:bg-seduc-neutral-100/40 ">
+                            <td class="px-5 py-4 font-body text-sm font-semibold text-text-on-surface hover:cursor-pointer "  >
+
+                                <a href="{{ route('vagas.lista', $vaga->id) }}">
+                                    {{ $vaga->escola?->nome ?? '—' }}
+                                </a>
+                            </td>
                             <td class="px-5 py-4">
                                 <x-site.badge variant="neutral">{{ $vaga->serie }}</x-site.badge>
                             </td>
@@ -111,4 +116,5 @@
 
     <livewire:vagas.create />
     <livewire:vagas.edit />
+
 </div>

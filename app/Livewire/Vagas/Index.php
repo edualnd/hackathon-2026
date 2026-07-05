@@ -59,7 +59,7 @@ public function excluir(int $id): void
     }
   public function mount()
     {
-        $this->escolaFiltro = Auth::user()->escola_id ?? 'all';
+        $this->escolaFiltro = Auth::user()->escola_id ?? '';
     }
 
     public function render()
