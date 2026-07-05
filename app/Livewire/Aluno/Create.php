@@ -6,6 +6,7 @@ use App\Models\Aluno;
 use App\Models\ListaEspera;
 use App\Models\Vaga;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 /**
@@ -16,6 +17,7 @@ use Livewire\Component;
  * (status "vaga_conseguida"); caso contrário, entra na lista de
  * espera com pontuação calculada a partir dos critérios marcados.
  */
+#[Layout('layouts.admin', ['pageTitle' => 'Cadastro de Aluno'])]
 class Create extends Component
 {
     public array $dadosAluno = [
@@ -196,6 +198,6 @@ class Create extends Component
         
         return view('livewire.aluno.create', [
             'vagas' => $this->vagas,
-        ])->layout('layouts.admin', ['pageTitle' => 'Cadastro de Aluno']);
+        ]);
     }
 }

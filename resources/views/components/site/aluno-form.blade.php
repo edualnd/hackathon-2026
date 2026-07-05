@@ -28,8 +28,27 @@
 
             <div class="lg:col-span-2">
                 <x-site.input label="Número da certidão de nascimento" name="certidao_nascimento" wire:model="dadosAluno.certidao_nascimento" placeholder="000000.00.0000.0.00000.000.0000000" :error="$errors->first('dadosAluno.certidao_nascimento')" />
+                    
             </div>
-            <x-site.select label="Escola / série pretendida" name="vaga_id" wire:model="dadosAluno.vaga_id">
+            <x-site.input label="Escola" name="escola" readonly value="{{ $vagas[0]['escola'] }}" placeholder="{{ $vagas[0]['escola'] }}" :error="$errors->first('dadosAluno.escola_id')"  />
+
+            @error('dadosAluno.vaga_id') <p class="-mt-3 font-body text-xs text-text-on-danger">{{ $message }}</p> @enderror
+
+            @if ($showStatus)
+                <x-site.select label="Situação do cadastro" name="status" wire:model="status">
+                    @php
+                        $statuses = ['Matriculado' => 'Matriculado',
+                                        'Aguardando' => 'Aguardando',
+                                        'Foi chamado' => 'Foi chamado',
+                                        'Desistencia' => 'Desistencia',]
+                                              
+                    @endphp
+                    @foreach ($statuses as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </x-site.select>
+            @endif
+             <x-site.select label="Escola / série pretendida" name="vaga_id" wire:model="dadosAluno.vaga_id">
                 <option value="">Selecione...</option>
                 @foreach ($vagas as $vaga)
                     <option value="{{ $vaga['id'] }}">{{ $vaga['label'] }}</option>
@@ -37,13 +56,6 @@
             </x-site.select>
             @error('dadosAluno.vaga_id') <p class="-mt-3 font-body text-xs text-text-on-danger">{{ $message }}</p> @enderror
 
-            @if ($showStatus)
-                <x-site.select label="Situação do cadastro" name="status" wire:model="status">
-                    @foreach (\App\Models\Aluno::STATUSES as $value => $label)
-                        <option value="{{ $value }}">{{ $label }}</option>
-                    @endforeach
-                </x-site.select>
-            @endif
         </div>
     </div>
 
@@ -77,7 +89,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            <x-site.input label="CEP" name="cep" wire:model="dadosAluno.cep" placeholder="00000-000" :error="$errors->first('dadosAluno.cep')" />
+            <x-site.input label="CEP" name="cep" wire:model.live="dadosAluno.cep" placeholder="00000-000" :error="$errors->first('dadosAluno.cep')" />
             <x-site.input label="UF" name="uf" wire:model="dadosAluno.uf" maxlength="2" :error="$errors->first('dadosAluno.uf')" />
             <div class="col-span-2">
                 <x-site.input label="Município" name="municipio" wire:model="dadosAluno.municipio" :error="$errors->first('dadosAluno.municipio')" />
@@ -125,11 +137,23 @@
         <textarea id="observacao" wire:model="dadosAluno.observacao" rows="3" placeholder="Alguma informação adicional relevante para a análise..."
             class="w-full rounded-xl border border-seduc-neutral-300 bg-background-surface px-4 py-3 font-body text-sm text-text-on-surface placeholder:text-seduc-neutral-400 focus:outline-none focus:ring-2 focus:ring-teal-dark-400 focus:border-teal-dark-500"></textarea>
     </div>
+    @if ($errors->any())
+        <div class="mb-6 rounded-lg border border-red-300 bg-red-50 p-4">
+            <h3 class="mb-2 font-semibold text-red-700">
+                Foram encontrados os seguintes erros:
+            </h3>
 
+            <ul class="list-disc pl-5 text-red-600">
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <x-site.button variant="ghost" href="{{ route('admin.alunos.index') }}">Cancelar</x-site.button>
         <x-site.button variant="primary" type="submit" wire:loading.attr="disabled" wire:target="salvar">
-            <span wire:loading.remove wire:target="salvar">Salvar cadastro</span>
+            <span wire:loading.remove wire:target="salvar">Editar cadastro</span>
             <span wire:loading wire:target="salvar">Salvando...</span>
         </x-site.button>
     </div>
