@@ -84,14 +84,14 @@
                             <td class="px-5 py-4">
                                 <p class="font-body text-sm font-semibold text-text-on-surface">
                                     @php
-    $nome = explode(' ', trim($item->aluno->nome));
+                                        $nome = explode(' ', trim($item->aluno->nome));
 
-    $primeiro = array_shift($nome);
+                                        $primeiro = array_shift($nome);
 
-    $iniciais = collect($nome)
-        ->map(fn($n) => strtoupper(substr($n, 0, 1)) . '.')
-        ->join(' ');
-@endphp
+                                        $iniciais = collect($nome)
+                                            ->map(fn($n) => strtoupper(substr($n, 0, 1)) . '.')
+                                            ->join(' ');
+                                    @endphp
 
                                     {{ $primeiro . ($iniciais ? ' ' . $iniciais : '') }}
                                 </p>
@@ -99,14 +99,14 @@
                             <td class="px-5 py-4">
                                 <p class="font-body text-sm font-semibold text-text-on-surface">
                                     @php
-                            $nome = explode(' ', trim($item->aluno->nome_responsavel));
+                                        $nome = explode(' ', trim($item->aluno->nome_responsavel));
 
-                            $primeiro = array_shift($nome);
+                                        $primeiro = array_shift($nome);
 
-                            $iniciais = collect($nome)
-                                ->map(fn($n) => strtoupper(substr($n, 0, 1)) . '.')
-                                ->join(' ');
-                        @endphp
+                                        $iniciais = collect($nome)
+                                            ->map(fn($n) => strtoupper(substr($n, 0, 1)) . '.')
+                                            ->join(' ');
+                                    @endphp
 
                                     {{ $primeiro . ($iniciais ? ' ' . $iniciais : '') }}
                                 </p>

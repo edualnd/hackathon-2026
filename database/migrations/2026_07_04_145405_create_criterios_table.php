@@ -12,7 +12,7 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('aluno_id')
+            $table->foreignId('aluno_id')->unique()
                 ->constrained('alunos')
                 ->cascadeOnDelete();
             $table->boolean('area_de_abrangencia');

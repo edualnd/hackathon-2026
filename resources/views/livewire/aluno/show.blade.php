@@ -119,16 +119,12 @@
                                 {{ $aluno->escola?->nome ?? '—' }}
                             </td>
                             <td class="px-5 py-4">
-                                <x-site.badge
-                                    variant="neutral"
-                                >
+                                <x-site.badge variant="neutral">
                                     {{ $aluno->vaga?->serie ?? '—' }}</x-site.badge
                                 >
                             </td>
                             <td class="px-5 py-4">
-                                <x-site.badge
-                                    class="text-bold"
-                                >
+                                <x-site.badge class="text-bold">
                                     {{ $aluno->listaEspera?->posicao }}</x-site.badge
                                 >
                             </td>
@@ -142,9 +138,7 @@
                                         default => 'info',
                                     };
                                 @endphp
-                                <x-site.badge
-                                    :variant="$variant"
-                                >
+                                <x-site.badge :variant="$variant">
                                     {{ $aluno->listaEspera?->status ?? '—' }}</x-site.badge
                                 >
                                 <p class="mt-1 font-body text-[11px] text-seduc-neutral-500">{{ $aluno->updated_at->format('d/m/Y H:i') }}</p>
