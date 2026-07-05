@@ -7,7 +7,7 @@
 
     <div id="map" class="relative isolate z-0 h-[80dvh] w-full rounded-2xl sm:h-[400px] lg:h-[520px]" wire:ignore></div>
 
-    
+
 
 </div>
 
@@ -17,47 +17,99 @@
         const escolas = @json($escolas);
 
         const map = L.map('map').setView([-23.6205, -45.4132], 12);
+        
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap &copy; CARTO',
             subdomains: 'abcd'
         }).addTo(map);
+
         if ("geolocation" in navigator) {
+
+            navigator.permissions.query({
+                name: "geolocation"
+            }).then(permission => {
+                console.log("Permissão:", permission.state);
+            });
 
             navigator.geolocation.getCurrentPosition(
 
-                function(position) {
+                function (position) {
 
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
+                    const accuracy = position.coords.accuracy;
 
-                    map.setView([lat, lng], 14);
+                    console.log("Localização encontrada:", {
+                        lat,
+                        lng,
+                        accuracy
+                    });
 
-                    // marcador azul da localização
+                    // aproxima o mapa da localização do usuário
+                    map.flyTo([lat, lng], 14, {
+                        animate: true,
+                        duration: 0.5
+                    });
+
+                    // círculo de precisão
+                    L.circle([lat, lng], {
+                        radius: accuracy,
+                        color: "#2563eb",
+                        fillColor: "#2563eb",
+                        fillOpacity: 0.15,
+                        weight: 1
+                    }).addTo(map);
+
+                    // marcador azul
                     L.circleMarker([lat, lng], {
-                            radius: 8,
-                            fillColor: "#2563eb",
-                            color: "#ffffff",
-                            weight: 3,
-                            opacity: 1,
-                            fillOpacity: 1
-                        })
+                        radius: 8,
+                        fillColor: "#2563eb",
+                        color: "#ffffff",
+                        weight: 3,
+                        opacity: 1,
+                        fillOpacity: 1
+                    })
                         .addTo(map)
                         .bindPopup("Você está aqui.");
 
                 },
 
-                function(error) {
-                    console.log("Localização não permitida.");
+                function (error) {
+
+                    console.error("Erro de geolocalização:", error);
+
+                    switch (error.code) {
+
+                        case error.PERMISSION_DENIED:
+                            console.error("Usuário negou a permissão.");
+                            break;
+
+                        case error.POSITION_UNAVAILABLE:
+                            console.error("Localização indisponível.");
+                            break;
+
+                        case error.TIMEOUT:
+                            console.error("Tempo de espera excedido.");
+                            break;
+
+                        default:
+                            console.error("Erro desconhecido.");
+                    }
+
                 },
 
                 {
                     enableHighAccuracy: true,
-                    timeout: 5000,
-                    maximumAge: 60000
+                    timeout: 20000,
+                    maximumAge: 0
                 }
 
             );
+
+        } else {
+
+            console.error("Este navegador não suporta Geolocation.");
 
         }
 
