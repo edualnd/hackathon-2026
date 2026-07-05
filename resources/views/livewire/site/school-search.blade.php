@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto my-12">
+<div class="mx-auto my-8 max-w-7xl px-4 sm:my-12 sm:px-6 lg:px-8">
 
     <span
         class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-text-on-canvas backdrop-blur-sm mb-4">
@@ -6,46 +6,50 @@
         Central de Vagas · SEDUC
     </span>
 
-    <div class="items-center gap-12 grid lg:grid-cols-3 items-start">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-start">
 
         {{-- =========================================
-        COLUNA ESQUERDA
+        COLUNA PRINCIPAL (mapa + estatísticas)
         ========================================== --}}
 
-        <div class="text-center lg:text-left col-span-2">
-
+        <div class="order-2 text-center lg:order-1 lg:col-span-2 lg:text-left">
 
             <livewire:mapa :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
 
+            {{-- Estatísticas --}}
+            <div class="mx-auto mt-8 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
 
+                <div class="rounded-2xl bg-white/10 p-4 backdrop-blur-md sm:p-5">
+                    <p class="font-data text-2xl font-semibold text-text-on-canvas sm:text-3xl">
+                        {{-- {{ $totais['total_vagas'] }} --}}
+                    </p>
+                    <p class="mt-1 text-sm text-white/70">
+                        vagas disponíveis
+                    </p>
+                </div>
+
+                <div class="rounded-2xl bg-white/10 p-4 backdrop-blur-md sm:p-5">
+                    <p class="font-data text-2xl font-semibold text-text-on-canvas sm:text-3xl">
+                        {{-- {{ $totais['total_escolas'] }} --}}
+                    </p>
+                    <p class="mt-1 text-sm text-white/70">
+                        unidades escolares
+                    </p>
+                </div>
+            </div>
         </div>
 
         {{-- =========================================
-             COLUNA DIREITA
+             FILTROS (aparece primeiro no mobile, à direita no desktop)
         ========================================== --}}
 
-        <aside class="mx-auto w-full max-w-sm lg:mx-0">
+        <aside class="order-1 mx-auto w-full max-w-sm lg:order-2 lg:mx-0">
 
-            <div id="filtros" class="rounded-3xl bg-neutral-950 p-6 shadow-2xl">
+            <div id="filtros" class="rounded-3xl bg-neutral-950 p-5 shadow-2xl sm:p-6">
 
-                <div class="flex gap-2 items-center mb-6 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(192, 236, 29)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sliders-horizontal-icon lucide-sliders-horizontal">
-                        <path d="M10 5H3"/>
-                        <path d="M12 19H3"/>
-                        <path d="M14 3v4"/>
-                        <path d="M16 17v4"/>
-                        <path d="M21 12h-9"/>
-                        <path d="M21 19h-5"/>
-                        <path d="M21 5h-7"/>
-                        <path d="M8 10v4"/>
-                        <path d="M8 12H3"/>
-                    </svg>
-
-                    <h2 class="text-xl font-semibold text-white">
-                        Filtrar vagas
-                    </h2>
-                </div>
-
+                <h2 class="mb-6 text-lg font-semibold text-white sm:text-xl">
+                    Filtrar vagas
+                </h2>
 
                 <div class="space-y-4">
                     <x-site.select label="Nível de ensino" name="nivel" :options="$tipos" wire:model.live="tipo" />
@@ -80,16 +84,16 @@
 
     </div>
 
-    <div class="rounded-3xl bg-neutral-100 p-6 shadow-2xl">
+    <div class="mt-8 rounded-3xl bg-neutral-100 p-4 shadow-2xl sm:p-6">
 
-        <h3 class="font-heading font-semibold text-[1.5rem] mb-4">EMEF Pontal Santamarina</h3>
+        <h3 class="font-heading font-semibold text-lg mb-4 sm:text-[1.5rem]">EMEF Pontal Santamarina</h3>
 
         <div class="mb-4">
             <livewire:accordian />
         </div>
 
-        {{-- <div class="grid lg:grid-cols-12 mb-4 gap-4">
-            <div class="flex flex-col col-span-1">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-4">
+            <div class="flex flex-col">
                 <strong class="font-bold text-[14px]">
                     Bairro:
                 </strong>
@@ -97,7 +101,7 @@
                 <span class="font-medium text-[14px]">Pereque</span>
             </div>
 
-            <div class="flex flex-col col-span-1">
+            <div class="flex flex-col">
                 <strong class="font-bold text-[14px]">
                     Região:
                 </strong>
@@ -105,16 +109,16 @@
                 <span class="font-medium text-[14px]">Sul</span>
             </div>
 
-            <div class="flex flex-col col-span-3">
+            <div class="flex flex-col sm:col-span-1">
                 <strong class="font-bold text-[14px]">
                     Endereço:
                 </strong>
 
                 <span class="font-medium text-[14px]">Av. Perequê-Mirim, 340 - Perequê-Mirim, Caraguatatuba - SP</span>
             </div>
-        </div> --}}
+        </div>
 
-        <div class="grid lg:grid-cols-6 gap-4">
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
 
             <div class="rounded-3xl bg-lime-200 p-4 flex flex-col justify-center">
 
@@ -133,7 +137,7 @@
                     </p>
                 </div>
 
-                <strong class="text-[2.25rem]/[1.5] font-bold">
+                <strong class="text-[1.75rem]/[1.5] font-bold sm:text-[2.25rem]">
                     20
                 </strong>
             </div>
@@ -141,9 +145,11 @@
             <div class="rounded-3xl bg-teal-light-200 p-4 flex flex-col justify-center">
 
                 <div class="flex gap-2 items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-check-icon lucide-check-check">
-                        <path d="M18 6 7 17l-5-5"/>
-                        <path d="m22 10-7.5 7.5L13 16"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 6v6l4 2"></path>
                     </svg>
 
                     <p class="text-[14px]">
@@ -151,7 +157,7 @@
                     </p>
                 </div>
 
-                <strong class="text-[2.25rem]/[1.5] font-bold">
+                <strong class="text-[1.75rem]/[1.5] font-bold sm:text-[2.25rem]">
                     20
                 </strong>
             </div>
@@ -159,10 +165,11 @@
             <div class="rounded-3xl bg-teal-dark-200 p-4 flex flex-col justify-center">
 
                 <div class="flex gap-2 items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-x-icon lucide-book-x">
-                        <path d="m14.5 7-5 5"/>
-                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
-                        <path d="m9.5 7 5 5"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 6v6l4 2"></path>
                     </svg>
 
                     <p class="text-[14px]">
@@ -170,7 +177,7 @@
                     </p>
                 </div>
 
-                <strong class="text-[2.25rem]/[1.5] font-bold">
+                <strong class="text-[1.75rem]/[1.5] font-bold sm:text-[2.25rem]">
                     20
                 </strong>
             </div>
@@ -190,12 +197,10 @@
                     </p>
                 </div>
 
-                <strong class="text-[2.25rem]/[1.5] font-bold">
+                <strong class="text-[1.75rem]/[1.5] font-bold sm:text-[2.25rem]">
                     20
                 </strong>
             </div>
-
-
 
         </div>
 
@@ -206,24 +211,6 @@
 
         <livewire:lista :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
 
-        <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
-            wire:target="nivel,bairro,serie,limparFiltros">
-        </div>
-
-        {{-- Botões --}}
-        <div class="mt-5 flex justify-center gap-4 lg:justify-start">
-        </div>
-
-        </aside>
-
     </div>
-    <div class="mt-8 transition-opacity" wire:loading.class="opacity-50"
-        wire:target="nivel, bairro, serie, limparFiltros">
 
-        <livewire:lista :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo"
-            :serie="$serie" />
-
-        <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
-            wire:target="nivel,bairro,serie,limparFiltros">
-        </div>
-    </div>
+</div>
