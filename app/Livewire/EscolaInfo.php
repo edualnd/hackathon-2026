@@ -38,6 +38,7 @@ class EscolaInfo extends Component
         $this->carregarDados();
     }
 
+
     public function render()
     {
         return view('livewire.escola-info');
