@@ -23,13 +23,6 @@ O projeto foi desenvolvido pelos seguintes integrantes:
 | **Rafael Tomaz** | [@RafaelTomazzz](https://github.com/RafaelTomazzz) |
 
 ---
-
----
-
----
-
----
-
 ## Sumário
 
 - [Stack utilizada](#stack-utilizada)
