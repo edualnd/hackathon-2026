@@ -23,7 +23,8 @@
             <div class="lg:col-span-2">
                 <x-site.input label="Buscar por série" name="busca" wire:model.live.debounce.400ms="busca" placeholder="Ex.: 5º Ano, M1..." />
             </div>
-            <x-site.select label="Escola" name="escolaFiltro" wire:model.live="escolaFiltro" :options="$escolas->pluck('nome', 'id')->all()" />
+            
+            <x-site.select label="Escola" name="escolaFiltro" wire:model.live="escolaFiltro" :options="$escolas" />
         </div>
 
         @if ($busca || $escolaFiltro)
@@ -96,6 +97,7 @@
                 </p>
                 <div class="font-body text-xs [&_.pagination]:flex [&_.pagination]:gap-1">
                     {{ $vagas->links() }}
+                    
                 </div>
             </div>
         @endif

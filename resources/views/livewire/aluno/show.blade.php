@@ -24,7 +24,7 @@
                 <x-site.input label="Buscar estudante" name="busca" wire:model.live.debounce.400ms="busca" placeholder="Buscar por nome, RA ou certidão" />
             </div>
             <x-site.select label="Situação do cadastro" name="statusFiltro" wire:model.live="statusFiltro" :options="$statuses" />
-            <x-site.select label="Escola" name="escolaFiltro" wire:model.live="escolaFiltro" :options="$escolas->pluck('nome', 'id')->all()" />
+            <x-site.select label="Escola" name="escolaFiltro" wire:model.live="escolaFiltro" :options="$escolas" />
         </div>
 
         @if ($busca || $statusFiltro || $escolaFiltro)
@@ -63,12 +63,12 @@
                             <td class="px-5 py-4">
                                 @php
                                     $variant = match($aluno->status) {
-                                        \App\Models\Aluno::STATUS_VAGA_CONSEGUIDA => 'success',
-                                        \App\Models\Aluno::STATUS_DESISTENCIA => 'neutral',
+                                        'Matriculado' => 'success',
+                                        'Desistencia' => 'neutral',
                                         default => 'warning',
                                     };
                                 @endphp
-                                <x-site.badge :variant="$variant">{{ $aluno->statusLabel() }}</x-site.badge>
+                                <x-site.badge :variant="$variant">{{ $aluno->escola?->nome ?? '—' }}</x-site.badge>
                                 <p class="mt-1 font-body text-[11px] text-seduc-neutral-500">{{ $aluno->updated_at->format('d/m/Y H:i') }}</p>
                             </td>
                             <td class="px-5 py-4">

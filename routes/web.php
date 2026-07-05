@@ -36,6 +36,16 @@ Route::get("/lista", Show::class)->name("lista");
 Route::get('/admin/login', AdminLogin::class)->name('admin.login');
 
 Route::prefix('admin')->name('admin.')->group(function () {
+    
+
+    Route::prefix('alunos')->name('alunos.')->group(function () {
+        Route::get('/', AlunoShow::class)->name('index');
+        Route::get('/novo', AlunoCreate::class)->name('create');
+        Route::get('/{aluno}/editar', AlunoEdit::class)->name('edit');
+    });
+
+});
+Route::prefix('v1')->name('v1.')->group(function () {
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
 
     Route::prefix('alunos')->name('alunos.')->group(function () {

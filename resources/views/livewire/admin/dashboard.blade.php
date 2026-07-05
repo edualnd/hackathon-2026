@@ -5,7 +5,7 @@
     </div>
 
     {{-- Cards de indicadores --}}
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div class="rounded-2xl border border-seduc-neutral-200 bg-background-surface p-5">
             <div class="flex items-center gap-3">
                 <span class="flex size-11 items-center justify-center rounded-full bg-lime-100 text-lime-700">
@@ -28,16 +28,6 @@
             <p class="mt-1 font-body text-xs text-seduc-neutral-500">Alunos aguardando chamada</p>
         </div>
 
-        <div class="rounded-2xl border border-seduc-neutral-200 bg-background-surface p-5">
-            <div class="flex items-center gap-3">
-                <span class="flex size-11 items-center justify-center rounded-full bg-teal-light-100 text-teal-dark-700">
-                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 19V6a2 2 0 0 1 2-2h6l2 2h6a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg>
-                </span>
-                <p class="font-body text-xs font-semibold uppercase tracking-wide text-seduc-neutral-500">Escolas cadastradas</p>
-            </div>
-            <p class="mt-4 font-data text-3xl font-semibold text-text-on-surface">{{ $totalEscolas }}</p>
-            <p class="mt-1 font-body text-xs text-seduc-neutral-500">{{ $escolasComVagas }} com vagas disponíveis</p>
-        </div>
 
         <div class="rounded-2xl border border-seduc-neutral-200 bg-background-surface p-5">
             <div class="flex items-center gap-3">
@@ -71,18 +61,21 @@
                 <tbody class="divide-y divide-seduc-neutral-100">
                     @forelse ($recentes as $aluno)
                         <tr>
-                            <td class="px-6 py-3.5 font-body text-sm font-medium text-text-on-surface">{{ $aluno->nome }}</td>
-                            <td class="px-6 py-3.5 font-body text-sm text-seduc-neutral-600">{{ $aluno->escola?->nome ?? '—' }}</td>
-                            <td class="px-6 py-3.5 font-body text-sm text-seduc-neutral-600">{{ $aluno->vaga?->serie ?? '—' }}</td>
+                            <td class="px-6 py-3.5 font-body text-sm font-medium text-text-on-surface">{{ $aluno['aluno']['nome'] }}</td>
+                            <td class="px-6 py-3.5 font-body text-sm text-seduc-neutral-600">{{ $aluno['aluno']['escola']['nome']?? '—' }}</td>
+                            <td class="px-6 py-3.5 font-body text-sm text-seduc-neutral-600">{{ $aluno['vaga']['serie'] ?? '—' }}</td>
                             <td class="px-6 py-3.5">
-                                @php
-                                    $variant = match($aluno->status) {
-                                        \App\Models\Aluno::STATUS_VAGA_CONSEGUIDA => 'success',
-                                        \App\Models\Aluno::STATUS_DESISTENCIA => 'neutral',
-                                        default => 'warning',
-                                    };
-                                @endphp
-                                <x-site.badge :variant="$variant">{{ $aluno->statusLabel() }}</x-site.badge>
+                            @php
+                                $variants = [
+                                    'Matriculado' => 'success',
+                                    'Aguardando' => 'neutral',
+                                    'Foi chamado' => 'info'
+                                ];
+                            @endphp
+
+                            <x-site.badge :variant="$variants[$aluno['status']] ?? 'neutral'">
+                                {{ $aluno['status'] ?? '—' }}
+                            </x-site.badge>
                             </td>
                         </tr>
                     @empty

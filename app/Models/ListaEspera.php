@@ -11,10 +11,12 @@ class ListaEspera extends Model
 
     protected $fillable = [
         'aluno_id',
+        'escola_id',
         'vaga_id',
         'posicao',
         'pontuacao',
         'data_chamada',
+        'status',
     ];
 
     protected $casts = [

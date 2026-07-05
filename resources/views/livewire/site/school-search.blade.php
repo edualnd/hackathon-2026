@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto ">
+<div class="max-w-7xl mx-auto my-12">
 
     <span
         class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-text-on-canvas backdrop-blur-sm mb-4">
@@ -9,7 +9,7 @@
     <div class="items-center gap-12 grid lg:grid-cols-3 items-start">
 
         {{-- =========================================
-             COLUNA ESQUERDA
+        COLUNA ESQUERDA
         ========================================== --}}
 
         <div class="text-center lg:text-left col-span-2">
@@ -22,8 +22,20 @@
 
 
 
+                <p class="mt-1 text-sm text-white/70">
+                    vagas disponíveis
+                </p>
             </div>
 
+            <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
+                <p class="font-data text-3xl font-semibold text-text-on-canvas">
+                    {{-- {{ $totais['total_escolas'] }} --}}
+                </p>
+
+                <p class="mt-1 text-sm text-white/70">
+                    unidades escolares
+                </p>
+            </div>
         </div>
 
         {{-- =========================================
@@ -202,5 +214,19 @@
         <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
             wire:target="nivel,bairro,serie,limparFiltros">
         </div>
+
+        {{-- Botões --}}
+        <div class="mt-5 flex justify-center gap-4 lg:justify-start">
+        </div>
+
+    </aside>
+
+</div>
+<div class="mt-8 transition-opacity" wire:loading.class="opacity-50" wire:target="nivel, bairro, serie, limparFiltros">
+
+    <livewire:lista :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
+
+    <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
+        wire:target="nivel,bairro,serie,limparFiltros">
     </div>
 </div>

@@ -7,7 +7,7 @@
 
 <div class="w-full">
     @if ($label)
-        <label for="{{ $name }}" class="mb-1.5 block font-body text-sm font-medium text-text-on-surface">
+        <label for="{{ $name }}" class="mb-1.5 block font-body text-sm font-medium text-neutral-500">
             {{ $label }}
         </label>
     @endif
@@ -23,8 +23,9 @@
         >
             @if ($slot->isEmpty())
                 <option value="">{{ $placeholder }}</option>
-                @foreach ($options as $key => $value)
-                    <option value="{{ is_int($key) ? $value : $key }}">{{ $value }}</option>
+                @foreach ($options as $o)
+                
+                    <option value="{{ $o['id']}}">{{ $o['nome'] }}</option>
                 @endforeach
             @else
                 {{ $slot }}
