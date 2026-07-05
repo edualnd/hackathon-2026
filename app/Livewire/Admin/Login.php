@@ -25,7 +25,7 @@ class Login extends Component
     {
         $this->validate();
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('dashboard');
     }
 
     public function render()

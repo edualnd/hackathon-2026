@@ -151,7 +151,7 @@
         </div>
     @endif
     <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <x-site.button variant="ghost" href="{{ route('admin.alunos.index') }}">Cancelar</x-site.button>
+        <x-site.button variant="ghost" href="{{ route('alunos.index') }}">Cancelar</x-site.button>
         <x-site.button variant="primary" type="submit" wire:loading.attr="disabled" wire:target="salvar">
             <span wire:loading.remove wire:target="salvar">Editar cadastro</span>
             <span wire:loading wire:target="salvar">Salvando...</span>

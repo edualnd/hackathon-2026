@@ -6,6 +6,7 @@ use App\Models\Aluno;
 use App\Models\Escola;
 use App\Models\ListaEspera;
 use App\Models\Vaga;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -18,20 +19,37 @@ class Dashboard extends Component
     public $recentes;
 
     public function carregarDados(){
-        $this->totalVagas = Vaga::where('escola_id', 1)->count();
-        $this->totalListaEspera = ListaEspera::where('escola_id', 1)->where('status', "Aguardando")->count();
-        $this->totalMatriculados = ListaEspera::where('escola_id',1)
-        ->where('status', 'Matriculado')
-        ->count();
-        $this->recentes = ListaEspera::where('escola_id', 1)
-        ->with(['aluno.escola', 'vaga'])
-        ->latest()
-        ->take(6)
-        ->get()
-        ->toArray();
-        
-        
-    }
+        $escola = Auth::user()->escola_id ?? 'any';
+
+        $this->totalVagas = $escola === 'any'
+            ? Vaga::sum('qtd')
+            : Vaga::where('escola_id', $escola)->sum('qtd');
+
+        $this->totalListaEspera = $escola === 'any'
+            ? ListaEspera::where('status', 'Aguardando')->count()
+            : ListaEspera::where('escola_id', $escola)
+                ->where('status', 'Aguardando')
+                ->count();
+
+        $this->totalMatriculados = $escola === 'any'
+            ? ListaEspera::where('status', 'Matriculado')->count()
+            : ListaEspera::where('escola_id', $escola)
+                ->where('status', 'Matriculado')
+                ->count();
+
+        $this->recentes = $escola === 'any'
+            ? ListaEspera::with(['aluno.escola', 'vaga'])
+                ->latest('created_at')
+                ->limit(6)
+                ->get()
+            : ListaEspera::where('escola_id', $escola)
+                ->with(['aluno.escola', 'vaga'])
+                ->latest('created_at')
+                ->limit(6)
+                ->get();
+                
+            
+            }
     public function render()
     {
         $this->carregarDados();

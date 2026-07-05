@@ -4,6 +4,7 @@ namespace App\Livewire\Vagas;
 
 use App\Models\Escola;
 use App\Models\Vaga;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -28,8 +29,8 @@ class Create extends Component
     ];
 
     public $escola = [
-        'id' => "",
-        'nome' => " ",
+        ['id' => "",
+        'nome' => " ",]
     ];
 
     #[On('dispatchOpenModalCreateVaga')]
@@ -37,9 +38,10 @@ class Create extends Component
     {
         $this->resetValidation();
         $this->reset('vaga');
-        $this->escola = Escola::select('id', 'nome')->where('id', 1)->first()->toArray();
+        $escola = Auth::user()->escola_id;;
+        $this->escola = Escola::select('id', 'nome')->get()->toArray();
         $this->vaga =  [
-            'escola_id' => $this->escola['id'],
+            'escola_id' => $escola,
             'qtd' => 0,
             'serie' => '',
         ];

@@ -3,8 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Escola;
+use App\Models\User;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -32,7 +36,8 @@ class User extends Authenticatable
         'email',
         'password',
         'cpf',
-        'role'
+        'role',
+        'escola_id'
     ];
 
     /**
@@ -67,5 +72,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    
+    public function escola(): BelongsTo
+    {
+        return $this->belongsTo(Escola::class);
     }
 }

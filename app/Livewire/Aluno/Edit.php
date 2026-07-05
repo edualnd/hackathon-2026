@@ -136,16 +136,43 @@ $data = $response->json();
             ...$this->dadosAluno,
             'escola_id' => $vaga->escola_id,
         ]);
-        ListaEspera::where('aluno_id', $this->aluno->id) ->update([ 'vaga_id' =>$this->dadosAluno['vaga_id'], 'status' => $this->status, ]);
-
+        $lista = ListaEspera::where('aluno_id', $this->aluno->id) ->update([ 'vaga_id' =>$this->dadosAluno['vaga_id'], 'status' => $this->status, ]);
+        if ($this->status === "Matriculado") {
+            Vaga::where('id', $this->dadosAluno['vaga_id'])
+                ->decrement('qtd');
+            $this->classificar($this->dadosAluno['vaga_id']);
+        }
         $this->aluno->criterios()->first()?->update($this->dadosCriterio)
             ?? $this->aluno->criterios()->create($this->dadosCriterio);
 
         session()->flash('success', "Cadastro de {$this->aluno->nome} atualizado com sucesso.");
 
-        return redirect()->route('v1.alunos.index');
+        return redirect()->route('alunos.index');
+    }
+        public function classificar($vagaId)
+{
+    $lista = ListaEspera::where('vaga_id', $vagaId)
+        ->where('status', '!=', 'Matriculado')
+        ->orderByDesc('pontuacao')
+        ->orderBy('created_at')
+        ->get();
+
+    $posicao = 1;
+
+    foreach ($lista as $item) {
+        $item->update([
+            'posicao' => $posicao
+        ]);
+
+        $posicao++;
     }
 
+    ListaEspera::where('vaga_id', $vagaId)
+        ->where('status', 'Matriculado')
+        ->update([
+            'posicao' => 0
+        ]);
+    }
     public function render()
     {
         return view('livewire.aluno.edit', [

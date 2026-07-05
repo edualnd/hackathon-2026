@@ -6,6 +6,7 @@ namespace App\Livewire\Vagas;
 use App\Models\Escola;
 use App\Models\ListaEspera;
 use App\Models\Vaga;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -56,34 +57,38 @@ public function excluir(int $id): void
 
         $this->successMessage = "Vaga {$descricao} removida.";
     }
-  
+  public function mount()
+    {
+        $this->escolaFiltro = Auth::user()->escola_id ?? 'all';
+    }
+
     public function render()
     {
         
-
+        
         return view('livewire.vagas.index', [
 
-'vagas' => Vaga::query()
-    ->with('escola:id,nome')
+        'vagas' => Vaga::query()
+            ->with('escola:id,nome')
 
-    ->withCount([
-        'lista as total_lista_espera',
+            ->withCount([
+                'lista as total_lista_espera',
 
-        'lista as matriculados_count' =>
-            fn ($q) => $q->where('status', 'Matriculado'),
-    ])
+                'lista as matriculados_count' =>
+                    fn ($q) => $q->where('status', 'Matriculado'),
+            ])
 
-    ->when($this->busca, fn ($q) =>
-        $q->where('serie', 'like', "%{$this->busca}%")
-    )
+            ->when($this->busca, fn ($q) =>
+                $q->where('serie', 'like', "%{$this->busca}%")
+            )
 
-    ->when($this->escolaFiltro, fn ($q) =>
-        $q->where('escola_id', $this->escolaFiltro)
-    )
+            ->when($this->escolaFiltro, fn ($q) =>
+                $q->where('escola_id', $this->escolaFiltro)
+            )
 
-    ->paginate(10),
+            ->paginate(10),
 
-        'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get()->toArray(),
-    ]);
+                'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get()->toArray(),
+            ]);
     }
 }   

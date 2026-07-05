@@ -74,29 +74,9 @@
 
             marker.on('click', () => {
 
-                let vagas = '';
-
-                escola.vagas.forEach(vaga => {
-                    vagas += `<li>${vaga.serie}: ${vaga.qtd}</li>`;
+                Livewire.dispatch('escolaSelecionada', {
+                    escola: escola
                 });
-
-                card.innerHTML = `
-                <h2>${escola.nome}</h2>
-
-                <p><strong>Tipo:</strong> ${escola.tipo}</p>
-                <p><strong>Região:</strong> ${escola.regiao}</p>
-                <p><strong>Bairro:</strong> ${escola.bairro}</p>
-                <p><strong>Endereço:</strong> ${escola.endereco}</p>
-                <p><strong>Telefone:</strong> ${escola.telefone ?? ''}</p>
-                <p><strong>Email:</strong> ${escola.email ?? ''}</p>
-                <p><strong>Integral:</strong> ${escola.integral ? 'Sim' : 'Não'}</p>
-
-                <h3>Vagas</h3>
-
-                <ul>
-                    ${vagas}
-                </ul>
-            `;
             });
 
         });
