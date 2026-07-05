@@ -37,11 +37,11 @@ class ListaPublica extends Component
 
         $this->vaga = Vaga::with('escola')->findOrFail($id);
 
-        $this->listaEspera = ListaEspera::with('aluno')
-        ->where('vaga_id', $id)
-        ->orderByRaw('CASE WHEN posicao = 0 THEN 1 ELSE 0 END')
-        ->orderBy('posicao')
-        ->get();
+         $this->listaEspera = ListaEspera::with('aluno')
+            ->where('vaga_id', $id)
+            ->whereNotIn('status', ["Matriculado", "Desistencia"])
+            ->orderBy('posicao')
+            ->get();;
 
 
     }

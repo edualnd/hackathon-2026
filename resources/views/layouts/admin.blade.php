@@ -28,7 +28,9 @@
     </div>
 
     <div class="hidden md:flex min-h-screen">
-        <aside class="flex w-64 shrink-0 flex-col justify-between bg-seduc-neutral-900 px-4 py-6">
+        <aside
+            class="flex w-64 shrink-0 flex-col justify-between bg-[#125e5e] x-4 py-6"
+        >
             <div>
                 <a
                     href="{{ route('dashboard') }}"
@@ -72,13 +74,12 @@
                     >
                         Vagas
                     </x-site.sidebar-link>
-                    
 
                     <p
-                        class="mt-4 px-3.5 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-500"
+                        class="mt-4 px-3.5 font-body text-[11px] font-semibold uppercase tracking-wide text-white/50"
                     >Em breve</p>
                     <span
-                        class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-seduc-neutral-500/70"
+                        class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-white/50"
                         title="Funcionalidade ainda não disponível"
                     >
                         <span class="flex size-5 items-center justify-center"
@@ -97,7 +98,7 @@
                         Mapa Interativo
                     </span>
                     <span
-                        class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-seduc-neutral-500/70"
+                        class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-white/50"
                         title="Funcionalidade ainda não disponível"
                     >
                         <span class="flex size-5 items-center justify-center"
@@ -116,7 +117,7 @@
                         Relatórios
                     </span>
                     <span
-                        class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-seduc-neutral-500/70"
+                        class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-white/50"
                         title="Funcionalidade ainda não disponível"
                     >
                         <span class="flex size-5 items-center justify-center"

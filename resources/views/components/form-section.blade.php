@@ -6,12 +6,12 @@
             {{ $title }}
         </x-slot>
         <x-slot name="description">
-            {{ $description }}
+            {{ $description ?? ''}}
         </x-slot>
     </x-section-title>
 
     <div class="mt-5 md:mt-0 md:col-span-2">
-        <form wire:submit="{{ $submit }}">
+        <form wire:submit="{{ $submit ?? '' }}">
             <div
                 class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow-sm {{ isset($actions) ? 'sm:rounded-tl-md sm:rounded-tr-md' : 'sm:rounded-md' }}"
             >

@@ -24,7 +24,7 @@ class Show extends Component
 
         $this->listaEspera = ListaEspera::with('aluno')
             ->where('vaga_id', $vagaId)
-            ->orderByRaw('CASE WHEN posicao = 0 THEN 1 ELSE 0 END')
+            ->whereNotIn('status', ["Matriculado", "Desistencia"])
             ->orderBy('posicao')
             ->get();
         
