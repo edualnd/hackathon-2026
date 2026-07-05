@@ -19,7 +19,7 @@ use Livewire\Component;
  */
 class SchoolSearch extends Component
 {
-     public $escolas = [];
+    public $escolas = [];
     public $bairros = [];
     public $regioes = [];
     public $tipos = [];
@@ -29,7 +29,8 @@ class SchoolSearch extends Component
     public $tipo = "";
     public $serie = "";
 
-    public function carregarDados(){
+    public function carregarDados()
+    {
         $query = Escola::query()->with(['vagas', 'listaEspera']);
         $query->when($this->regiao, function ($q) {
             $q->where('regiao', $this->regiao);
@@ -52,8 +53,15 @@ class SchoolSearch extends Component
         $escolas = $query->get();
         $this->bairros = $escolas->pluck('bairro')->unique()->values();
         $this->regioes = $escolas->pluck('regiao')->unique()->values();
-        $this->tipos = $escolas->pluck('tipo')->unique()->values();
-        $this->series = $escolas->flatMap(fn ($escola) => $escola->vagas->pluck('serie'))->unique()->values();
+        $this->tipos = $escolas
+            ->pluck('tipo')
+            ->unique()
+            ->values()
+            ->map(fn($tipo, $index) => [
+                'id' => $tipo,
+                'nome' => $tipo,
+            ]);
+        $this->series = $escolas->flatMap(fn($escola) => $escola->vagas->pluck('serie'))->unique()->values();
 
         // Formato consumido por x-site.school-card (nivel, vagas e lista_espera
         // agregados, em vez dos relacionamentos crus do Eloquent).

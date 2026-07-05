@@ -62,15 +62,13 @@
                             </td>
                             <td class="px-5 py-4">
                                 @php
-                                    $variant = match($aluno->listaEspera?->status) {
+                                    $variant = match($aluno->status) {
                                         'Matriculado' => 'success',
-                                        'Aguardando' => 'warning',
-                                        'Foi chamado' => 'info',
-                                        'Desistencia' => 'danger',
-                                        default => 'info',
+                                        'Desistencia' => 'neutral',
+                                        default => 'warning',
                                     };
                                 @endphp
-                                <x-site.badge :variant="$variant">{{ $aluno->listaEspera?->status ?? '—' }}</x-site.badge>
+                                <x-site.badge :variant="$variant">{{ $aluno->escola?->nome ?? '—' }}</x-site.badge>
                                 <p class="mt-1 font-body text-[11px] text-seduc-neutral-500">{{ $aluno->updated_at->format('d/m/Y H:i') }}</p>
                             </td>
                             <td class="px-5 py-4">
@@ -103,7 +101,11 @@
                     Mostrando {{ $alunos->firstItem() }} até {{ $alunos->lastItem() }} de {{ $alunos->total() }} resultados
                 </p>
                 <div class="flex items-center gap-4">
-                    
+                    <select wire:model.live="perPage" class="rounded-lg border border-seduc-neutral-300 bg-background-surface px-2.5 py-1.5 font-body text-xs text-text-on-surface">
+                        <option value="5">5 por página</option>
+                        <option value="10">10 por página</option>
+                        <option value="25">25 por página</option>
+                    </select>
                     <div class="font-body text-xs [&_.pagination]:flex [&_.pagination]:gap-1">
                         {{ $alunos->links() }}
                     </div>

@@ -25,6 +25,7 @@ class Show extends Component
 
     public int $perPage = 5;
 
+    protected $queryString = ['busca', 'statusFiltro', 'escolaFiltro'];
 
     public function updating($property): void
     {
@@ -51,8 +52,7 @@ class Show extends Component
     public function render()
     {
         $alunos = Aluno::query()
-            ->whereHas('listaEspera')
-            ->with(['escola', 'vaga', 'listaEspera'])
+            ->with(['escola', 'vaga'])
             ->when($this->busca, function ($query) {
                 $termo = "%{$this->busca}%";
                 $query->where(function ($q) use ($termo) {
@@ -64,16 +64,16 @@ class Show extends Component
             ->when($this->statusFiltro, fn ($query) => $query->where('status', $this->statusFiltro))
             ->when($this->escolaFiltro, fn ($query) => $query->where('escola_id', $this->escolaFiltro))
             ->orderByDesc('created_at')
-            ->paginate(10);
+            ->paginate($this->perPage);
 
         return view('livewire.aluno.show', [
             'alunos' => $alunos,
             'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get()->toArray(),
             'statuses' => [
-                ['id' => 'Aguardando', 'nome' => 'Aguardando'],
-                ['id' => 'Matriculado', 'nome' => 'Matriculado'],
-                ['id' => 'Desistencia', 'nome' => 'Desistencia'],
-                ['id' => 'Foi chamado', 'nome' => 'Foi chamado'],
+                'Aguardando' => 'Aguardando',
+                'Matriculado' => 'Matriculado',
+                'Desistencia' => 'Desistencia',
+                'Foi chamado' => 'Foi chamado',
             ],
         ]);
     }
