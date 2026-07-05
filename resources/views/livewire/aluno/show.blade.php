@@ -47,6 +47,7 @@
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Contato</th>
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Escola de opção</th>
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Série</th>
+                        <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Posição</th>
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Situação</th>
                        
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600 text-right">Ações</th>
@@ -64,6 +65,9 @@
                             <td class="px-5 py-4 font-body text-sm text-seduc-neutral-600">{{ $aluno->escola?->nome ?? '—' }}</td>
                             <td class="px-5 py-4">
                                 <x-site.badge variant="neutral">{{ $aluno->vaga?->serie ?? '—' }}</x-site.badge>
+                            </td>
+                            <td class="px-5 py-4">
+                                <x-site.badge class="text-bold">{{ $aluno->listaEspera?->posicao }}</x-site.badge>
                             </td>
                             <td class="px-5 py-4">
                                 @php

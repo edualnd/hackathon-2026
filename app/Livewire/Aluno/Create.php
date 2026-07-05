@@ -160,7 +160,7 @@ $data = $response->json();
             "{$aluno->nome} foi cadastrado(a) com sucesso!"
             );
 
-        return redirect()->route('v1.alunos.index');
+        return redirect()->route('x-buttonlunos.index');
     }
 
     public function adicionarLista($id) {
@@ -197,19 +197,29 @@ $data = $response->json();
 
         return $pontos;
     }
-    public function classificar($vagaId){
-        $lista = ListaEspera::where('vaga_id', $vagaId)
+    public function classificar($vagaId)
+{
+    $lista = ListaEspera::where('vaga_id', $vagaId)
+        ->where('status', '!=', 'Matriculado')
         ->orderByDesc('pontuacao')
         ->orderBy('created_at')
         ->get();
 
-        $posicao = 1;
+    $posicao = 1;
 
-        foreach ($lista as $item) {
-            $item->posicao = $posicao;
-            $item->save();
-            $posicao++;
-        }
+    foreach ($lista as $item) {
+        $item->update([
+            'posicao' => $posicao
+        ]);
+
+        $posicao++;
+    }
+
+    ListaEspera::where('vaga_id', $vagaId)
+        ->where('status', 'Matriculado')
+        ->update([
+            'posicao' => 0
+        ]);
     }
     
     public function render()

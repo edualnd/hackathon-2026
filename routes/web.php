@@ -41,6 +41,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('/vagas', VagasIndex::class)->name('vagas.index');
+    Route::get('/listas', VagasIndex::class)->name('listas');
     Route::prefix('alunos')->name('alunos.')->group(function () {
         Route::get('/', AlunoShow::class)->name('index');
         Route::get('/novo', AlunoCreate::class)->name('create');

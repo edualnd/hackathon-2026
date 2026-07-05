@@ -22,8 +22,8 @@ class Dashboard extends Component
         $escola = Auth::user()->escola_id ?? 'any';
 
         $this->totalVagas = $escola === 'any'
-            ? Vaga::count()
-            : Vaga::where('escola_id', $escola)->count();
+            ? Vaga::sum('qtd')
+            : Vaga::where('escola_id', $escola)->sum('qtd');
 
         $this->totalListaEspera = $escola === 'any'
             ? ListaEspera::where('status', 'Aguardando')->count()

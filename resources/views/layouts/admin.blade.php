@@ -62,6 +62,10 @@
                         icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3Zm0 0V7m6 13V10"/></svg>'>
                         Vagas
                     </x-site.sidebar-link>
+                    <x-site.sidebar-link href="{{ route('listas') }}"
+                        icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3 4 6v15l5-3 6 3 5-3V3l-5 3-6-3Zm0 3v12m6-9v12"/></svg>'>
+                        Listas de espera
+                    </x-site.sidebar-link>
                     <x-site.sidebar-link href="{{ route('mapa') }}"
                         icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3 4 6v15l5-3 6 3 5-3V3l-5 3-6-3Zm0 3v12m6-9v12"/></svg>'>
                         Mapa interativo
