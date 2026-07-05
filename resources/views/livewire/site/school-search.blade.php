@@ -1,11 +1,13 @@
-<div>
-<section class="relative -mt-6 overflow-hidden px-4 py-12 lg:py-20">
 
-    <div class="mx-auto max-w-7xl px-4">
+<div class="max-w-7xl mx-auto ">
+
+    <div class="items-center gap-12 grid lg:grid-cols-3 ">
+
         {{-- =========================================
-             CABEÇALHO
+             COLUNA ESQUERDA
         ========================================== --}}
-        <div class="text-center lg:text-left">
+
+        <div class="text-center lg:text-left col-span-2">
 
             <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-text-on-canvas backdrop-blur-sm">
                 <span class="size-1.5 rounded-full bg-action-primary"></span>
@@ -25,7 +27,7 @@
 
                 <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
                     <p class="font-data text-3xl font-semibold text-text-on-canvas">
-                        {{ $totais['total_vagas'] }}
+                        {{-- {{ $totais['total_vagas'] }} --}}
                     </p>
 
                     <p class="mt-1 text-sm text-white/70">
@@ -35,7 +37,7 @@
 
                 <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
                     <p class="font-data text-3xl font-semibold text-text-on-canvas">
-                        {{ $totais['total_escolas'] }}
+                        {{-- {{ $totais['total_escolas'] }} --}}
                     </p>
 
                     <p class="mt-1 text-sm text-white/70">
@@ -46,14 +48,6 @@
             </div>
 
         </div>
-    </div>
-
-    <div class="mx-auto mt-10 grid max-w-7xl items-start gap-12 px-4 lg:grid-cols-[1fr_380px]">
-
-        {{-- =========================================
-             COLUNA ESQUERDA — mapa (extremo oposto ao filtro)
-        ========================================== --}}
-
 
         {{-- =========================================
              COLUNA DIREITA
@@ -74,22 +68,22 @@
 
                     <x-site.select
                         label="Nível de ensino"
-                        name="tipo"
-                        :options="$tipos"
-                        wire:model.live="tipo"
+                        name="nivel"
+                        :options="[]"
+                        wire:model.live="nivel"
                     />
 
                     <x-site.select
                         label="Bairro"
                         name="bairro"
-                        :options="$bairros"
+                        :options="[]"
                         wire:model.live="bairro"
                     />
 
                     <x-site.select
                         label="Série"
                         name="serie"
-                        :options="$series"
+                        :options="[]"
                         wire:model.live="serie"
                     />
 
@@ -124,38 +118,32 @@
 
             </div>
 
-            {{-- Botão de limpar filtro fica aqui, o switch lista/mapa foi pra coluna esquerda --}}
+            {{-- Botões --}}
+            <div class="mt-5 flex justify-center gap-4 lg:justify-start">
+
+
+            </div>
 
         </aside>
 
     </div>
+    <div
+        class="mt-8 transition-opacity"
+        wire:loading.class="opacity-50"
+        wire:target="nivel, bairro, serie, limparFiltros">
 
-</section>
+        <livewire:lista
+            :escolas="$escolas" 
+            :regiao="$regiao"
+            :bairro="$bairro"
+            :tipo="$tipo"
+            :serie="$serie"
+        />
 
-{{-- RESULTADOS --}}
-<div
-    class="mx-auto mt-12 max-w-7xl px-4 transition-opacity"
-    wire:loading.class="opacity-50"
-    wire:target="tipo,bairro,serie,limparFiltros"
->
-    @if (empty($escolas))
-        <div class="rounded-2xl border border-dashed border-white/25 bg-white/5 p-10 text-center backdrop-blur-sm">
-            <p class="font-heading text-base font-semibold text-text-on-canvas">Nenhuma unidade encontrada</p>
-            <p class="mt-1 font-body text-sm text-white/70">Tente ajustar ou limpar os filtros selecionados.</p>
+        <div
+            class="mx-auto mt-12 max-w-7xl px-4 transition-opacity"
+            wire:loading.class="opacity-50"
+            wire:target="nivel,bairro,serie,limparFiltros">
         </div>
-    @else
-        <p class="mb-4 font-body text-sm text-white/70">
-            <span class="font-semibold text-text-on-canvas">{{ count($escolas) }}</span>
-            {{ count($escolas) === 1 ? 'unidade encontrada' : 'unidades encontradas' }}
-        </p>
-
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            @foreach ($escolas as $escola)
-                <x-site.school-card :escola="$escola" wire:key="escola-{{ $escola['id'] }}" />
-            @endforeach
-        </div>
-    @endif
-</div>
-
-
+    </div>
 </div>
