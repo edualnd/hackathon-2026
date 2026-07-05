@@ -10,10 +10,8 @@
             </button>
         </section>
     </div>
-    <div>
-        
-    </div>
     <div class="block">
+        
         
         <livewire:lista 
                         :escolas="$escolas" 
@@ -30,6 +28,5 @@
                     :tipo="$tipo"
                     :serie="$serie"
                 />
-        
     </div>
 </div>

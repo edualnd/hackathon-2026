@@ -16,6 +16,7 @@ class ListaEspera extends Model
         'posicao',
         'pontuacao',
         'data_chamada',
+        'status',
     ];
 
     protected $casts = [

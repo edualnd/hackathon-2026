@@ -4,36 +4,37 @@ namespace App\Livewire\Admin;
 
 use App\Models\Aluno;
 use App\Models\Escola;
+use App\Models\ListaEspera;
 use App\Models\Vaga;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts.admin', ['pageTitle' => 'Dashboard'])]
 class Dashboard extends Component
 {
+    public $totalVagas;
+    public $totalListaEspera;
+    public $totalMatriculados;
+    public $recentes;
+
+    public function carregarDados(){
+        $this->totalVagas = Vaga::where('escola_id', 1)->count();
+        $this->totalListaEspera = ListaEspera::where('escola_id', 1)->where('status', "Aguardando")->count();
+        $this->totalMatriculados = ListaEspera::where('escola_id',1)
+        ->where('status', 'Matriculado')
+        ->count();
+        $this->recentes = ListaEspera::where('escola_id', 1)
+        ->with(['aluno.escola', 'vaga'])
+        ->latest()
+        ->take(6)
+        ->get()
+        ->toArray();
+        
+        
+    }
     public function render()
     {
-        $totalVagas = Vaga::sum('qtd');
-        $totalListaEspera = Aluno::where('status', Aluno::STATUS_FILA_ESPERA)->count();
-        $totalEscolas = Escola::count();
-        $totalMatriculados = Aluno::where('status', Aluno::STATUS_VAGA_CONSEGUIDA)->count();
-
-        $escolasComVagas = Vaga::query()
-            ->select('escola_id')
-            ->where('qtd', '>', 0)
-            ->distinct()
-            ->count('escola_id');
-
-        $recentes = Aluno::with(['escola', 'vaga'])
-            ->latest()
-            ->take(6)
-            ->get();
-
-        return view('livewire.admin.dashboard', [
-            'totalVagas' => $totalVagas,
-            'totalListaEspera' => $totalListaEspera,
-            'totalEscolas' => $totalEscolas,
-            'totalMatriculados' => $totalMatriculados,
-            'escolasComVagas' => $escolasComVagas,
-            'recentes' => $recentes,
-        ])->layout('layouts.admin', ['pageTitle' => 'Dashboard']);
+        $this->carregarDados();
+        return view('livewire.admin.dashboard');
     }
 }

@@ -38,7 +38,6 @@
                     unidades escolares
                 </p>
             </div>
-
         </div>
 
     </div>
