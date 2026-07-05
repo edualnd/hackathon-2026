@@ -88,6 +88,10 @@
 
         <h3 class="font-heading font-semibold text-[1.5rem] mb-4">EMEF Pontal Santamarina</h3>
 
+        <div class="mb-4">
+            <livewire:accordian />
+        </div>
+
         <div class="grid lg:grid-cols-12 mb-4 gap-4">
             <div class="flex flex-col col-span-1">
                 <strong class="font-bold text-[14px]">
