@@ -17,7 +17,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="relative min-h-screen bg-fixed bg-gradient-to-br from-background-canvas-primary via-background-canvas-secondary to-background-canvas-tertiary font-body text-text-on-surface antialiased">
+    <body class="relative min-h-screen bg-fixed bg-gradient-to-br from-background-canvas-primary via-background-canvas-secondary to-background-canvas-tertiary font-body text-text-on-surface antialiased pb-20 sm:pb-0">
         <x-site.topbar :title="$pageTitle ?? null" :back="$back ?? null" />
 
            <div class="absolute inset-0 opacity-[0.06] pointer-events-none" aria-hidden="true">
@@ -35,7 +35,7 @@
             {{ $slot }}
         </main>
 
-        <footer class="border-t border-seduc-neutral-200 bg-seduc-neutral-100/60 px-4 py-8 font-body text-xs text-seduc-neutral-600">
+        <footer class="hidden border-t border-seduc-neutral-200 bg-seduc-neutral-100/60 px-4 py-8 font-body text-xs text-seduc-neutral-600 sm:block">
             <div class="mx-auto max-w-5xl">
                 <p>© {{ date('Y') }} SEDUC · Secretaria de Educação de Caraguatatuba · Todos os direitos reservados</p>
                 <p class="mt-1">Dados exibidos nesta tela são simulados para fins de demonstração.</p>

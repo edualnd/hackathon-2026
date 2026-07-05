@@ -1,86 +1,98 @@
-<div class="mx-auto my-8 max-w-7xl px-4 sm:my-12 sm:px-6 lg:px-8">
+<div class="mx-auto sm:my-8 max-w-7xl px-4 sm:my-12 sm:px-6 lg:px-8">
 
     <span
-        class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-text-on-canvas backdrop-blur-sm mb-4">
+        class="hidden lg:inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-text-on-canvas backdrop-blur-sm mb-4">
         <span class="size-1.5 rounded-full bg-action-primary"></span>
         Central de Vagas · SEDUC
     </span>
 
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-start">
 
+      <div class="relative lg:contents">
+
         {{-- =========================================
-        COLUNA PRINCIPAL (mapa + estatísticas)
+             MOBILE: moldura escura ao redor do mapa (estilo "app"),
+             com o badge dentro e o filtro flutuando por cima do mapa.
+             Em telas lg+ esta div vira display:contents (sem fundo
+             nem padding) e o layout desktop original assume: mapa
+             e coluna de filtros lado a lado, exatamente como antes.
         ========================================== --}}
 
-        <div class="order-2 text-center lg:order-1 lg:col-span-2 lg:text-left">
+        <div class="rounded-[28px] p-2.5 lg:contents">
 
-            <livewire:mapa :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
-
-            {{-- Estatísticas --}}
-            <div class="mx-auto mt-8 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
-
-                <div class="rounded-2xl bg-white/10 p-4 backdrop-blur-md sm:p-5">
-                    <p class="font-data text-2xl font-semibold text-text-on-canvas sm:text-3xl">
-                        {{-- {{ $totais['total_vagas'] }} --}}
-                    </p>
-                    <p class="mt-1 text-sm text-white/70">
-                        vagas disponíveis
-                    </p>
-                </div>
-
-                <div class="rounded-2xl bg-white/10 p-4 backdrop-blur-md sm:p-5">
-                    <p class="font-data text-2xl font-semibold text-text-on-canvas sm:text-3xl">
-                        {{-- {{ $totais['total_escolas'] }} --}}
-                    </p>
-                    <p class="mt-1 text-sm text-white/70">
-                        unidades escolares
-                    </p>
-                </div>
+            <div class="mb-2 px-1 pt-0.5 lg:hidden">
+                <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-white">
+                    <span class="size-1.5 rounded-full bg-action-primary"></span>
+                    Central de Vagas
+                </span>
             </div>
+
+            <div class="relative lg:contents">
+
+                {{-- =========================================
+                COLUNA PRINCIPAL (mapa + estatísticas)
+                ========================================== --}}
+
+                <div class="text-center lg:order-1 lg:col-span-2 lg:text-left">
+
+                    <livewire:mapa :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
+                </div>
+
+                {{-- =========================================
+                     FILTROS (flutua sobre o mapa no mobile; coluna fixa no desktop)
+                ========================================== --}}
+
+                <aside x-data="{ open: true }" class="absolute inset-x-2.5 top-2.5 z-10 lg:static lg:z-auto lg:inset-auto lg:order-2 lg:mx-0 lg:mt-0 lg:w-full lg:max-w-sm">
+
+                    <div id="filtros" x-show="open" x-cloak class="rounded-2xl bg-neutral-950 p-4 shadow-2xl sm:rounded-3xl sm:p-6 lg:!block">
+
+                        <div class="mb-3 flex items-center justify-between sm:mb-6">
+                            <h2 class="text-sm font-semibold text-white sm:text-xl">
+                                Filtrar vagas
+                            </h2>
+                            <button type="button" @click="open = false" class="text-white/60 hover:text-white lg:hidden" aria-label="Fechar filtro">
+                                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6" /></svg>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 lg:block lg:space-y-4">
+                            <x-site.select label="Nível de ensino" name="nivel" :options="$tipos" wire:model.live="tipo" />
+
+                            <x-site.select label="Bairro" name="bairro" :options="$bairros" wire:model.live="bairro" />
+
+                            <div class="col-span-2 lg:col-span-1">
+                                <x-site.select label="Regiões" name="regioes" :options="$regioes" wire:model.live="regiao" />
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex justify-end sm:mt-6">
+
+                            <x-site.button variant="primary" wire:click="limparFiltros" type="button" class="!px-3 !py-2 text-xs sm:!px-5 sm:!py-3 sm:text-sm">
+                                <svg class="size-3.5 sm:size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6" />
+                                </svg>
+
+                                Limpar filtros
+
+                            </x-site.button>
+
+                        </div>
+
+                    </div>
+
+                    <button type="button" x-show="!open" x-cloak @click="open = true"
+                        class="flex items-center gap-2 rounded-full bg-neutral-950 px-4 py-2 text-xs font-semibold text-white shadow-lg lg:hidden">
+                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M7 12h10M10 18h4" /></svg>
+                        Filtrar vagas
+                    </button>
+
+                </aside>
+
+            </div>
+
         </div>
 
-        {{-- =========================================
-             FILTROS (aparece primeiro no mobile, à direita no desktop)
-        ========================================== --}}
-
-        <aside class="order-1 mx-auto w-full max-w-sm lg:order-2 lg:mx-0">
-
-            <div id="filtros" class="rounded-3xl bg-neutral-950 p-5 shadow-2xl sm:p-6">
-
-                <h2 class="mb-6 text-lg font-semibold text-white sm:text-xl">
-                    Filtrar vagas
-                </h2>
-
-                <div class="space-y-4">
-                    <x-site.select label="Nível de ensino" name="nivel" :options="$tipos" wire:model.live="tipo" />
-
-                    <x-site.select label="Bairro" name="bairro" :options="$bairros" wire:model.live="bairro" />
-
-                    <x-site.select label="Regiões" name="regioes" :options="$regioes" wire:model.live="regiao" />
-
-                </div>
-
-                <div class="mt-6 flex justify-end">
-
-                    <x-site.button variant="ghost" wire:click="limparFiltros" type="button">
-                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6" />
-                        </svg>
-
-                        Limpar filtros
-
-                    </x-site.button>
-
-                </div>
-
-            </div>
-
-            {{-- Botões --}}
-            <div class="mt-5 flex justify-center gap-4 lg:justify-start">
-
-
-            </div>
-        </aside>
+      </div>
 
     </div>
 
