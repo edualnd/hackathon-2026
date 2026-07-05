@@ -42,7 +42,7 @@ class VagaSeeder extends Seeder
                 DB::table('vagas')->insert([
                     'escola_id' => $escola->id,
                     'serie' => $serie,
-                    'qtd' => rand(20, 35),
+                    'qtd' => rand(0, 20),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
