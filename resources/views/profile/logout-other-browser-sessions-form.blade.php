@@ -39,7 +39,10 @@
                                     {{ $session->ip_address }},
 
                                     @if ($session->is_current_device)
-                                        <span class="text-green-500 font-semibold">{{ __('Este dispositivo') }}</span>
+                                        <span
+                                            class="text-green-500 font-semibold"
+                                            >{{ __('Este dispositivo') }}</span
+                                        >
                                     @else
                                         {{ __('Última atividade') }} {{ $session->last_active }}
                                     @endif
@@ -70,26 +73,40 @@
             <x-slot name="content">
                 {{ __('Digite sua senha para confirmar que deseja encerrar as outras sessões do navegador em todos os seus dispositivos.') }}
 
-                <div class="mt-4" x-data="{}" x-on:confirming-logout-other-browser-sessions.window="setTimeout(() => $refs.password.focus(), 250)">
-                    <x-input type="password" class="mt-1 block w-3/4"
-                                autocomplete="current-password"
-                                placeholder="{{ __('Senha') }}"
-                                x-ref="password"
-                                wire:model="password"
-                                wire:keydown.enter="logoutOtherBrowserSessions" />
+                <div
+                    class="mt-4"
+                    x-data="{}"
+                    x-on:confirming-logout-other-browser-sessions.window="
+                        setTimeout(() => $refs.password.focus(), 250)
+                    "
+                >
+                    <x-input
+                        type="password"
+                        class="mt-1 block w-3/4"
+                        autocomplete="current-password"
+                        placeholder="{{ __('Senha') }}"
+                        x-ref="password"
+                        wire:model="password"
+                        wire:keydown.enter="logoutOtherBrowserSessions"
+                    />
 
                     <x-input-error for="password" class="mt-2" />
                 </div>
             </x-slot>
 
             <x-slot name="footer">
-                <x-secondary-button wire:click="$toggle('confirmingLogout')" wire:loading.attr="disabled">
+                <x-secondary-button
+                    wire:click="$toggle('confirmingLogout')"
+                    wire:loading.attr="disabled"
+                >
                     {{ __('Cancelar') }}
                 </x-secondary-button>
 
-                <x-button class="ms-3"
-                            wire:click="logoutOtherBrowserSessions"
-                            wire:loading.attr="disabled">
+                <x-button
+                    class="ms-3"
+                    wire:click="logoutOtherBrowserSessions"
+                    wire:loading.attr="disabled"
+                >
                     {{ __('Encerrar outras sessões') }}
                 </x-button>
             </x-slot>
