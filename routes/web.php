@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Livewire\Aluno\Create;
+use App\Livewire\ListaEspera\Show;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Login as AdminLogin;
 use App\Livewire\Aluno\Create as AlunoCreate;
@@ -21,8 +24,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/vagas', SchoolSearch::class)->name('site.search');
 Route::get('/mapa', fn () => 'Mapa interativo em construção.')->name('site.map');
-Route::get('/mapa1', Mapa::class)->name('mapa');
-Route::get('/aluno', AlunoCreate::class)->name('aluno');
+Route::get("/mapa1", Mapa::class)->name("mapa");
+Route::get("/aluno", Create::class)->name("aluno");
+Route::get("/lista", Show::class)->name("lista");
 
 /*
 |--------------------------------------------------------------------------

@@ -1,10 +1,9 @@
 <div>
-    <section class="relative -mt-6 overflow-hidden px-4 py-12 lg:py-20">
+<section class="relative -mt-6 overflow-hidden px-4 py-12 lg:py-20">
 
-    <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_380px]">
-
+    <div class="mx-auto max-w-7xl px-4">
         {{-- =========================================
-             COLUNA ESQUERDA
+             CABEÇALHO
         ========================================== --}}
         <div class="text-center lg:text-left">
 
@@ -12,6 +11,14 @@
                 <span class="size-1.5 rounded-full bg-action-primary"></span>
                 Central de Vagas · SEDUC
             </span>
+
+            <livewire:mapa 
+                :escolas="$escolas" 
+                :regiao="$regiao"
+                :bairro="$bairro"
+                :tipo="$tipo"
+                :serie="$serie"
+            />
 
             {{-- Estatísticas --}}
             <div class="mx-auto mt-10 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
@@ -39,19 +46,15 @@
             </div>
 
         </div>
+    </div>
 
-        {{-- Resultados --}}
-        <div
-            class="mt-8 transition-opacity"
-            wire:loading.class="opacity-50"
-            wire:target="nivel, bairro, serie, limparFiltros"
-        >
+    <div class="mx-auto mt-10 grid max-w-7xl items-start gap-12 px-4 lg:grid-cols-[1fr_380px]">
+
+        {{-- =========================================
+             COLUNA ESQUERDA — mapa (extremo oposto ao filtro)
+        ========================================== --}}
 
 
-            {{-- @if ($this->resultados->isEmpty())
-                <div class="rounded-2xl border border-dashed border-seduc-neutral-300 p-10 text-center">
-                    <p class="font-heading text-base font-semibold text-text-on-surface">Nenhuma unidade encontrada</p>
-                    <p class="mt-1 font-body text-sm text-seduc-neutral-600">Tente ajustar ou limpar os filtros selecionados.</p>
         {{-- =========================================
              COLUNA DIREITA
         ========================================== --}}
@@ -71,9 +74,9 @@
 
                     <x-site.select
                         label="Nível de ensino"
-                        name="nivel"
-                        :options="$niveis"
-                        wire:model.live="nivel"
+                        name="tipo"
+                        :options="$tipos"
+                        wire:model.live="tipo"
                     />
 
                     <x-site.select
@@ -121,21 +124,7 @@
 
             </div>
 
-            {{-- Botões --}}
-            <div class="mt-5 flex justify-center gap-4 lg:justify-start">
-
-               
-            <livewire:switch-exibicao 
-                :escolas="[]" 
-                :bairros="[]" 
-                :regioes="[]" 
-                :regiao="''" 
-                :bairro="''" 
-                :tipo="''" 
-                :serie="''"
-            />
-
-            </div>
+            {{-- Botão de limpar filtro fica aqui, o switch lista/mapa foi pra coluna esquerda --}}
 
         </aside>
 
@@ -147,11 +136,25 @@
 <div
     class="mx-auto mt-12 max-w-7xl px-4 transition-opacity"
     wire:loading.class="opacity-50"
-    wire:target="nivel,bairro,serie,limparFiltros"
+    wire:target="tipo,bairro,serie,limparFiltros"
 >
+    @if (empty($escolas))
+        <div class="rounded-2xl border border-dashed border-white/25 bg-white/5 p-10 text-center backdrop-blur-sm">
+            <p class="font-heading text-base font-semibold text-text-on-canvas">Nenhuma unidade encontrada</p>
+            <p class="mt-1 font-body text-sm text-white/70">Tente ajustar ou limpar os filtros selecionados.</p>
+        </div>
+    @else
+        <p class="mb-4 font-body text-sm text-white/70">
+            <span class="font-semibold text-text-on-canvas">{{ count($escolas) }}</span>
+            {{ count($escolas) === 1 ? 'unidade encontrada' : 'unidades encontradas' }}
+        </p>
 
-    {{-- Resultados aqui --}}
-
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach ($escolas as $escola)
+                <x-site.school-card :escola="$escola" wire:key="escola-{{ $escola['id'] }}" />
+            @endforeach
+        </div>
+    @endif
 </div>
 
 

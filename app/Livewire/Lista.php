@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Escola;
 use Livewire\Component;
 
 class Lista extends Component
@@ -42,6 +43,7 @@ class Lista extends Component
 
     public function render()
     {
+        $this->carregarDados();
         return view('livewire.lista');
     }
 }

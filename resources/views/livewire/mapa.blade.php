@@ -1,33 +1,33 @@
 <x-guest-layout>
 
-{{-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <div id="map" style="height: 500px;"></div>
-<div id="card-escola" class="mt-4 p-4 border rounded shadow">
-    <p>Clique em uma escola no mapa.</p>
-</div>
+    <div id="map" style="height: 500px"></div>
+    <div id="card-escola" class="mt-4 p-4 border rounded shadow">
+        <p>Clique em uma escola no mapa.</p>
+    </div>
     <script>
-    const map = L.map('map').setView([-23.6205, -45.4132], 12);
-    const escolas = @json($escolas);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
-    
-    const card = document.getElementById('card-escola');
+        const map = L.map('map').setView([-23.6205, -45.4132], 12);
+        const escolas = @json($escolas);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
 
-escolas.forEach(escola => {
+        const card = document.getElementById('card-escola');
 
-    const marker = L.marker([
-        escola.lat,
-        escola.lng
-    ]).addTo(map);
+        escolas.forEach(escola => {
 
-    marker.on('click', () => {
-const vagas = escola.vagas
-    .map(vaga => `<li>${vaga.serie}: ${vaga.qtd}</li>`)
-    .join('');
-        card.innerHTML = `
+            const marker = L.marker([
+                escola.lat,
+                escola.lng
+            ]).addTo(map);
+
+            marker.on('click', () => {
+                const vagas = escola.vagas
+                    .map(vaga => `<li>${vaga.serie}: ${vaga.qtd}</li>`)
+                    .join('');
+                card.innerHTML = `
             <h2>${escola.nome}</h2>
 
             <p><strong>Tipo:</strong> ${escola.tipo}</p>
@@ -43,11 +43,9 @@ const vagas = escola.vagas
         ${vagas}
     </ul>
         `;
-})
-    });
-    </script> --}}
+            })
+        });
+    </script>
 
-    @foreach ($escolas as $escola)
-        <p>teste</p>
-    @endforeach
+
 </x-guest-layout>

@@ -1,11 +1,11 @@
-    div .header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+div .header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     }
 
     
@@ -18,4 +18,20 @@
 .button--switch.button--switch--active{
     background-color: rgb(192, 236, 29);
     color: black;
+}
+
+.text-glow{
+    animation: ease 2s infinite text-glow;
+}
+
+@keyframes text-glow{
+    0%{
+        text-shadow: 0px 0px 10px rgb(192, 236, 29);
+    }
+    50%{
+        text-shadow: 0px 0px 15px rgb(192, 236, 29);
+    }
+    100%{
+        text-shadow: 0px 0px 10px rgb(192, 236, 29);
+    }
 }
