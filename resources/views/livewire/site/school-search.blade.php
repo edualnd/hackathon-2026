@@ -80,7 +80,7 @@
                                     <button
                                         type="button"
                                         @click="open = false"
-                                        class="text-white/60 hover:text-white lg:hidden"
+                                        class="text-black lg:hidden"
                                         aria-label="Fechar filtro"
                                     >
                                         <svg
