@@ -4,7 +4,7 @@
     ])
 >
     <div
-        class="p-5 overflow-hidden rounded-2xl border border-seduc-neutral-200 bg-background-surface"
+        class="overflow-hidden rounded-2xl border border-seduc-neutral-200 bg-background-surface"
     >
         {{-- Cabeçalho --}}
         <div class="border-b border-seduc-neutral-200 bg-seduc-neutral-100/50 px-5 py-6 sm:px-8">
