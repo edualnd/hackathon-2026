@@ -18,22 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-/*
-|--------------------------------------------------------------------------
-| Área dos pais (pública, mobile-first)
-|--------------------------------------------------------------------------
-*/
 
-Route::get('/mapa', fn () => 'Mapa interativo em construção.')->name('site.map');
-Route::get("/mapa1", Mapa::class)->name("mapa");
-Route::get("/aluno", Create::class)->name("aluno");
-
-
-/*
-|--------------------------------------------------------------------------
-| Área administrativa (desktop, navegação simulada — sem autenticação real)
-|--------------------------------------------------------------------------
-*/
 Route::get('/', SchoolSearch::class)->name('site.search');
 Route::middleware([
     'auth:sanctum',
