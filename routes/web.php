@@ -8,7 +8,7 @@ use App\Livewire\Admin\Login as AdminLogin;
 use App\Livewire\Aluno\Create as AlunoCreate;
 use App\Livewire\Aluno\Edit as AlunoEdit;
 use App\Livewire\Aluno\Show as AlunoShow;
-use App\Livewire\Admin\Mapa as MapaAdmin;
+use App\Livewire\Mapa;
 use App\Livewire\Site\SchoolSearch;
 use App\Livewire\Vagas\Index as VagasIndex;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/vagas', SchoolSearch::class)->name('site.search');
 Route::get('/mapa', fn () => 'Mapa interativo em construção.')->name('site.map');
-Route::get("/mapa1", MapaAdmin::class)->name("mapa");
+Route::get("/mapa1", Mapa::class)->name("mapa");
 Route::get("/aluno", Create::class)->name("aluno");
 Route::get("/lista", Show::class)->name("lista");
 

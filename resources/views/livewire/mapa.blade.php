@@ -1,113 +1,107 @@
-<x-guest-layout>
+<div>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<div id="map" style="height:500px"></div>
+    <div id="map" style="height:500px;" wire:ignore></div>
 
-<div id="card-escola" class="mt-4 p-4 border rounded shadow">
-    <p>Clique em uma escola no mapa.</p>
+    <div id="card-escola" class="mt-4 p-4 border rounded shadow">
+        <p>Clique em uma escola.</p>
+    </div>
+
 </div>
 
 <script>
+    document.addEventListener('livewire:init', () => {
 
-const escolas = @json($escolas);
+        const escolas = @json($escolas);
 
-const map = L.map('map').setView([-23.6205, -45.4132], 12);
+        const map = L.map('map').setView([-23.6205, -45.4132], 12);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
-}).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
 
-const card = document.getElementById('card-escola');
+        if ("geolocation" in navigator) {
 
+            navigator.geolocation.getCurrentPosition(
 
-//
-// NOVA FUNCIONALIDADE
-//
+                function(position) {
 
-let marcadorUsuario;
-let circuloPrecisao;
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
 
-// solicita a localização
-map.locate({
-    setView: true,
-    maxZoom: 15,
-    enableHighAccuracy: true
-});
+                    map.setView([lat, lng], 14);
 
-// localização encontrada
-map.on('locationfound', function(e){
+                    // marcador azul da localização
+                    L.circleMarker([lat, lng], {
+                            radius: 8,
+                            fillColor: "#2563eb",
+                            color: "#ffffff",
+                            weight: 3,
+                            opacity: 1,
+                            fillOpacity: 1
+                        })
+                        .addTo(map)
+                        .bindPopup("Você está aqui.");
 
-    // remove marcador anterior caso exista
-    if(marcadorUsuario){
-        map.removeLayer(marcadorUsuario);
-    }
+                },
 
-    if(circuloPrecisao){
-        map.removeLayer(circuloPrecisao);
-    }
+                function(error) {
+                    console.log("Localização não permitida.");
+                },
 
-    marcadorUsuario = L.marker(e.latlng)
-        .addTo(map)
-        .bindPopup("<strong>Você está aqui</strong>")
-        .openPopup();
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 60000
+                }
 
-    circuloPrecisao = L.circle(e.latlng,{
-        radius: e.accuracy
-    }).addTo(map);
+            );
 
-});
-
-// erro ao obter localização
-map.on('locationerror', function(e){
-
-    console.error(e.message);
-
-    alert("Não foi possível obter sua localização.");
-
-});
-
-
-//
-// ESCOLAS (permanece igual)
-//
+        }
 
         const card = document.getElementById('card-escola');
+
+        escolas.forEach(escola => {
+
+            if (!escola.lat || !escola.lng) {
+                return;
+            }
 
             const marker = L.marker([
                 escola.lat,
                 escola.lng
             ]).addTo(map);
 
-    marker.on('click', () => {
+            marker.on('click', () => {
 
-        const vagas = escola.vagas
-            .map(vaga => `<li>${vaga.serie}: ${vaga.qtd}</li>`)
-            .join('');
+                let vagas = '';
 
-        card.innerHTML = `
-            <h2>${escola.nome}</h2>
+                escola.vagas.forEach(vaga => {
+                    vagas += `<li>${vaga.serie}: ${vaga.qtd}</li>`;
+                });
 
-            <p><strong>Tipo:</strong> ${escola.tipo}</p>
-            <p><strong>Região:</strong> ${escola.regiao}</p>
-            <p><strong>Bairro:</strong> ${escola.bairro}</p>
-            <p><strong>Endereço:</strong> ${escola.endereco}</p>
-            <p><strong>Telefone:</strong> ${escola.telefone}</p>
-            <p><strong>Email:</strong> ${escola.email}</p>
-            <p><strong>Integral:</strong> ${escola.integral ? 'Sim' : 'Não'}</p>
+                card.innerHTML = `
+                <h2>${escola.nome}</h2>
 
-            <h3>Vagas</h3>
+                <p><strong>Tipo:</strong> ${escola.tipo}</p>
+                <p><strong>Região:</strong> ${escola.regiao}</p>
+                <p><strong>Bairro:</strong> ${escola.bairro}</p>
+                <p><strong>Endereço:</strong> ${escola.endereco}</p>
+                <p><strong>Telefone:</strong> ${escola.telefone ?? ''}</p>
+                <p><strong>Email:</strong> ${escola.email ?? ''}</p>
+                <p><strong>Integral:</strong> ${escola.integral ? 'Sim' : 'Não'}</p>
 
-            <ul>
-                ${vagas}
-            </ul>
-        `;
+                <h3>Vagas</h3>
+
+                <ul>
+                    ${vagas}
+                </ul>
+            `;
+            });
+
+        });
 
     });
-
-});
-
 </script>
-
-</x-guest-layout>

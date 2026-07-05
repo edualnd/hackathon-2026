@@ -222,14 +222,16 @@
         <div class="mt-5 flex justify-center gap-4 lg:justify-start">
         </div>
 
-    </aside>
+        </aside>
 
-</div>
-<div class="mt-8 transition-opacity" wire:loading.class="opacity-50" wire:target="nivel, bairro, serie, limparFiltros">
-
-    <livewire:lista :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
-
-    <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
-        wire:target="nivel,bairro,serie,limparFiltros">
     </div>
-</div>
+    <div class="mt-8 transition-opacity" wire:loading.class="opacity-50"
+        wire:target="nivel, bairro, serie, limparFiltros">
+
+        <livewire:lista :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo"
+            :serie="$serie" />
+
+        <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
+            wire:target="nivel,bairro,serie,limparFiltros">
+        </div>
+    </div>
