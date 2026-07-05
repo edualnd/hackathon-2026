@@ -21,29 +21,11 @@
             <div class="mx-auto mt-10 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
 
 
-            <livewire:mapa :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
 
-        {{-- Estatísticas --}}
-        <div class="mx-auto mt-10 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
-
-            {{-- Estatísticas --}}
-            
-<div class="mx-auto mt-10 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
-
-                <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
-                    <p class="font-data text-3xl font-semibold text-text-on-canvas">
-                        
-                    </p>
-
-
-
+                <p class="mt-1 text-sm text-white/70">
+                    vagas disponíveis
+                </p>
             </div>
-
-                <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
-                    <p class="font-data text-3xl font-semibold text-text-on-canvas">
-                        
-                    </p>
-
 
             <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
                 <p class="font-data text-3xl font-semibold text-text-on-canvas">
@@ -161,7 +143,6 @@
                     20
                 </strong>
             </div>
-<<<<<<< Updated upstream
 
             <div class="rounded-3xl bg-teal-light-200 p-4 flex flex-col justify-center">
 
@@ -236,128 +217,20 @@
 
         <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
             wire:target="nivel,bairro,serie,limparFiltros">
-=======
->>>>>>> Stashed changes
         </div>
 
         {{-- Botões --}}
         <div class="mt-5 flex justify-center gap-4 lg:justify-start">
         </div>
 
-<<<<<<< Updated upstream
     </aside>
-=======
-            
-                
-          <livewire:switch-exibicao 
-                :escolas="$escolas" 
-                :regiao="$regiao"
-                :bairro="$bairro"
-                :tipo="$tipo"
-                :serie="$serie"
-                />
->>>>>>> Stashed changes
 
 </div>
 <div class="mt-8 transition-opacity" wire:loading.class="opacity-50" wire:target="nivel, bairro, serie, limparFiltros">
 
-<<<<<<< Updated upstream
     <livewire:lista :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
-=======
-        <aside class="mx-auto w-full max-w-sm lg:mx-0">
-
-            <div
-                id="filtros"
-                class="rounded-3xl bg-neutral-950 p-6 shadow-2xl"
-            >
-
-                <h2 class="mb-6 text-xl font-semibold text-white">
-                    Filtrar vagas
-                </h2>
-
-                <div class="space-y-4">
-
-                    <x-site.select
-                        label="Nível de ensino"
-                        name="tipo"
-                        :options="$tipos"
-                        wire:model.live="tipo"
-                    />
-
-                    <x-site.select
-                        label="Bairro"
-                        name="bairro"
-                        :options="$bairros"
-                        wire:model.live="bairro"
-                    />
-
-                    <x-site.select
-                        label="Série"
-                        name="serie"
-                        :options="$series"
-                        wire:model.live="serie"
-                    />
-
-                </div>
-
-                <div class="mt-6 flex justify-end">
-
-                    <x-site.button
-                        variant="ghost"
-                        wire:click="limparFiltros"
-                        type="button"
-                    >
-                        <svg
-                            class="size-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M6 6l12 12M6 18L18 6"
-                            />
-                        </svg>
-
-                        Limpar filtros
-
-                    </x-site.button>
-
-                </div>
-
-            </div>
-
-            {{-- Botões --}}
-            <div class="mt-5 flex justify-center gap-4 lg:justify-start">
-
-                @livewire('switch-exibicao')
-
-            </div>
-
-        </aside>
->>>>>>> Stashed changes
 
     <div class="mx-auto mt-12 max-w-7xl px-4 transition-opacity" wire:loading.class="opacity-50"
         wire:target="nivel,bairro,serie,limparFiltros">
     </div>
-<<<<<<< Updated upstream
-=======
-
-</section>
-
-{{-- RESULTADOS --}}
-
-<div
-    class="mx-auto mt-12 max-w-7xl px-4 transition-opacity"
-    wire:loading.class="opacity-50"
-    wire:target="nivel,bairro,serie,limparFiltros"
->
-
-    {{-- Resultados aqui --}}
-
-</div>
-
->>>>>>> Stashed changes
 </div>
