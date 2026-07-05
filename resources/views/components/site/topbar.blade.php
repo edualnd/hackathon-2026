@@ -21,7 +21,7 @@
             class="flex shrink-0 items-center hidden sm:flex gap-4 sm:gap-6 sm:rounded-full sm:bg-black sm:px-6 sm:py-3 sm:text-white sm:shadow-lg"
         >
             <a
-                href="{{ route('site.map') }}"
+                href="{{ route('site.search') }}"
                 class="bg-action-primary hover:bg-action-primary-hover flex size-8 items-center justify-center rounded-full border border-black text-black sm:size-9"
                 aria-label="Mapa"
             >

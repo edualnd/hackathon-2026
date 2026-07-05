@@ -69,12 +69,24 @@
                                         </h2>
                                     </div>
 
-                                    <button type="button" @click="open = false"
-                                        class="text-white/60 hover:text-white lg:hidden" aria-label="Fechar filtro">
-                                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M6 6l12 12M6 18L18 6" />
+                                    <button
+                                        type="button"
+                                        @click="open = false"
+                                        class="text-black lg:hidden"
+                                        aria-label="Fechar filtro"
+                                    >
+                                        <svg
+                                            class="size-4"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M6 6l12 12M6 18L18 6"
+                                            />
                                         </svg>
                                     </button>
                                 </div>
