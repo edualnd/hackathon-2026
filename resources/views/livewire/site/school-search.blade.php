@@ -51,12 +51,11 @@
                 </h2>
 
                 <div class="space-y-4">
+                    <x-site.select label="Nível de ensino" name="nivel" :options="$tipos" wire:model.live="tipo" />
 
-                    <x-site.select label="Nível de ensino" name="nivel" :options="[]" wire:model.live="nivel" />
+                    <x-site.select label="Bairro" name="bairro" :options="$bairros" wire:model.live="bairro" />
 
-                    <x-site.select label="Bairro" name="bairro" :options="[]" wire:model.live="bairro" />
-
-                    <x-site.select label="Série" name="serie" :options="[]" wire:model.live="serie" />
+                    <x-site.select label="Regiões" name="regioes" :options="$regioes" wire:model.live="regiao" />
 
                 </div>
 
