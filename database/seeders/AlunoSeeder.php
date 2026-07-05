@@ -8,10 +8,9 @@ use App\Models\Vaga;
 use Illuminate\Database\Seeder;
 
 /**
- * Alunos de demonstração, cobrindo os três status possíveis
- * (fila de espera, vaga conseguida e desistência) para que o
- * dashboard e as listagens do painel administrativo tenham dados
- * reais para exibir.
+ * Alunos de demonstração, cobrindo os cenários de vaga conseguida
+ * e fila de espera, para que o dashboard e as listagens do painel
+ * administrativo tenham dados reais para exibir.
  */
 class AlunoSeeder extends Seeder
 {
@@ -27,7 +26,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Mãe',
                 'telefone' => '(12) 99115-1143',
                 'bairro' => 'Centro',
-                'status' => Aluno::STATUS_FILA_ESPERA,
                 'criterios' => ['area_de_abrangencia' => true, 'vulnerabilidade' => true],
             ],
             [
@@ -39,7 +37,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Mãe',
                 'telefone' => '(12) 91568-584',
                 'bairro' => 'Jardim Primavera',
-                'status' => Aluno::STATUS_VAGA_CONSEGUIDA,
                 'criterios' => ['area_de_abrangencia' => true],
             ],
             [
@@ -51,7 +48,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Mãe',
                 'telefone' => '(12) 98822-6479',
                 'bairro' => 'Indaiá',
-                'status' => Aluno::STATUS_FILA_ESPERA,
                 'criterios' => ['mobilidade' => true, 'necessidade_especial' => true],
             ],
             [
@@ -63,7 +59,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Mãe',
                 'telefone' => '(12) 98154-7776',
                 'bairro' => 'Massaguaçu',
-                'status' => Aluno::STATUS_FILA_ESPERA,
                 'criterios' => ['irmao' => true],
             ],
             [
@@ -75,7 +70,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Mãe',
                 'telefone' => '(12) 99725-1697',
                 'bairro' => 'Centro',
-                'status' => Aluno::STATUS_DESISTENCIA,
                 'criterios' => [],
             ],
             [
@@ -87,7 +81,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Mãe',
                 'telefone' => '(12) 99216-5759',
                 'bairro' => 'Jardim Primavera',
-                'status' => Aluno::STATUS_VAGA_CONSEGUIDA,
                 'criterios' => ['vulnerabilidade' => true],
             ],
             [
@@ -99,7 +92,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Pai',
                 'telefone' => '(12) 99684-3222',
                 'bairro' => 'Pontal Santamarina',
-                'status' => Aluno::STATUS_FILA_ESPERA,
                 'criterios' => ['area_de_abrangencia' => true, 'irmao' => true],
             ],
             [
@@ -111,7 +103,6 @@ class AlunoSeeder extends Seeder
                 'parentesco' => 'Mãe',
                 'telefone' => '(12) 98189-6802',
                 'bairro' => 'Perequê-Mirim',
-                'status' => Aluno::STATUS_FILA_ESPERA,
                 'criterios' => ['matriculado' => true],
             ],
         ];
@@ -125,7 +116,7 @@ class AlunoSeeder extends Seeder
                 'escola_id' => $vaga?->escola_id,
                 'vaga_id' => $vaga?->id,
                 'nome' => $dados['nome'],
-                'ra' => $dados['status'] !== Aluno::STATUS_FILA_ESPERA ? sprintf('1258%02d%02d-%d', $i, rand(10, 99), rand(1, 9)) : null,
+                'ra' => $vaga ? sprintf('1258%02d%02d-%d', $i, rand(10, 99), rand(1, 9)) : null,
                 'cpf' => null,
                 'sexo' => $dados['sexo'],
                 'data_nascimento' => $dados['nascimento'],
@@ -142,7 +133,6 @@ class AlunoSeeder extends Seeder
                 'logradouro' => 'Rua Exemplo',
                 'numero' => (string) rand(10, 900),
                 'observacao' => null,
-                'status' => $dados['status'],
             ]);
 
             $aluno->criterios()->create(array_merge([
@@ -154,17 +144,19 @@ class AlunoSeeder extends Seeder
                 'matriculado' => false,
             ], $dados['criterios']));
 
-            if ($dados['status'] === Aluno::STATUS_FILA_ESPERA && $vaga) {
-                $posicao = (ListaEspera::where('vaga_id', $vaga->id)->max('posicao') ?? 0) + 1;
-
-                ListaEspera::create([
-                    'aluno_id' => $aluno->id,
-                    'escola_id' => $vaga->escola_id,
-                    'vaga_id' => $vaga->id,
-                    'posicao' => $posicao,
-                    'pontuacao' => (string) (50 + collect($dados['criterios'])->filter()->count() * 10),
-                ]);
+            if (! $vaga) {
+                continue;
             }
+
+            $posicao = (ListaEspera::where('vaga_id', $vaga->id)->max('posicao') ?? 0) + 1;
+
+            ListaEspera::create([
+                'aluno_id' => $aluno->id,
+                'escola_id' => $vaga->escola_id,
+                'vaga_id' => $vaga->id,
+                'posicao' => $posicao,
+                'pontuacao' => (string) (50 + collect($dados['criterios'])->filter()->count() * 10),
+            ]);
         }
     }
 }

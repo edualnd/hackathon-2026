@@ -41,7 +41,6 @@ return new class extends Migration
             $table->string('numero')->nullable();
 
             $table->text('observacao')->nullable();
-            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

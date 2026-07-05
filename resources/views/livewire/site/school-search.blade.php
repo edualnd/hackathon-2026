@@ -17,25 +17,7 @@
 
             <livewire:mapa :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
 
-            {{-- Estatísticas --}}
-            <div class="mx-auto mt-10 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
 
-
-
-                <p class="mt-1 text-sm text-white/70">
-                    vagas disponíveis
-                </p>
-            </div>
-
-            <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
-                <p class="font-data text-3xl font-semibold text-text-on-canvas">
-                    {{-- {{ $totais['total_escolas'] }} --}}
-                </p>
-
-                <p class="mt-1 text-sm text-white/70">
-                    unidades escolares
-                </p>
-            </div>
         </div>
 
         {{-- =========================================
@@ -91,7 +73,7 @@
             <livewire:accordian />
         </div>
 
-        <div class="grid lg:grid-cols-12 mb-4 gap-4">
+        {{-- <div class="grid lg:grid-cols-12 mb-4 gap-4">
             <div class="flex flex-col col-span-1">
                 <strong class="font-bold text-[14px]">
                     Bairro:
@@ -115,9 +97,7 @@
 
                 <span class="font-medium text-[14px]">Av. Perequê-Mirim, 340 - Perequê-Mirim, Caraguatatuba - SP</span>
             </div>
-
-
-        </div>
+        </div> --}}
 
         <div class="grid lg:grid-cols-6 gap-4">
 
