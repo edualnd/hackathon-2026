@@ -1,33 +1,20 @@
 <?php
 
-namespace App\Livewire\Site;
+namespace App\Livewire\Admin;
 
-use App\Models\Escola;
-use App\Models\Vaga;
-use App\Support\MockSchools;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-/**
- * Tela dos pais: filtros de nível de ensino, bairro e série para
- * consulta de vagas em unidades escolares. Dados 100% mockados
- * (App\Support\MockSchools) — sem integração com backend/API.
- *
- * Filtragem em tempo real: os selects usam wire:model.live, então qualquer
- * alteração recalcula "resultados" automaticamente, sem reload e sem exigir
- * um botão de busca explícito.
- */
-class SchoolSearch extends Component
+class Mapa extends Component
 {
     public $escolas = [];
     public $bairros = [];
     public $regioes = [];
     public $tipos = [];
     public $series = [];
-    public $regiao = "";
-    public $bairro = "";
-    public $tipo = "";
-    public $serie = "";
+    public $regiao = '';
+    public $bairro = '';
+    public $tipo = '';
+    public $serie = '';
 
     public function carregarDados()
     {
@@ -53,15 +40,8 @@ class SchoolSearch extends Component
         $escolas = $query->get();
         $this->bairros = $escolas->pluck('bairro')->unique()->values();
         $this->regioes = $escolas->pluck('regiao')->unique()->values();
-        $this->tipos = $escolas
-            ->pluck('tipo')
-            ->unique()
-            ->values()
-            ->map(fn($tipo, $index) => [
-                'id' => $tipo,
-                'nome' => $tipo,
-            ]);
-        $this->series = $escolas->flatMap(fn($escola) => $escola->vagas->pluck('serie'))->unique()->values();
+        $this->tipos = $escolas->pluck('tipo')->unique()->values();
+        $this->series = $escolas->flatMap(fn ($escola) => $escola->vagas->pluck('serie'))->unique()->values();
 
         // Formato consumido por x-site.school-card (nivel, vagas e lista_espera
         // agregados, em vez dos relacionamentos crus do Eloquent).
@@ -78,16 +58,8 @@ class SchoolSearch extends Component
         })->values()->all();
     }
 
-
     public function render()
     {
-        $this->carregarDados();
-
-        return view('livewire.site.school-search', [
-            'totais' => [
-                'total_vagas' => Vaga::sum('qtd'),
-                'total_escolas' => Escola::count(),
-            ],
-        ])->layout('layouts.site', ['pageTitle' => 'Consultar Vagas']);
+        return view('livewire.admin.mapa');
     }
 }

@@ -66,27 +66,15 @@
                             <td class="px-6 py-3.5 font-body text-sm text-seduc-neutral-600">{{ $aluno['vaga']['serie'] ?? '—' }}</td>
                             <td class="px-6 py-3.5">
                             @php
-<<<<<<< Updated upstream
-                                 $variant = match($aluno['status']) {
-                                        'Matriculado' => 'success',
-                                        'Aguardando' => 'warning',
-                                        'Foi chamado' => 'info',
-                                        'Desistencia' => 'danger',
-                                        default => 'info',
-                                    };
-                            @endphp
-
-                            <x-site.badge :variant="$variant ?? 'neutral'">
-=======
                                 $variants = [
                                     'Matriculado' => 'success',
                                     'Aguardando' => 'neutral',
-                                    'Foi chamado' => 'info'
+                                    'Foi chamado' => 'info',
+                                    'Desistencia' => 'danger'
                                 ];
                             @endphp
 
                             <x-site.badge :variant="$variants[$aluno['status']] ?? 'neutral'">
->>>>>>> Stashed changes
                                 {{ $aluno['status'] ?? '—' }}
                             </x-site.badge>
                             </td>

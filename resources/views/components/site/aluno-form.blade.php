@@ -1,4 +1,4 @@
-@props(['vagas', 'showStatus' => true])
+@props(['vagas', 'showStatus' => false])
 
 <form wire:submit.prevent="salvar" class="space-y-6">
 
@@ -30,15 +30,12 @@
                 <x-site.input label="Número da certidão de nascimento" name="certidao_nascimento" wire:model="dadosAluno.certidao_nascimento" placeholder="000000.00.0000.0.00000.000.0000000" :error="$errors->first('dadosAluno.certidao_nascimento')" />
                     
             </div>
-           
-                <x-site.input label="Escola" name="escola" readonly value="{{ $vagas[0]['escola']}}" placeholder="{{ $vagas[0]['escola'] }}" :error="$errors->first('dadosAluno.escola_id')"  />
-            
+            <x-site.input label="Escola" name="escola" readonly value="{{ $vagas[0]['escola'] }}" placeholder="{{ $vagas[0]['escola'] }}" :error="$errors->first('dadosAluno.escola_id')"  />
 
             @error('dadosAluno.vaga_id') <p class="-mt-3 font-body text-xs text-text-on-danger">{{ $message }}</p> @enderror
 
             @if ($showStatus)
-            
-                <x-site.select label="Situação do cadastro" name="status" wire:model="status" >
+                <x-site.select label="Situação do cadastro" name="status" wire:model="status">
                     @php
                         $statuses = ['Matriculado' => 'Matriculado',
                                         'Aguardando' => 'Aguardando',

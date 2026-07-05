@@ -7,9 +7,9 @@
 
             <form wire:submit.prevent="salvar" class="mt-5 space-y-4">
                 <div>
-                    {{-- <x-site.input label="Escola" name="vaga_create_escola_id" value="{{ $escola['nome'] }}" readonly>
+                    <x-site.input label="Escola" name="vaga_create_escola_id" value="{{ $escola['nome'] }}" readonly>
                         
-                    </x-site.input> --}}
+                    </x-site.input>
                     
                 </div>
 

@@ -62,25 +62,27 @@ public function excluir(int $id): void
         
 
         return view('livewire.vagas.index', [
-        'vagas' => Vaga::query()
-            ->with('escola:id,nome')
 
-            ->withCount([
-                'lista as total_lista_espera',
+'vagas' => Vaga::query()
+    ->with('escola:id,nome')
 
-                'lista as matriculados_count' =>
-                    fn ($q) => $q->where('status', 'Matriculado'),
-            ])
+    ->withCount([
+        'lista as total_lista_espera',
 
-            ->when($this->busca, fn ($q) =>
-                $q->where('serie', 'like', "%{$this->busca}%")
-            )
+        'lista as matriculados_count' =>
+            fn ($q) => $q->where('status', 'Matriculado'),
+    ])
 
-            ->when($this->escolaFiltro, fn ($q) =>
-                $q->where('escola_id', $this->escolaFiltro)
-            )
+    ->when($this->busca, fn ($q) =>
+        $q->where('serie', 'like', "%{$this->busca}%")
+    )
 
-            ->paginate(10),
+    ->when($this->escolaFiltro, fn ($q) =>
+        $q->where('escola_id', $this->escolaFiltro)
+    )
+
+    ->paginate(10),
+
         'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get()->toArray(),
     ]);
     }

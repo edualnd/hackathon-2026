@@ -29,7 +29,7 @@ class Edit extends Component
         'B1', 'B2', 'M1', 'M2',
     ];
 
-    public $escola = [];
+    public $escola = "";
 
     #[On('dispatchOpenModalEditVaga')]
     public function abrir(int $id): void
@@ -39,8 +39,8 @@ class Edit extends Component
         $registro = Vaga::findOrFail($id);
         $this->vagaId = $registro->id;
         $this->vaga = $registro->only(['escola_id', 'qtd', 'serie']);
-        $this->escola = Escola::select('nome')->where('id', $this->vagaId)->value('nome');
-        dd($this->escola);
+        $this->escola = Escola::select('nome')->where('id', $this->vagaId)->first()->value('nome');
+        
 
 
 

@@ -7,7 +7,7 @@
 
             <form wire:submit.prevent="salvar" class="mt-5 space-y-4">
                 <div>
-                    <x-site.input label="Escola" name="vaga_edit_escola_id" value="{{ $escola }}"  readonly >
+                    <x-site.input label="Escola" name="vaga_edit_escola_id" readonly value="{{ $escola }}">
                         
                     </x-site.input>
                     @error('vaga.escola_id') <p class="mt-1.5 font-body text-xs text-text-on-danger">{{ $message }}</p> @enderror

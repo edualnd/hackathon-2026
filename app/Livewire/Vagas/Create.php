@@ -17,7 +17,7 @@ class Create extends Component
 
     public array $vaga = [
         'escola_id' => '',
-        'qtd' => '',
+        'qtd' => 0,
         'serie' => '',
     ];
 
@@ -27,15 +27,22 @@ class Create extends Component
         'B1', 'B2', 'M1', 'M2',
     ];
 
-    public $escolas = [];
+    public $escola = [
+        'id' => "",
+        'nome' => " ",
+    ];
 
     #[On('dispatchOpenModalCreateVaga')]
     public function abrir(): void
     {
         $this->resetValidation();
         $this->reset('vaga');
-        $this->escolas = Escola::select('id', 'nome')->where('id', 1)->get()->toArray();
-        dd($this->escola);
+        $this->escola = Escola::select('id', 'nome')->where('id', 1)->first()->toArray();
+        $this->vaga =  [
+            'escola_id' => $this->escola['id'],
+            'qtd' => 0,
+            'serie' => '',
+        ];
         $this->show = true;
     }
 
