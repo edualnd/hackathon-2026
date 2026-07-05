@@ -131,8 +131,9 @@
 
         </div>
 
-        <div class="mt-5">
+        <div class="mt-5 flex flex-col gap-3">
             <livewire:escola-info />
+            <livewire:lista-espera.lista-publica/>
         </div>
 
     </div>

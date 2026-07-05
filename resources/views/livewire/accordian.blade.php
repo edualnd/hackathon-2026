@@ -22,7 +22,7 @@
 
                             <ul class="divide-y divide-seduc-neutral-200">
                                 @foreach ($item['content'] as $vaga)
-                                    <li class="flex justify-between py-2">
+                                    <li class="flex justify-between py-2 hover:cursor-pointer" wire:click="$dispatch('openListaPublica', { id: {{ $vaga['id'] }} })">
                                         <span class="font-medium capitalize">{{ str_replace('_', ' ', $vaga['serie']) }}</span>
                                         <span>{{ $vaga['qtd'] }}</span>
                                     </li>
