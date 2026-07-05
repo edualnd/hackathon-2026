@@ -35,7 +35,9 @@ class EscolaInfo extends Component
     public function changeEscola($escola_id)
     {
         $this->escola = Escola::findOrFail($escola_id);
+        
         $this->carregarDados();
+        $this->dispatch("changeListaPublica");
     }
 
 

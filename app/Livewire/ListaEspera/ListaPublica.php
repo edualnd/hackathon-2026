@@ -42,10 +42,26 @@ class ListaPublica extends Component
         ->orderByRaw('CASE WHEN posicao = 0 THEN 1 ELSE 0 END')
         ->orderBy('posicao')
         ->get();
-        
+
 
     }
+    #[On('changeListaPublica')]
+    public function changeListaPublica(){
+            
+            
+            $this->reset('vaga');
+            $this->vaga = [
+                'id' => 0,
+                'escola' => [
+                    'nome' => ""
+                ],
+                'serie'=> "",
+                'qtd'=> ""
+            ];
 
+
+
+        }
     public function render()
     {
         return view('livewire.lista-espera.lista-publica');

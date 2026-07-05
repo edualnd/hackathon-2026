@@ -152,7 +152,7 @@ $data = $response->json();
         public function classificar($vagaId)
 {
     $lista = ListaEspera::where('vaga_id', $vagaId)
-        ->where('status', '!=', 'Matriculado')
+        ->whereNotIn('status', ['Matriculado', 'Desistencia'])
         ->orderByDesc('pontuacao')
         ->orderBy('created_at')
         ->get();
@@ -168,7 +168,7 @@ $data = $response->json();
     }
 
     ListaEspera::where('vaga_id', $vagaId)
-        ->where('status', 'Matriculado')
+        ->whereIn('status', ['Matriculado', 'Desistencia'])
         ->update([
             'posicao' => 0
         ]);
