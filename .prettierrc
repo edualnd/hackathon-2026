@@ -1,9 +1,8 @@
 {
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 4,
-  "printWidth": 100,
-  "trailingComma": "es5",
-  "plugins": ["prettier-plugin-blade"]
-
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "printWidth": 100,
+    "trailingComma": "es5",
+    "plugins": ["prettier-plugin-blade"]
 }

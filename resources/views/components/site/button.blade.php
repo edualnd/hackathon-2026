@@ -1,4 +1,4 @@
-@props([
+@props ([
     'variant' => 'primary', // primary | secondary | outline | ghost | inverse
     'href' => null,
     'type' => 'button',
@@ -20,11 +20,7 @@
 @endphp
 
 @if ($href)
-    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}>
-        {{ $slot }}
-    </a>
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}> {{ $slot }} </a>
 @else
-    <button type="{{ $type }}" {{ $attributes->merge(['class' => $classes]) }}>
-        {{ $slot }}
-    </button>
+    <button type="{{ $type }}" {{ $attributes->merge(['class' => $classes]) }}>{{ $slot }}</button>
 @endif

@@ -1,4 +1,4 @@
-@props([
+@props ([
     'variant' => 'info', // success | warning | danger | info | neutral
 ])
 
@@ -14,6 +14,4 @@
     $classes = 'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-body text-xs font-semibold ' . ($variants[$variant] ?? $variants['info']);
 @endphp
 
-<span {{ $attributes->merge(['class' => $classes]) }}>
-    {{ $slot }}
-</span>
+<span {{ $attributes->merge(['class' => $classes]) }}> {{ $slot }} </span>

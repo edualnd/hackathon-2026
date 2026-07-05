@@ -1,4 +1,4 @@
-@props([
+@props ([
     'label' => null,
     'name' => null,
     'type' => 'text',
@@ -7,7 +7,10 @@
 
 <div class="w-full">
     @if ($label)
-        <label for="{{ $name }}" class="mb-1.5 block font-body text-sm font-medium text-text-on-surface">
+        <label
+            for="{{ $name }}"
+            class="mb-1.5 block font-body text-sm font-medium text-text-on-surface"
+        >
             {{ $label }}
         </label>
     @endif

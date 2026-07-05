@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "style.css";
+@import 'tailwindcss';
+@import 'style.css';
 
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
@@ -11,8 +11,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
     --font-sans:
-        Figtree, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        Figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 /*
@@ -48,59 +48,59 @@
 */
 @theme {
     /* Primitivas */
-    --color-teal-dark-100: #E2F3F3;
-    --color-teal-dark-200: #AFE9E9;
-    --color-teal-dark-300: #6AE7E7;
-    --color-teal-dark-400: #28E1E1;
-    --color-teal-dark-500: #19B3B3;
-    --color-teal-dark-600: #117D7D;
-    --color-teal-dark-700: #0C4646;
+    --color-teal-dark-100: #e2f3f3;
+    --color-teal-dark-200: #afe9e9;
+    --color-teal-dark-300: #6ae7e7;
+    --color-teal-dark-400: #28e1e1;
+    --color-teal-dark-500: #19b3b3;
+    --color-teal-dark-600: #117d7d;
+    --color-teal-dark-700: #0c4646;
 
-    --color-teal-light-100: #E4F1F1;
-    --color-teal-light-200: #B5E3E3;
-    --color-teal-light-300: #77DADA;
-    --color-teal-light-400: #3BCFCF;
-    --color-teal-light-500: #28A4A4;
-    --color-teal-light-600: #1C7373;
+    --color-teal-light-100: #e4f1f1;
+    --color-teal-light-200: #b5e3e3;
+    --color-teal-light-300: #77dada;
+    --color-teal-light-400: #3bcfcf;
+    --color-teal-light-500: #28a4a4;
+    --color-teal-light-600: #1c7373;
     --color-teal-light-700: #114040;
 
-    --color-lime-100: #EDF4E1;
-    --color-lime-200: #D3EDAB;
-    --color-lime-300: #B6EE62;
-    --color-lime-400: #99ED1C;
-    --color-lime-500: #77BD0F;
-    --color-lime-600: #54840B;
-    --color-lime-700: #2F4A08;
+    --color-lime-100: #edf4e1;
+    --color-lime-200: #d3edab;
+    --color-lime-300: #b6ee62;
+    --color-lime-400: #99ed1c;
+    --color-lime-500: #77bd0f;
+    --color-lime-600: #54840b;
+    --color-lime-700: #2f4a08;
 
-    --color-yellow-lime-100: #F0F4E1;
-    --color-yellow-lime-200: #DEECAC;
-    --color-yellow-lime-300: #D0EE63;
-    --color-yellow-lime-400: #C0EC1D;
-    --color-yellow-lime-500: #97BC10;
-    --color-yellow-lime-600: #6A840B;
-    --color-yellow-lime-700: #3B4908;
+    --color-yellow-lime-100: #f0f4e1;
+    --color-yellow-lime-200: #deecac;
+    --color-yellow-lime-300: #d0ee63;
+    --color-yellow-lime-400: #c0ec1d;
+    --color-yellow-lime-500: #97bc10;
+    --color-yellow-lime-600: #6a840b;
+    --color-yellow-lime-700: #3b4908;
 
-    --color-amber-100: #F4EDE2;
-    --color-amber-200: #EBD5AD;
-    --color-amber-300: #EABC66;
-    --color-amber-400: #E7A223;
-    --color-amber-500: #B87E14;
-    --color-amber-600: #81580E;
-    --color-amber-700: #48320A;
+    --color-amber-100: #f4ede2;
+    --color-amber-200: #ebd5ad;
+    --color-amber-300: #eabc66;
+    --color-amber-400: #e7a223;
+    --color-amber-500: #b87e14;
+    --color-amber-600: #81580e;
+    --color-amber-700: #48320a;
 
-    --color-seduc-neutral-100: #F1F3F3;
-    --color-seduc-neutral-200: #DFE1E2;
-    --color-seduc-neutral-300: #C4C8CA;
-    --color-seduc-neutral-400: #A0A8AB;
-    --color-seduc-neutral-600: #60686C;
-    --color-seduc-neutral-800: #2B2F31;
-    --color-seduc-neutral-900: #181A1B;
+    --color-seduc-neutral-100: #f1f3f3;
+    --color-seduc-neutral-200: #dfe1e2;
+    --color-seduc-neutral-300: #c4c8ca;
+    --color-seduc-neutral-400: #a0a8ab;
+    --color-seduc-neutral-600: #60686c;
+    --color-seduc-neutral-800: #2b2f31;
+    --color-seduc-neutral-900: #181a1b;
 
     /* Semânticos (Temas / Mode 1) */
     --color-background-canvas-primary: var(--color-teal-dark-700);
     --color-background-canvas-secondary: var(--color-teal-light-600);
     --color-background-canvas-tertiary: var(--color-teal-light-500);
-    --color-background-surface: #FFFFFF;
+    --color-background-surface: #ffffff;
 
     --color-action-primary: var(--color-yellow-lime-400);
     --color-action-primary-hover: var(--color-lime-500);
@@ -110,10 +110,10 @@
     --color-feedback-success: var(--color-lime-100);
     --color-feedback-info: var(--color-teal-dark-100);
     --color-feedback-warning: var(--color-amber-100);
-    --color-feedback-danger: #F2D9D9;
+    --color-feedback-danger: #f2d9d9;
 
     --color-text-on-surface: var(--color-seduc-neutral-800);
-    --color-text-on-canvas: #FFFFFF;
+    --color-text-on-canvas: #ffffff;
     --color-text-on-canvas-tertiary: #000000;
     --color-text-on-success: var(--color-lime-700);
     --color-text-on-info: var(--color-teal-dark-700);
@@ -121,10 +121,7 @@
     --color-text-on-danger: #740808;
 
     /* Tipografia (uso restrito às novas telas via classes font-heading/font-body/font-data) */
-    --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
-    --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-    --font-data: "JetBrains Mono", ui-monospace, monospace;
-
-
-
+    --font-heading: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-data: 'JetBrains Mono', ui-monospace, monospace;
 }
