@@ -1,4 +1,5 @@
-<div class="mx-auto sm:my-8 max-w-7xl px-4 sm:my-12 sm:px-6 lg:px-8">
+<div>
+    <div class="mx-auto sm:my-8 max-w-7xl px-4 sm:my-12 sm:px-6 lg:px-8">
 
     <span
         class="hidden lg:inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-body text-xs font-semibold text-text-on-canvas backdrop-blur-sm mb-4">
@@ -226,5 +227,7 @@
         <livewire:lista :escolas="$escolas" :regiao="$regiao" :bairro="$bairro" :tipo="$tipo" :serie="$serie" />
 
     </div>
+
+</div>
 
 </div>
