@@ -23,8 +23,9 @@
         >
             @if ($slot->isEmpty())
                 <option value="">{{ $placeholder }}</option>
-                @foreach ($options as $key => $value)
-                    <option value="{{ is_int($key) ? $value : $key }}">{{ $value }}</option>
+                @foreach ($options as $o)
+                
+                    <option value="{{ $o['id']}}">{{ $o['nome'] }}</option>
                 @endforeach
             @else
                 {{ $slot }}

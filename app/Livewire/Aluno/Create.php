@@ -193,6 +193,7 @@ class Create extends Component
     
     public function render()
     {
+        
         return view('livewire.aluno.create', [
             'vagas' => $this->vagas,
         ])->layout('layouts.admin', ['pageTitle' => 'Cadastro de Aluno']);

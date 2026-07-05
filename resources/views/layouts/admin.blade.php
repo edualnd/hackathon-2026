@@ -29,7 +29,7 @@
         <div class="hidden md:flex min-h-screen">
             <aside class="flex w-64 shrink-0 flex-col justify-between bg-seduc-neutral-900 px-4 py-6">
                 <div>
-                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2.5 px-2">
+                    <a href="{{ route('v1.dashboard') }}" class="flex items-center gap-2.5 px-2">
                         <span class="relative flex size-9 items-center justify-center rounded-[10px] bg-action-primary">
                             <span class="size-3 rotate-45 rounded-[2px] bg-teal-dark-700"></span>
                         </span>
@@ -40,15 +40,15 @@
                     </a>
 
                     <nav class="mt-8 flex flex-col gap-1">
-                        <x-site.sidebar-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
+                        <x-site.sidebar-link :href="route('v1.dashboard')" :active="request()->routeIs('v1.dashboard')"
                             icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6V11h-6v9Zm0-16v5h6V4h-6Z"/></svg>'>
                             Dashboard
                         </x-site.sidebar-link>
-                        <x-site.sidebar-link :href="route('admin.alunos.index')" :active="request()->routeIs('admin.alunos.*')"
+                        <x-site.sidebar-link :href="route('v1.alunos.index')" :active="request()->routeIs('v1.alunos.*')"
                             icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 19V6a2 2 0 0 1 2-2h6l2 2h6a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg>'>
                             Alunos
                         </x-site.sidebar-link>
-                        <x-site.sidebar-link :href="route('admin.vagas.index')" :active="request()->routeIs('admin.vagas.*')"
+                        <x-site.sidebar-link :href="route('v1.vagas.index')" :active="request()->routeIs('v1.vagas.*')"
                             icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3Zm0 0V7m6 13V10"/></svg>'>
                             Vagas
                         </x-site.sidebar-link>

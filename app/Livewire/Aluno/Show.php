@@ -4,6 +4,7 @@ namespace App\Livewire\Aluno;
 
 use App\Models\Aluno;
 use App\Models\Escola;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,6 +12,7 @@ use Livewire\WithPagination;
  * Gerenciamento de Alunos (área administrativa).
  * Lista, busca e filtra os cadastros, com ações de editar/excluir.
  */
+#[Layout('layouts.admin', ['pageTitle' => 'Gerenciamento de Alunos'])]
 class Show extends Component
 {
     use WithPagination;
@@ -66,8 +68,13 @@ class Show extends Component
 
         return view('livewire.aluno.show', [
             'alunos' => $alunos,
-            'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get(),
-            'statuses' => Aluno::STATUSES,
-        ])->layout('layouts.admin', ['pageTitle' => 'Gerenciamento de Alunos']);
+            'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get()->toArray(),
+            'statuses' => [
+                'Aguardando' => 'Aguardando',
+                'Matriculado' => 'Matriculado',
+                'Desistencia' => 'Desistencia',
+                'Foi chamado' => 'Foi chamado',
+            ],
+        ]);
     }
 }

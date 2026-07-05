@@ -12,15 +12,6 @@ class Aluno extends Model
 {
     protected $table = 'alunos';
 
-    public const STATUS_FILA_ESPERA = 'fila_espera';
-    public const STATUS_VAGA_CONSEGUIDA = 'vaga_conseguida';
-    public const STATUS_DESISTENCIA = 'desistencia';
-
-    public const STATUSES = [
-        self::STATUS_FILA_ESPERA => 'Na fila de espera',
-        self::STATUS_VAGA_CONSEGUIDA => 'Conseguiu vaga',
-        self::STATUS_DESISTENCIA => 'Desistência',
-    ];
 
     protected $fillable = [
         'escola_id',
@@ -50,10 +41,7 @@ class Aluno extends Model
         'data_nascimento' => 'date',
     ];
 
-    public function statusLabel(): string
-    {
-        return self::STATUSES[$this->status] ?? 'Sem status';
-    }
+
 
     public function escola(): BelongsTo
     {
@@ -75,9 +63,9 @@ class Aluno extends Model
         return $this->belongsTo(Vaga::class);
     }
 
-    public function listaEspera(): HasMany
+    public function listaEspera(): HasOne
     {
-        return $this->hasMany(ListaEspera::class);
+        return $this->hasOne(ListaEspera::class);
     }
 
 }

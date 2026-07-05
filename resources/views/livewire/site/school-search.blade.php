@@ -22,7 +22,8 @@
             />
 
             {{-- Estatísticas --}}
-            <div class="mx-auto mt-10 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
+            
+<div class="mx-auto mt-10 grid max-w-md grid-cols-2 gap-4 lg:mx-0">
 
                 <div class="rounded-2xl bg-white/10 p-5 backdrop-blur-md">
                     <p class="font-data text-3xl font-semibold text-text-on-canvas">
@@ -45,7 +46,6 @@
                 </div>
 
             </div>
-
         </div>
 
         {{-- =========================================
