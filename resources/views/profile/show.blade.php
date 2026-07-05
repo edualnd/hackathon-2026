@@ -41,6 +41,14 @@
                         @livewire ('profile.delete-user-form')
                     </div>
                 @endif
+
+                @if(Auth::user()->role == 'demanda')
+                <x-section-border />
+
+                <div class="mt-10 sm:mt-0">
+                    <livewire:user.register />
+                </div>
+                @endif
             </div>
         </div>
     </div>

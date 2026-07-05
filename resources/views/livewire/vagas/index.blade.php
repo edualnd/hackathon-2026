@@ -97,14 +97,19 @@
                         @endif
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-seduc-neutral-100 ">
+                <tbody class="divide-y divide-seduc-neutral-100">
                     @forelse ($vagas as $vaga)
-                        <tr wire:key="vaga-{{ $vaga->id }}" class="hover:bg-seduc-neutral-100/60 hover:cursor-pointer">
+                        <tr
+                            wire:key="vaga-{{ $vaga->id }}"
+                            class="hover:bg-seduc-neutral-100/60 hover:cursor-pointer"
+                        >
                             <td
                                 class="px-5 py-4 font-body text-sm font-semibold text-text-on-surface hover:cursor-pointer"
-                                
                             >
-                                <a href="{{ route('vagas.lista', $vaga->id) }}" class="hover:text-blue-500">
+                                <a
+                                    href="{{ route('vagas.lista', $vaga->id) }}"
+                                    class="hover:text-blue-500"
+                                >
                                     > {{ $vaga->escola?->nome ?? '—' }}
                                 </a>
                             </td>

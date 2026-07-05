@@ -33,4 +33,6 @@ Route::middleware([
         Route::get('/novo', AlunoCreate::class)->name('create');
         Route::get('/{aluno}/editar', AlunoEdit::class)->name('edit');
     });
+
+   
 });
