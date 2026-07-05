@@ -159,6 +159,7 @@ class AlunoSeeder extends Seeder
 
                 ListaEspera::create([
                     'aluno_id' => $aluno->id,
+                    'escola_id' => $vaga->escola_id,
                     'vaga_id' => $vaga->id,
                     'posicao' => $posicao,
                     'pontuacao' => (string) (50 + collect($dados['criterios'])->filter()->count() * 10),
