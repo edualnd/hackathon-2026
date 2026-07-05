@@ -24,7 +24,10 @@
             @if ($slot->isEmpty())
                 <option value="">{{ $placeholder }}</option>
                 @foreach ($options as $o)
+<<<<<<< Updated upstream
                 
+=======
+>>>>>>> Stashed changes
                     <option value="{{ $o['id']}}">{{ $o['nome'] }}</option>
                 @endforeach
             @else

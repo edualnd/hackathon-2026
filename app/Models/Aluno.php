@@ -12,7 +12,6 @@ class Aluno extends Model
 {
     protected $table = 'alunos';
 
-
     protected $fillable = [
         'escola_id',
         'vaga_id',
