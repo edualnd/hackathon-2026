@@ -11,10 +11,12 @@
             <p class="font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-500">Painel administrativo</p>
             <h1 class="font-heading text-2xl font-bold text-text-on-surface">Vagas por Escola</h1>
         </div>
+        @if(!Auth::user()->escola_id)
         <x-site.button variant="primary" type="button" wire:click="$dispatch('dispatchOpenModalCreateVaga')">
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 5v14m-7-7h14"/></svg>
             Nova vaga
         </x-site.button>
+        @endif
     </div>
 
     {{-- Filtros --}}
@@ -45,7 +47,9 @@
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Vagas totais</th>
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Matriculados</th>
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600">Disponibilidade</th>
+                        @if(!Auth::user()->escola_id)
                         <th class="px-5 py-3 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-600 text-right">Ações</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-seduc-neutral-100">
@@ -65,6 +69,7 @@
                                     <x-site.badge variant="danger">Sem vagas</x-site.badge>
                                 @endif
                             </td>
+                            @if(!Auth::user()->escola_id)
                             <td class="px-5 py-4">
                                 <div class="flex justify-end gap-2">
                                     <button type="button" wire:click="$dispatch('dispatchOpenModalEditVaga', { id: {{ $vaga->id }} })"
@@ -77,6 +82,7 @@
                                     </button>
                                 </div>
                             </td>
+                            @endif
                         </tr>
                     @empty
                         <tr>

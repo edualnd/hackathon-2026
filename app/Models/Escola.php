@@ -42,4 +42,8 @@ class Escola extends Model
     {
         return $this->hasMany(ListaEspera::class);
     }
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }

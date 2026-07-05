@@ -7,9 +7,12 @@
 
             <form wire:submit.prevent="salvar" class="mt-5 space-y-4">
                 <div>
-                    <x-site.input label="Escola" name="vaga_create_escola_id" value="{{ $escola['nome'] }}" readonly>
-                        
-                    </x-site.input>
+                    <x-site.select label="Escola" name="vaga_create_escola_id" wire:model="vaga.escola_id">
+                        <option value="">Selecione...</option>
+                        @foreach ($escola as $e)
+                            <option value="{{ $e['id'] }}">{{ $e['nome'] }}</option>
+                        @endforeach
+                    </x-site.select>
                     
                 </div>
 

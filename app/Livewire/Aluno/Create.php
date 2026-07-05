@@ -5,6 +5,7 @@ namespace App\Livewire\Aluno;
 use App\Models\Aluno;
 use App\Models\ListaEspera;
 use App\Models\Vaga;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
@@ -60,7 +61,8 @@ class Create extends Component
 
     public function getVagasProperty()
     {
-        $aux = Vaga::where('escola_id', 1)->with('escola')
+        $escola = Auth::user()->escola_id;
+        $aux = Vaga::where('escola_id', $escola)->with('escola')
             ->orderBy('escola_id')
             ->get()
             ->map(fn (Vaga $vaga) => [

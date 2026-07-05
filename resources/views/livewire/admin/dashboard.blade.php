@@ -45,7 +45,7 @@
     <div class="mt-8 rounded-2xl border border-seduc-neutral-200 bg-background-surface">
         <div class="flex items-center justify-between border-b border-seduc-neutral-200 px-6 py-4">
             <p class="font-heading text-base font-semibold text-text-on-surface">Cadastros recentes</p>
-            <a href="{{ route('admin.alunos.index') }}" class="font-body text-sm font-semibold text-teal-dark-600 hover:text-teal-dark-700">Ver todos →</a>
+            <a href="{{ route('alunos.index') }}" class="font-body text-sm font-semibold text-teal-dark-600 hover:text-teal-dark-700">Ver todos →</a>
         </div>
 
         <div class="overflow-x-auto">

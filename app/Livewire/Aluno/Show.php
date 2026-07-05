@@ -4,6 +4,7 @@ namespace App\Livewire\Aluno;
 
 use App\Models\Aluno;
 use App\Models\Escola;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,18 +18,17 @@ class Show extends Component
 {
     use WithPagination;
 
-    public string $busca = '';
+    public  $busca = '';
 
-    public string $statusFiltro = '';
+    public  $statusFiltro = '';
 
-    public string $escolaFiltro = '';
+    public  $escolaFiltro = '';
 
-    public int $perPage = 5;
 
 
     public function updating($property): void
     {
-        if (in_array($property, ['busca', 'statusFiltro', 'escolaFiltro', 'perPage'], true)) {
+        if (in_array($property, ['busca', 'statusFiltro', 'escolaFiltro'], true)) {
             $this->resetPage();
         }
     }
@@ -66,6 +66,7 @@ class Show extends Component
             ->orderByDesc('created_at')
             ->paginate(10);
 
+            $this->escolaFiltro = Auth::user()->escola_id ?? '';
         return view('livewire.aluno.show', [
             'alunos' => $alunos,
             'escolas' => Escola::select('id', 'nome')->orderBy('nome')->get()->toArray(),

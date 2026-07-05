@@ -34,7 +34,7 @@
     <div class="hidden md:flex min-h-screen">
         <aside class="flex w-64 shrink-0 flex-col justify-between bg-seduc-neutral-900 px-4 py-6">
             <div>
-                <a href="{{ route('v1.dashboard') }}" class="flex justify-center items-center gap-2.5 px-2">
+                <a href="{{ route('dashboard') }}" class="flex justify-center items-center gap-2.5 px-2">
                     <svg width="143" height="40" viewBox="0 0 143 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M20 13.5C23.0375 13.5 25.5 11.0375 25.5 8C25.5 4.9625 23.0375 2.5 20 2.5C16.9625 2.5 14.5 4.9625 14.5 8C14.5 11.0375 16.9625 13.5 20 13.5ZM20 32.1688V22.8375C21.0187 22.4125 22.0563 21.9813 23.1063 21.5438C25.5438 20.5312 28.1562 20.0063 30.8 20.0063H32V30.0063H30.8C27.1062 30.0063 23.4438 30.7375 20.0312 32.1625L20 32.175V32.1688ZM20 18.5L18.4312 17.8438C15.5062 16.625 12.3687 16 9.2 16H7C5.34375 16 4 17.3438 4 19V31C4 32.6562 5.34375 34 7 34H9.2C12.3687 34 15.5062 34.625 18.4312 35.8438L19.2313 36.175C19.725 36.3812 20.275 36.3812 20.7687 36.175L21.5688 35.8438C24.4937 34.625 27.6312 34 30.8 34H33C34.6562 34 36 32.6562 36 31V19C36 17.3438 34.6562 16 33 16H30.8C27.6312 16 24.4937 16.625 21.5688 17.8438L20 18.5Z"
@@ -50,15 +50,15 @@
                 </a>
 
                 <nav class="mt-8 flex flex-col gap-1">
-                    <x-site.sidebar-link :href="route('v1.dashboard')" :active="request()->routeIs('v1.dashboard')"
+                    <x-site.sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
                         icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6V11h-6v9Zm0-16v5h6V4h-6Z"/></svg>'>
                         Dashboard
                     </x-site.sidebar-link>
-                    <x-site.sidebar-link :href="route('v1.alunos.index')" :active="request()->routeIs('v1.alunos.*')"
+                    <x-site.sidebar-link :href="route('alunos.index')" :active="request()->routeIs('alunos.*')"
                         icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 19V6a2 2 0 0 1 2-2h6l2 2h6a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg>'>
                         Alunos
                     </x-site.sidebar-link>
-                    <x-site.sidebar-link :href="route('v1.vagas.index')" :active="request()->routeIs('v1.vagas.*')"
+                    <x-site.sidebar-link :href="route('vagas.index')" :active="request()->routeIs('vagas.*')"
                         icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3Zm0 0V7m6 13V10"/></svg>'>
                         Vagas
                     </x-site.sidebar-link>
@@ -94,16 +94,32 @@
                 </nav>
             </div>
 
-            <form method="GET" action="{{ route('site.search') }}">
-                <button type="submit"
-                    class="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-seduc-neutral-300 hover:bg-white/5 hover:text-white">
-                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15 17l5-5-5-5M20 12H9M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" />
-                    </svg>
-                    Sair (simulado)
-                </button>
-            </form>
+           <div class="mt-auto space-y-2">
+    <a
+        href="{{ route('profile.show') }}"
+        class="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium
+        {{ request()->routeIs('profile.show') ? 'bg-white/10 text-white' : 'text-seduc-neutral-300 hover:bg-white/5 hover:text-white' }}"
+    >
+        Configurações
+    </a>
+
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+
+        <button
+            type="submit"
+            class="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-seduc-neutral-300 hover:bg-white/5 hover:text-white"
+        >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15 17l5-5-5-5M20 12H9M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" />
+            </svg>
+
+            Sair
+        </button>
+    </form>
+</div>
+            
         </aside>
 
         <div class="flex-1 overflow-y-auto">

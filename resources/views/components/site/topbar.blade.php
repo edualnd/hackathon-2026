@@ -22,7 +22,7 @@
     <a href="{{ route('site.map') }}" class="bg-action-primary hover:bg-action-primary-hover  flex size-9 items-center justify-center rounded-full border border-black text-black" aria-label="Mapa">
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3Zm0 0V7m6 13V10"/></svg>
     </a>
-    <a href="{{ route('admin.login') }}" class="bg-action-primary hover:bg-action-primary-hover flex size-9 items-center justify-center rounded-full border border-black text-black" aria-label="Área administrativa">
+    <a href="{{ route('login') }}" class="bg-action-primary hover:bg-action-primary-hover flex size-9 items-center justify-center rounded-full border border-black text-black" aria-label="Área administrativa">
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.2"/><path stroke-linecap="round" d="M4.5 20c1.6-3.4 4.3-5 7.5-5s5.9 1.6 7.5 5"/></svg>
     </a>
     </nav>
