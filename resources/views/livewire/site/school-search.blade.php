@@ -82,7 +82,9 @@
 
     </div>
 
-    <livewire:escola-info />
+    <div class="mt-5">
+        <livewire:escola-info />
+    </div>
 
 
     <div class="mt-8 transition-opacity" wire:loading.class="opacity-50"

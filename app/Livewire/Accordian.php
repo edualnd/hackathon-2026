@@ -1,20 +1,32 @@
 <?php
 
 namespace App\Livewire;
-
+use App\Models\Escola;
+use App\Models\Vaga;
 use Livewire\Component;
 
 class Accordian extends Component
 {
+    public $escola;
+
+    public $qtdVagas;
+
     public $items = [];
     public $openIndex = 0;
 
+    #[On('escolaSelecionada')]
+    public function changeEscola($escola){
+        $this->escola = $escola;
+    }
+
     public function mount()
     {
+        $this->escola = Escola::find(1);
+
         $this->items = [
             [
                 'title' => 'Informações',
-                'content' => 'É a plataforma de transparência municipal de Caraguatatuba, com dados de licitações, contratos, servidores e mais.',
+                'content' => $this->escola,
             ],
             [
                 'title' => 'Vagas',
