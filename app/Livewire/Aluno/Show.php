@@ -71,7 +71,7 @@ class Show extends Component
             ->orderBy('escola_id', 'asc') ->orderBy('vaga_id', 'asc')
             ->orderBy('lista_espera.posicao', 'asc')
             ->with(['listaEspera'])
-            ->paginate(10);
+            ->paginate(6);
 
           
         return view('livewire.aluno.show', [
