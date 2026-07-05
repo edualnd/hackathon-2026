@@ -72,16 +72,30 @@
                     >
                         Vagas
                     </x-site.sidebar-link>
-                    <x-site.sidebar-link
-                        href="{{ route('mapa') }}"
-                        icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3 4 6v15l5-3 6 3 5-3V3l-5 3-6-3Zm0 3v12m6-9v12"/></svg>'
-                    >
-                        Mapa interativo
-                    </x-site.sidebar-link>
+                    
 
                     <p
                         class="mt-4 px-3.5 font-body text-[11px] font-semibold uppercase tracking-wide text-seduc-neutral-500"
                     >Em breve</p>
+                    <span
+                        class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-seduc-neutral-500/70"
+                        title="Funcionalidade ainda não disponível"
+                    >
+                        <span class="flex size-5 items-center justify-center"
+                            ><svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M4 19h16M7 19V9m5 10V5m5 14v-7"
+                                /></svg
+                        ></span>
+                        Mapa Interativo
+                    </span>
                     <span
                         class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 font-body text-sm font-medium text-seduc-neutral-500/70"
                         title="Funcionalidade ainda não disponível"
