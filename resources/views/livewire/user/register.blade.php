@@ -58,7 +58,8 @@
                     @endforeach
                 </x-site.select>
             </div>
-            @else  @php
+        @else
+            @php
                 $escola_id = null;
             @endphp
         @endif
@@ -77,7 +78,6 @@
     </x-slot>
 
     <x-slot name="actions">
-        <x-button wire:loading.attr="disabled"> Criar conta  </x-button>
+        <x-button wire:loading.attr="disabled"> Criar conta </x-button>
     </x-slot>
-    
 </x-form-section>
