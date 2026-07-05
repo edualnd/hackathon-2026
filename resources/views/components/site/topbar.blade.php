@@ -29,16 +29,16 @@
             </a>
         </nav> --}}
 
-        <a 
+        <a
             href="{{ route('login') }}"
             class="flex gap-2 items-center"
-            aria-label="Área administrativa">
+            aria-label="Área administrativa"
+        >
+            <span class="text-seduc-neutral-100 text[16px] block font-bold"> Login </span>
 
-            <span class="text-seduc-neutral-100 text[16px] block font-bold">
-                Login
-            </span>
-
-            <div class="bg-action-primary hover:bg-action-primary-hover flex size-8 items-center justify-center rounded-full sm:size-9">
+            <div
+                class="bg-action-primary hover:bg-action-primary-hover flex size-8 items-center justify-center rounded-full sm:size-9"
+            >
                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="8" r="3.2" />
                     <path stroke-linecap="round" d="M4.5 20c1.6-3.4 4.3-5 7.5-5s5.9 1.6 7.5 5" />

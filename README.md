@@ -10,19 +10,19 @@ O projeto possui duas áreas principais:
 
 > Projeto desenvolvido para o Hackathon 2026.
 
-
 ## Integrantes
 
 O projeto foi desenvolvido pelos seguintes integrantes:
 
-| Nome | GitHub |
-|------|--------|
-| **Eduarda Gonçalves** | [@edualnd](https://github.com/edualnd) |
-| **Kleiton Silva** | [@kleitonfr](https://github.com/kleitonfr) |
-| **Murillo Diogo** | [@MrllMoreira](https://github.com/MrllMoreira) |
-| **Rafael Tomaz** | [@RafaelTomazzz](https://github.com/RafaelTomazzz) |
+| Nome                  | GitHub                                             |
+| --------------------- | -------------------------------------------------- |
+| **Eduarda Gonçalves** | [@edualnd](https://github.com/edualnd)             |
+| **Kleiton Silva**     | [@kleitonfr](https://github.com/kleitonfr)         |
+| **Murillo Diogo**     | [@MrllMoreira](https://github.com/MrllMoreira)     |
+| **Rafael Tomaz**      | [@RafaelTomazzz](https://github.com/RafaelTomazzz) |
 
 ---
+
 ## Sumário
 
 - [Stack utilizada](#stack-utilizada)
@@ -36,16 +36,14 @@ O projeto foi desenvolvido pelos seguintes integrantes:
 
 ## Stack utilizada
 
-| Camada | Tecnologia |
-|---|---|
-| Backend | PHP 8.3+, Laravel 13 |
-| Componentes reativos | Livewire 3 + Alpine.js |
-| Autenticação | Laravel Jetstream + Sanctum |
-| Front-end | Tailwind CSS 4 |
-| Build | Vite |
-| Banco de dados | MySQL |
-
-
+| Camada               | Tecnologia                  |
+| -------------------- | --------------------------- |
+| Backend              | PHP 8.3+, Laravel 13        |
+| Componentes reativos | Livewire 3 + Alpine.js      |
+| Autenticação         | Laravel Jetstream + Sanctum |
+| Front-end            | Tailwind CSS 4              |
+| Build                | Vite                        |
+| Banco de dados       | MySQL                       |
 
 ## Pré-requisitos
 
@@ -127,13 +125,13 @@ php artisan serve
 
 ## Dados de demonstração (seeders)
 
-| Seeder | O que cria |
-|--------|------------|
-| `EscolaSeeder` | Cadastra as escolas da rede municipal com nome, tipo, região, bairro, endereço, telefone, e-mail e localização geográfica. |
-| `UserSeeder` | Cria os usuários iniciais do sistema. |
-| `VagaSeeder` | Gera automaticamente as vagas de cada escola conforme seu tipo (CIEFI, EMEF, EMEI/EMEF e CEI/EMEI), criando as séries compatíveis e a quantidade de vagas disponível. |
-| `AlunoSeeder` | Gera alunos fictícios residentes em Caraguatatuba distribuídos entre as escolas e vagas existentes, criando também os critérios de classificação de cada aluno. |
-| `ListaEsperaSeeder` | Insere todos os alunos na lista de espera, mantendo a consistência entre aluno, escola e vaga, gerando pontuação, status e classificando automaticamente cada lista. |
+| Seeder              | O que cria                                                                                                                                                            |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `EscolaSeeder`      | Cadastra as escolas da rede municipal com nome, tipo, região, bairro, endereço, telefone, e-mail e localização geográfica.                                            |
+| `UserSeeder`        | Cria os usuários iniciais do sistema.                                                                                                                                 |
+| `VagaSeeder`        | Gera automaticamente as vagas de cada escola conforme seu tipo (CIEFI, EMEF, EMEI/EMEF e CEI/EMEI), criando as séries compatíveis e a quantidade de vagas disponível. |
+| `AlunoSeeder`       | Gera alunos fictícios residentes em Caraguatatuba distribuídos entre as escolas e vagas existentes, criando também os critérios de classificação de cada aluno.       |
+| `ListaEsperaSeeder` | Insere todos os alunos na lista de espera, mantendo a consistência entre aluno, escola e vaga, gerando pontuação, status e classificando automaticamente cada lista.  |
 
 Para recriar completamente o banco de dados:
 
@@ -149,8 +147,8 @@ php artisan migrate:fresh --seed
 
 Após iniciar o servidor, acesse:
 
-| URL | Descrição |
-|---|---|
+| URL                      | Descrição                                                                                                                         |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | `http://127.0.0.1:8000/` | Página inicial do sistema. Permite consultar vagas disponíveis por escola, região e série, além de visualizar as escolas no mapa. |
 
 Não é necessário realizar login.
@@ -161,10 +159,10 @@ Não é necessário realizar login.
 
 Utilize um dos usuários criados pelos seeders.
 
-| Perfil | CPF | Senha | Descrição |
-|--------|-----|--------|-----------|
-| Demanda | `11111111111` | `123456` | Usuário do **Departamento de Demanda da Secretaria Municipal de Educação (SEDUC)**. Responsável pelo gerenciamento da oferta de vagas da rede, podendo cadastrar, editar e acompanhar as vagas de todas as escolas, além de monitorar a demanda por série e unidade escolar. |
-| Administração | `22222222222` | `123456` | Usuário da **Secretaria de uma escola**. Responsável pelo atendimento aos responsáveis, realizando o cadastro dos alunos, a inclusão na lista de espera e o acompanhamento das solicitações referentes exclusivamente à sua unidade escolar. |
+| Perfil        | CPF           | Senha    | Descrição                                                                                                                                                                                                                                                                    |
+| ------------- | ------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Demanda       | `11111111111` | `123456` | Usuário do **Departamento de Demanda da Secretaria Municipal de Educação (SEDUC)**. Responsável pelo gerenciamento da oferta de vagas da rede, podendo cadastrar, editar e acompanhar as vagas de todas as escolas, além de monitorar a demanda por série e unidade escolar. |
+| Administração | `22222222222` | `123456` | Usuário da **Secretaria de uma escola**. Responsável pelo atendimento aos responsáveis, realizando o cadastro dos alunos, a inclusão na lista de espera e o acompanhamento das solicitações referentes exclusivamente à sua unidade escolar.                                 |
 
 Login:
 
@@ -174,14 +172,14 @@ http://127.0.0.1:8000/login
 
 Após autenticar-se:
 
-| URL | Descrição |
-|---|---|
-| `http://127.0.0.1:8000/dashboard` | Painel com indicadores do sistema. |
-| `http://127.0.0.1:8000/vagas` | Gerenciamento de vagas. |
+| URL                                         | Descrição                               |
+| ------------------------------------------- | --------------------------------------- |
+| `http://127.0.0.1:8000/dashboard`           | Painel com indicadores do sistema.      |
+| `http://127.0.0.1:8000/vagas`               | Gerenciamento de vagas.                 |
 | `http://127.0.0.1:8000/vaga/{vagaId}/lista` | Lista de espera de uma vaga específica. |
-| `http://127.0.0.1:8000/alunos` | Listagem de alunos. |
-| `http://127.0.0.1:8000/alunos/novo` | Cadastro de aluno. |
-| `http://127.0.0.1:8000/alunos/{id}/editar` | Edição de aluno. |
+| `http://127.0.0.1:8000/alunos`              | Listagem de alunos.                     |
+| `http://127.0.0.1:8000/alunos/novo`         | Cadastro de aluno.                      |
+| `http://127.0.0.1:8000/alunos/{id}/editar`  | Edição de aluno.                        |
 
 ---
 
@@ -189,9 +187,9 @@ Após autenticar-se:
 
 ### Públicas
 
-| Método | URI | Nome | Componente |
-|---|---|---|---|
-| GET | `/` | `site.search` | `Livewire\Site\SchoolSearch` |
+| Método | URI | Nome          | Componente                   |
+| ------ | --- | ------------- | ---------------------------- |
+| GET    | `/` | `site.search` | `Livewire\Site\SchoolSearch` |
 
 ---
 
@@ -199,12 +197,11 @@ Após autenticar-se:
 
 Protegidas pelos middlewares `auth:sanctum` e `verified`.
 
-| Método | URI | Nome | Componente |
-|---|---|---|---|
-| GET | `/dashboard` | `dashboard` | `Livewire\Admin\Dashboard` |
-| GET | `/vagas` | `vagas.index` | `Livewire\Vagas\Index` |
-| GET | `/vaga/{vagaId}/lista` | `vagas.lista` | `Livewire\ListaEspera\Show` |
-| GET | `/alunos` | `alunos.index` | `Livewire\Aluno\Show` |
-| GET | `/alunos/novo` | `alunos.create` | `Livewire\Aluno\Create` |
-| GET | `/alunos/{aluno}/editar` | `alunos.edit` | `Livewire\Aluno\Edit` |
-
+| Método | URI                      | Nome            | Componente                  |
+| ------ | ------------------------ | --------------- | --------------------------- |
+| GET    | `/dashboard`             | `dashboard`     | `Livewire\Admin\Dashboard`  |
+| GET    | `/vagas`                 | `vagas.index`   | `Livewire\Vagas\Index`      |
+| GET    | `/vaga/{vagaId}/lista`   | `vagas.lista`   | `Livewire\ListaEspera\Show` |
+| GET    | `/alunos`                | `alunos.index`  | `Livewire\Aluno\Show`       |
+| GET    | `/alunos/novo`           | `alunos.create` | `Livewire\Aluno\Create`     |
+| GET    | `/alunos/{aluno}/editar` | `alunos.edit`   | `Livewire\Aluno\Edit`       |
